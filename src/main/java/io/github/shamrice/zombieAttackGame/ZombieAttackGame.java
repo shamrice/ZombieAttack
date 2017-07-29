@@ -110,9 +110,18 @@ public class ZombieAttackGame extends BasicGame {
             container.exit();
         }
 
-        if (player.getxPos() > 200) {
-            areaManager.setCurrentAreaLocation(1, 0);
-            player.setxPos(10);
+        if (player.getxPos() > 760) {
+            areaManager.setCurrentAreaLocation(
+                    areaManager.getCurrentX() + 1,
+                    0
+            );
+            player.setxPos(20);
+        } else if (player.getxPos() < 10) {
+            areaManager.setCurrentAreaLocation(
+                    areaManager.getCurrentX() - 1,
+                    0
+            );
+            player.setxPos(750);
         }
 
         player.move(moveDirection, delta);

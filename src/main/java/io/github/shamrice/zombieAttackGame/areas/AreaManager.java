@@ -29,6 +29,14 @@ public class AreaManager {
         this.currentY = 0;
     }
 
+    public int getCurrentX() {
+        return this.currentX;
+    }
+
+    public int getCurrentY() {
+        return this.currentY;
+    }
+
     public Area getArea(int xPos, int yPos) {
         if ((xPos < mapSizeX && xPos >= 0) && (yPos < mapSizeY && yPos >= 0)) {
             return areaMatrix[xPos][yPos];
