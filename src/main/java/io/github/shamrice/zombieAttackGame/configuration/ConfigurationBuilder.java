@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
+import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
 import org.newdawn.slick.SlickException;
@@ -41,8 +42,13 @@ public class ConfigurationBuilder {
 
         try {
 
+            AreaManager areaManager = new AreaManager(
+                    buildAreaTileFilesArray()
+            );
+
             configuration = new Configuration(
-                    buildAssetConfiguration()
+                    buildAssetConfiguration(),
+                    areaManager
             );
 
         } catch (Exception ex) {
@@ -59,5 +65,32 @@ public class ConfigurationBuilder {
         assetManager.buildAssets();
 
         return assetManager;
+    }
+
+    private static String[][] buildAreaTileFilesArray() {
+
+        int maxX = Integer.parseInt(
+                configProperties.getProperty(
+                    ConfigurationDefinitions.AREA_MAX_X
+                ));
+
+        int maxY = Integer.parseInt(
+                configProperties.getProperty(
+                        ConfigurationDefinitions.AREA_MAX_Y
+                ));
+
+        String[][] fileNames = new String[maxX][maxY];
+
+        for (int x = 0; x < maxX; x++) {
+            for (int y = 0; y < maxY; y++) {
+                fileNames[x][y] = configProperties.getProperty(
+                        ConfigurationDefinitions.AREA_FILES_LOCATION
+                ) + x + "_" + y + ".tmx";
+
+            }
+        }
+
+        return fileNames;
+
     }
 }

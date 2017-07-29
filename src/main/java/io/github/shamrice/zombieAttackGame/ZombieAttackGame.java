@@ -1,11 +1,17 @@
 package io.github.shamrice.zombieAttackGame;
 
 import io.github.shamrice.zombieAttackGame.actors.Directions;
+import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
+import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.ConfigurationBuilder;
+import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import org.newdawn.slick.*;
 import org.newdawn.slick.tiled.TiledMap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Erik on 7/20/2017.
@@ -15,7 +21,9 @@ public class ZombieAttackGame extends BasicGame {
     private final boolean isDebug = true;
 
     private PlayerActor player;
-    private TiledMap testMap;
+    private List<EnemyActor> enemyActors;
+    private AreaManager areaManager;
+    //private TiledMap testMap;
     private Boolean collisionMap[][];
 
     public ZombieAttackGame() {
@@ -43,12 +51,24 @@ public class ZombieAttackGame extends BasicGame {
 
             Configuration configuration = ConfigurationBuilder.build();
 
+            areaManager = configuration.getAreaManager();
+            areaManager.setCurrentAreaLocation(0, 0);
+
             player = configuration.getConfiguredPlayerActor();
             player.setxPos(34);
             player.setyPos(34);
 
-            testMap = new TiledMap("assets/test.tmx");
+            /* TODO : Load this from the area configuration from the area manager. */
+            enemyActors = new ArrayList<EnemyActor>();
 
+            EnemyActor enemy = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.ROCK));
+            enemy.setxPos(150);
+            enemy.setyPos(150);
+
+            enemyActors.add(enemy);
+
+            //testMap = new TiledMap("assets/test.tmx");
+/*
             collisionMap = new Boolean[testMap.getWidth()][testMap.getHeight()];
             for (int x = 0; x < testMap.getWidth(); x++) {
                 for (int y = 0; y < testMap.getHeight(); y++) {
@@ -57,7 +77,7 @@ public class ZombieAttackGame extends BasicGame {
                     collisionMap[x][y] = testMap.getTileId(x, y, 0) == 31;
                 }
             }
-
+*/
         } catch (Exception ex) {
             ex.printStackTrace();
             container.exit();
@@ -90,6 +110,11 @@ public class ZombieAttackGame extends BasicGame {
             container.exit();
         }
 
+        if (player.getxPos() > 200) {
+            areaManager.setCurrentAreaLocation(1, 0);
+            player.setxPos(10);
+        }
+
         player.move(moveDirection, delta);
 /*
         float tileLeftX = (tempX + 50) / 50;
@@ -118,11 +143,20 @@ public class ZombieAttackGame extends BasicGame {
 
     public void render(GameContainer container, Graphics g) throws SlickException {
 
-        testMap.render(0, 0);
+        areaManager
+                .getCurrentAreaTileMap()
+                .render(0, 0);
 
         player.getCurrentAnimation().draw(
                 player.getxPos(),
                 player.getyPos()
         );
+
+        for (EnemyActor enemy : enemyActors) {
+            enemy.getCurrentAnimation().draw(
+                    enemy.getxPos(),
+                    enemy.getyPos()
+            );
+        }
     }
 }

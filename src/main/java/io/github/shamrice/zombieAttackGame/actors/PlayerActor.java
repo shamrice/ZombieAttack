@@ -7,8 +7,12 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfigurati
  */
 public class PlayerActor extends Actor {
 
+    private int health;
+
     public PlayerActor(AssetConfiguration assetConfiguration) {
         super(assetConfiguration);
+
+        this.health = 100;
     }
 
 }

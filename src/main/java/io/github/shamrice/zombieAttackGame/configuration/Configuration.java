@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
+import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
@@ -13,9 +14,11 @@ public class Configuration {
 
     private PlayerActor playerActor;
     private AssetManager assetManager;
+    private AreaManager areaManager;
 
-    public Configuration(AssetManager assetManager) throws SlickException {
+    public Configuration(AssetManager assetManager, AreaManager areaManager) throws SlickException {
         this.assetManager = assetManager;
+        this.areaManager = areaManager;
 
         playerActor = new PlayerActor(
                 assetManager.getAssetConfiguration(AssetTypes.PLAYER)
@@ -24,6 +27,10 @@ public class Configuration {
 
     public AssetConfiguration getAssetConfiguration(AssetTypes type) {
         return assetManager.getAssetConfiguration(type);
+    }
+
+    public AreaManager getAreaManager() {
+        return areaManager;
     }
 
     public PlayerActor getConfiguredPlayerActor() {
