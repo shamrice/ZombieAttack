@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="dependencies and resources">
+    <output-path>$PROJECT_DIR$/out/artifacts/zombieAttack_jar</output-path>
+    <root id="root">
+      <element id="file-copy" path="C:/java_libraries/slick2d/lwjgl64.dll" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
+    </root>
+  </artifact>
+</component>
