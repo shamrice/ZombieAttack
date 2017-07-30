@@ -8,11 +8,28 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfigurati
 public class PlayerActor extends Actor {
 
     private int health;
+    private boolean isAlive;
 
     public PlayerActor(AssetConfiguration assetConfiguration) {
         super(assetConfiguration);
 
         this.health = 100;
+        this.isAlive = true;
+    }
+
+    public void decreaseHealth(int amount) {
+        health -= amount;
+
+        //debug
+        System.out.println("CURRENT HEALTH: " + health);
+
+        if (health <= 0) {
+            isAlive = false;
+        }
+    }
+
+    public boolean isAlive() {
+        return this.health >= 0;
     }
 
 }

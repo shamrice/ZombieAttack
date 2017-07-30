@@ -8,7 +8,6 @@ import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.ConfigurationBuilder;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import org.newdawn.slick.*;
-import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,7 @@ public class ZombieAttackGame extends BasicGame {
         try {
             AppGameContainer app = new AppGameContainer(new ZombieAttackGame());
             app.setDisplayMode(800, 600, false);
+            app.setTargetFrameRate(60);
             app.start();
         }
         catch (SlickException slickEx) {
@@ -60,13 +60,7 @@ public class ZombieAttackGame extends BasicGame {
 
             /* TODO : Load this from the area configuration from the area manager. */
             enemyActors = new ArrayList<EnemyActor>();
-/*
-            EnemyActor enemy = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.ROCK));
-            enemy.setxPos(150);
-            enemy.setyPos(150);
 
-            enemyActors.add(enemy);
-*/
             EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL));
             yarnball.setxPos(400);
             yarnball.setyPos(400);
@@ -92,6 +86,12 @@ public class ZombieAttackGame extends BasicGame {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
+
+
+        if (!player.isAlive()) {
+            System.out.println("YOU'RE DEAD");
+            container.exit();
+        }
 
         Input input = container.getInput();
 
@@ -144,7 +144,15 @@ public class ZombieAttackGame extends BasicGame {
             } else if (enemy.getyPos() < player.getyPos()) {
                 enemy.move(Directions.DOWN, delta);
             }
+
+            if (enemy.getCollisionRect().intersects(
+                    player.getCollisionRect()
+            )) {
+                player.decreaseHealth(1);
+            }
         }
+
+
 /*
         float tileLeftX = (tempX + 50) / 50;
         float tileTopY = (tempY + 50) / 50;
@@ -187,5 +195,6 @@ public class ZombieAttackGame extends BasicGame {
                     enemy.getyPos()
             );
         }
+
     }
 }

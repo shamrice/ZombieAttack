@@ -3,6 +3,8 @@ package io.github.shamrice.zombieAttackGame.actors;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Created by Erik on 7/22/2017.
@@ -11,10 +13,13 @@ public abstract class Actor {
 
     private boolean isRunning = false;
     private float walkSpeedMultiplier = 0.1f;
+    private final float width = 50;
+    private final float height = 50;
+    private Shape collisionRect;
 
     protected String name;
-    protected float xPos = 0;
-    protected float yPos = 0;
+    protected float xPos = 1;
+    protected float yPos = 1;
     protected AssetConfiguration assetConfiguration;
     protected Animation currentAnimation;
 
@@ -22,6 +27,8 @@ public abstract class Actor {
 
         this.assetConfiguration = assetConfiguration;
         this.currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_UP);
+
+        this.collisionRect = new Rectangle(xPos, yPos, width, height);
     }
 
     public void setWalkSpeedMultiplier(float walkSpeedMultiplier) {
@@ -36,6 +43,10 @@ public abstract class Actor {
         return name;
     }
 
+    public Shape getCollisionRect() {
+        return this.collisionRect;
+    }
+
     public void setxPos(float xNewPos) {
 
         if (xNewPos != this.xPos) {
@@ -46,6 +57,7 @@ public abstract class Actor {
             }
 
             this.xPos = xNewPos;
+            this.collisionRect.setLocation(this.xPos, this.yPos);
         }
     }
 
@@ -64,6 +76,7 @@ public abstract class Actor {
             }
 
             this.yPos = yNewPos;
+            this.collisionRect.setLocation(this.xPos, this.yPos);
         }
     }
 
