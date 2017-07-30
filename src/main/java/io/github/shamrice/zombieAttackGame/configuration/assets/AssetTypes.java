@@ -7,5 +7,6 @@ public enum AssetTypes {
 
     PLAYER,
     ROCK,
+    YARNBALL,
     OTHER
 }

@@ -10,7 +10,7 @@ import org.newdawn.slick.Animation;
 public abstract class Actor {
 
     private boolean isRunning = false;
-    private final float walkSpeedMultiplier = 0.1f;
+    private float walkSpeedMultiplier = 0.1f;
 
     protected String name;
     protected float xPos = 0;
@@ -22,6 +22,10 @@ public abstract class Actor {
 
         this.assetConfiguration = assetConfiguration;
         this.currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_UP);
+    }
+
+    public void setWalkSpeedMultiplier(float walkSpeedMultiplier) {
+        this.walkSpeedMultiplier = walkSpeedMultiplier;
     }
 
     public void setName(String name) {
@@ -78,7 +82,7 @@ public abstract class Actor {
         float tempY = this.yPos;
         float tempX = this.xPos;
 
-        float currentWalkSpeed = isRunning ? walkSpeedMultiplier * 2 :walkSpeedMultiplier;
+        float currentWalkSpeed = isRunning ? walkSpeedMultiplier * 3 :walkSpeedMultiplier;
 
         switch (direction) {
 

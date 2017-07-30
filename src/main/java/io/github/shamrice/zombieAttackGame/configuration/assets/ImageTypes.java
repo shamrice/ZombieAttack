@@ -8,5 +8,6 @@ public enum ImageTypes {
     IMAGE_DOWN,
     IMAGE_LEFT,
     IMAGE_RIGHT,
+    IMAGE_DEAD,
     OTHER
 }

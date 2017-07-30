@@ -60,12 +60,18 @@ public class ZombieAttackGame extends BasicGame {
 
             /* TODO : Load this from the area configuration from the area manager. */
             enemyActors = new ArrayList<EnemyActor>();
-
+/*
             EnemyActor enemy = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.ROCK));
             enemy.setxPos(150);
             enemy.setyPos(150);
 
             enemyActors.add(enemy);
+*/
+            EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL));
+            yarnball.setxPos(400);
+            yarnball.setyPos(400);
+            yarnball.setWalkSpeedMultiplier(0.05f);
+            enemyActors.add(yarnball);
 
             //testMap = new TiledMap("assets/test.tmx");
 /*
@@ -125,6 +131,20 @@ public class ZombieAttackGame extends BasicGame {
         }
 
         player.move(moveDirection, delta);
+
+        for (EnemyActor enemy : enemyActors) {
+            if (enemy.getxPos() > player.getxPos()) {
+                enemy.move(Directions.LEFT, delta);
+            } else if (enemy.getxPos() < player.getxPos()) {
+                enemy.move(Directions.RIGHT, delta);
+            }
+
+            if (enemy.getyPos() > player.getyPos()) {
+                enemy.move(Directions.UP, delta);
+            } else if (enemy.getyPos() < player.getyPos()) {
+                enemy.move(Directions.DOWN, delta);
+            }
+        }
 /*
         float tileLeftX = (tempX + 50) / 50;
         float tileTopY = (tempY + 50) / 50;
