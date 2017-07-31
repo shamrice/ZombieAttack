@@ -11,6 +11,7 @@ import org.newdawn.slick.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Erik on 7/20/2017.
@@ -22,7 +23,8 @@ public class ZombieAttackGame extends BasicGame {
     private PlayerActor player;
     private List<EnemyActor> enemyActors;
     private AreaManager areaManager;
-    //private TiledMap testMap;
+    private Configuration configuration;
+
     private Boolean collisionMap[][];
 
     public ZombieAttackGame() {
@@ -49,7 +51,7 @@ public class ZombieAttackGame extends BasicGame {
 
         try {
 
-            Configuration configuration = ConfigurationBuilder.build();
+            configuration = ConfigurationBuilder.build();
 
             areaManager = configuration.getAreaManager();
             areaManager.setCurrentAreaLocation(0, 0);
@@ -58,14 +60,7 @@ public class ZombieAttackGame extends BasicGame {
             player.setxPos(34);
             player.setyPos(34);
 
-            /* TODO : Load this from the area configuration from the area manager. */
-            enemyActors = new ArrayList<EnemyActor>();
-
-            EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL));
-            yarnball.setxPos(400);
-            yarnball.setyPos(400);
-            yarnball.setWalkSpeedMultiplier(0.05f);
-            enemyActors.add(yarnball);
+            resetArea();
 
             //testMap = new TiledMap("assets/test.tmx");
 /*
@@ -87,15 +82,13 @@ public class ZombieAttackGame extends BasicGame {
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
 
-
+        //check if dead
         if (!player.isAlive()) {
             System.out.println("YOU'RE DEAD");
             container.exit();
         }
 
         Input input = container.getInput();
-
-        Directions moveDirection = Directions.NONE;
 
         //if shift, they're running.
         if (input.isKeyDown(Input.KEY_LSHIFT)) {
@@ -104,34 +97,43 @@ public class ZombieAttackGame extends BasicGame {
             player.setRunning(false);
         }
 
+        //player movement
         if (input.isKeyDown(Input.KEY_UP)) {
-                moveDirection = Directions.UP;
-        } else if (input.isKeyDown(Input.KEY_DOWN)) {
-            moveDirection = Directions.DOWN;
-        } else if (input.isKeyDown(Input.KEY_LEFT)) {
-            moveDirection = Directions.LEFT;
-        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
-            moveDirection = Directions.RIGHT;
-        } else if (input.isKeyDown(Input.KEY_ESCAPE)) {
+                player.move(Directions.UP, delta);
+        }
+        if (input.isKeyDown(Input.KEY_DOWN)) {
+            player.move(Directions.DOWN, delta);
+        }
+        if (input.isKeyDown(Input.KEY_LEFT)) {
+            player.move(Directions.LEFT, delta);
+        }
+        if (input.isKeyDown(Input.KEY_RIGHT)) {
+            player.move(Directions.RIGHT, delta);
+        }
+
+        //check for quit
+        if (input.isKeyDown(Input.KEY_ESCAPE) || input.isKeyDown(Input.KEY_Q)) {
             container.exit();
         }
 
+        //move to next area if leaving screen.
         if (player.getxPos() > 760) {
             areaManager.setCurrentAreaLocation(
                     areaManager.getCurrentX() + 1,
                     0
             );
             player.setxPos(20);
+            resetArea();
         } else if (player.getxPos() < 10) {
             areaManager.setCurrentAreaLocation(
                     areaManager.getCurrentX() - 1,
                     0
             );
             player.setxPos(750);
+            resetArea();
         }
 
-        player.move(moveDirection, delta);
-
+        //check for enemy collisions
         for (EnemyActor enemy : enemyActors) {
             if (enemy.getxPos() > player.getxPos()) {
                 enemy.move(Directions.LEFT, delta);
@@ -153,6 +155,7 @@ public class ZombieAttackGame extends BasicGame {
         }
 
 
+        //collision detection with environment
 /*
         float tileLeftX = (tempX + 50) / 50;
         float tileTopY = (tempY + 50) / 50;
@@ -196,5 +199,23 @@ public class ZombieAttackGame extends BasicGame {
             );
         }
 
+    }
+
+    private void resetArea() {
+
+        enemyActors = new ArrayList<EnemyActor>();
+
+        int numEnemies = areaManager
+                .getCurrentArea()
+                .getAreaConfiguration()
+                .getNumEnemeies();
+
+        for (int i = 0; i < numEnemies; i++) {
+            EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL));
+            yarnball.setxPos(new Random().nextInt(700));
+            yarnball.setyPos(new Random().nextInt(500));
+            yarnball.setWalkSpeedMultiplier(0.05f);
+            enemyActors.add(yarnball);
+        }
     }
 }

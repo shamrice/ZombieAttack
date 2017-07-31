@@ -13,15 +13,23 @@ public class AreaManager {
     private int mapSizeY;
     private int currentX;
     private int currentY;
+    private String areaConfigLocation;
 
-    public AreaManager(String[][] tileMapFileNames) {
+    public AreaManager(String[][] tileMapFileNames, String areaConfigLocation) {
+
+        this.areaConfigLocation = areaConfigLocation;
+
         this.mapSizeX = tileMapFileNames.length;
         this.mapSizeY = tileMapFileNames[0].length;
         this.areaMatrix = new Area[mapSizeX][mapSizeY];
 
         for (int x = 0; x < mapSizeX; x++) {
             for (int y = 0; y < mapSizeY; y++) {
-                areaMatrix[x][y] = new Area(x, y, tileMapFileNames[x][y]);
+                areaMatrix[x][y] = new Area(x,
+                        y,
+                        tileMapFileNames[x][y],
+                        areaConfigLocation + "area_" + x + "_" + y + ".properties"
+                );
             }
         }
 
@@ -43,6 +51,10 @@ public class AreaManager {
         }
 
         return null;
+    }
+
+    public Area getCurrentArea() {
+        return areaMatrix[currentX][currentY];
     }
 
     public void setCurrentAreaLocation(int newX, int newY) {

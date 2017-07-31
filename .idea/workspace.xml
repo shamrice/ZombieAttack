@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f7c7048-7448-4bfa-a30e-33ed7ec635d9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/areas/AreaConfiguration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/conf/areas/area_1_0.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" afterPath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/config.properties" afterPath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/config.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/conf/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/conf/config.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/conf/config.properties" afterPath="$PROJECT_DIR$/target/classes/conf/config.properties" />
     </list>
     <ignored path="zombieAttack.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,26 +42,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/conf/config.properties">
+      <file leaf-file-name="ConfigurationBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="197">
+              <caret line="28" column="32" selection-start-line="26" selection-start-column="1" selection-end-line="28" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Actor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java">
+      <file leaf-file-name="ZombieAttackGame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+            <state relative-caret-position="136">
+              <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
               <folding>
-                <element signature="e#1119#1120#0" expanded="true" />
-                <element signature="e#1181#1182#0" expanded="true" />
-                <element signature="e#1350#1351#0" expanded="true" />
-                <element signature="e#1391#1392#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,86 +69,91 @@
       <file leaf-file-name="PlayerActor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding>
-                <element signature="e#686#687#0" expanded="true" />
-                <element signature="e#725#726#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConfigurationBuilder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnemyActor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/EnemyActor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="418">
+              <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZombieAttackGame.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssetConfiguration.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetConfiguration.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssetTypes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetTypes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageTypes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/ImageTypes.java">
+      <file leaf-file-name="Directions.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Directions.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AssetManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetManager.java">
+      <file leaf-file-name="Actor.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+            <state relative-caret-position="442">
+              <caret line="126" column="18" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
+              <folding>
+                <element signature="e#1350#1351#0" expanded="true" />
+                <element signature="e#1391#1392#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AreaConfiguration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/areas/AreaConfiguration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding>
+                <element signature="e#862#863#0" expanded="true" />
+                <element signature="e#896#897#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="area_0_0.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/conf/areas/area_0_0.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Area.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+              <folding>
+                <element signature="e#1445#1446#0" expanded="true" />
+                <element signature="e#1485#1486#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="area_1_0.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/conf/areas/area_1_0.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AreaManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-364">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding>
+                <element signature="e#1457#1458#0" expanded="true" />
+                <element signature="e#1510#1511#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -174,17 +188,20 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Directions.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/EnemyActor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/Configuration.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetTypes.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/ImageTypes.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/conf/config.properties" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/Configuration.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/conf/config.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/conf/areas/area_0_0.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/conf/areas/area_1_0.properties" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/areas/AreaConfiguration.java" />
       </list>
     </option>
   </component>
@@ -312,6 +329,36 @@
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="conf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieAttack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieAttack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -384,6 +431,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="configuration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieAttack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieAttack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zombieAttackGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configuration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="definition" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,6 +499,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieAttack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieAttack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zombieAttackGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configuration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areas" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1010,12 +1125,12 @@
       <updated>1500587158400</updated>
       <workItem from="1500587163933" duration="23596000" />
       <workItem from="1501275951265" duration="17565000" />
-      <workItem from="1501308830289" duration="5049000" />
+      <workItem from="1501308830289" duration="9044000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46210000" />
+    <option name="totallyTimeSpent" value="50205000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1444" y="-4" width="1448" height="908" extended-state="6" />
@@ -1062,7 +1177,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="32" />
+      <option name="time" value="34" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1147,7 +1262,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1157,11 +1272,11 @@
         <state relative-caret-position="850">
           <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#838#839#0" expanded="true" />
-            <element signature="e#874#875#0" expanded="true" />
-            <element signature="e#906#907#0" expanded="true" />
-            <element signature="e#942#943#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1109#1110#0" expanded="false" />
+            <element signature="e#1145#1146#0" expanded="false" />
+            <element signature="e#1177#1178#0" expanded="false" />
+            <element signature="e#1213#1214#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1233,32 +1348,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/AnimationNames.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Directions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/Configuration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-          <folding>
-            <element signature="e#1223#1224#0" expanded="false" />
-            <element signature="e#1257#1258#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/java_libraries/slick2d/lib/slick.jar!/org/newdawn/slick/util/ResourceLoader.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1272,30 +1361,6 @@
         <state relative-caret-position="133">
           <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#838#839#0" expanded="true" />
-            <element signature="e#874#875#0" expanded="true" />
-            <element signature="e#906#907#0" expanded="true" />
-            <element signature="e#942#943#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1323,28 +1388,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/EnemyActor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -1357,36 +1404,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/areas/area_1_1.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="28" column="32" selection-start-line="26" selection-start-column="1" selection-end-line="28" selection-end-column="32" />
           <folding>
-            <element signature="e#1119#1120#0" expanded="true" />
-            <element signature="e#1181#1182#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1391#1392#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/areas/area_0_0.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/conf/areas/area_1_0.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/areas/AreaConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#896#897#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/AreaManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-364">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="e#1457#1458#0" expanded="true" />
+            <element signature="e#1510#1511#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/areas/Area.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding>
+            <element signature="e#1445#1446#0" expanded="true" />
+            <element signature="e#1485#1486#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#686#687#0" expanded="true" />
-            <element signature="e#725#726#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="418">
+          <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Directions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        <state relative-caret-position="170">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/Actor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="126" column="18" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
+            <element signature="e#1391#1392#0" expanded="true" />
           </folding>
         </state>
       </provider>

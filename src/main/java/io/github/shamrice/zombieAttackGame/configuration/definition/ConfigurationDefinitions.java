@@ -19,4 +19,6 @@ public class ConfigurationDefinitions {
     public static final String AREA_FILES_LOCATION = "AREA_FILES_LOCATION";
     public static final String AREA_MAX_X= "AREA_MAX_X";
     public static final String AREA_MAX_Y = "AREA_MAX_Y";
+
+    public static final String AREA_CONFIG_FILES_LOCATION = "AREA_CONFIG_FILES_LOCATION";
 }

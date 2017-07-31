@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
+import com.sun.xml.internal.ws.wsdl.writer.document.Definitions;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
@@ -42,8 +43,11 @@ public class ConfigurationBuilder {
 
         try {
 
+            String areaConfigLocation = configProperties.getProperty(ConfigurationDefinitions.AREA_CONFIG_FILES_LOCATION);
+
             AreaManager areaManager = new AreaManager(
-                    buildAreaTileFilesArray()
+                    buildAreaTileFilesArray(),
+                    areaConfigLocation
             );
 
             configuration = new Configuration(

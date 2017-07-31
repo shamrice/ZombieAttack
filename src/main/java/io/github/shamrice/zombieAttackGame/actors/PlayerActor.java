@@ -13,8 +13,7 @@ public class PlayerActor extends Actor {
     public PlayerActor(AssetConfiguration assetConfiguration) {
         super(assetConfiguration);
 
-        this.health = 100;
-        this.isAlive = true;
+        this.health = 10000; // DEBUG SET INSANELY HIGH
     }
 
     public void decreaseHealth(int amount) {
@@ -22,10 +21,6 @@ public class PlayerActor extends Actor {
 
         //debug
         System.out.println("CURRENT HEALTH: " + health);
-
-        if (health <= 0) {
-            isAlive = false;
-        }
     }
 
     public boolean isAlive() {
