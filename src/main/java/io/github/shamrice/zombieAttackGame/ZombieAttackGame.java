@@ -25,8 +25,6 @@ public class ZombieAttackGame extends BasicGame {
     private AreaManager areaManager;
     private Configuration configuration;
 
-    private Boolean collisionMap[][];
-
     public ZombieAttackGame() {
         super("Zombie Attack Game");
     }
@@ -57,22 +55,11 @@ public class ZombieAttackGame extends BasicGame {
             areaManager.setCurrentAreaLocation(0, 0);
 
             player = configuration.getConfiguredPlayerActor();
-            player.setxPos(34);
-            player.setyPos(34);
+            player.setxPos(140);
+            player.setyPos(65);
 
             resetArea();
 
-            //testMap = new TiledMap("assets/test.tmx");
-/*
-            collisionMap = new Boolean[testMap.getWidth()][testMap.getHeight()];
-            for (int x = 0; x < testMap.getWidth(); x++) {
-                for (int y = 0; y < testMap.getHeight(); y++) {
-
-                    // int tileId = testMap.getTileId(x, y, 0);
-                    collisionMap[x][y] = testMap.getTileId(x, y, 0) == 31;
-                }
-            }
-*/
         } catch (Exception ex) {
             ex.printStackTrace();
             container.exit();
@@ -90,6 +77,8 @@ public class ZombieAttackGame extends BasicGame {
 
         Input input = container.getInput();
 
+        Directions attemptedDirection = Directions.NONE;
+
         //if shift, they're running.
         if (input.isKeyDown(Input.KEY_LSHIFT)) {
             player.setRunning(true);
@@ -99,21 +88,38 @@ public class ZombieAttackGame extends BasicGame {
 
         //player movement
         if (input.isKeyDown(Input.KEY_UP)) {
-                player.move(Directions.UP, delta);
+                attemptedDirection = Directions.UP;
         }
         if (input.isKeyDown(Input.KEY_DOWN)) {
-            player.move(Directions.DOWN, delta);
+            attemptedDirection = Directions.DOWN;
         }
         if (input.isKeyDown(Input.KEY_LEFT)) {
-            player.move(Directions.LEFT, delta);
+            attemptedDirection = Directions.LEFT;
         }
         if (input.isKeyDown(Input.KEY_RIGHT)) {
-            player.move(Directions.RIGHT, delta);
+            attemptedDirection = Directions.RIGHT;
         }
 
         //check for quit
         if (input.isKeyDown(Input.KEY_ESCAPE) || input.isKeyDown(Input.KEY_Q)) {
             container.exit();
+        }
+
+        boolean areaCollision = areaManager.getCurrentArea()
+                .checkCollision(
+                        player.getCollisionRect()
+                );
+
+        if (!areaCollision) {
+            player.move(attemptedDirection, delta);
+        } else {
+            //hack to get unstuck from area collision.
+            //player shouldn't have moved into collision rect but for some reason does...?
+            player.move(player.getOppositeLastDirection(), delta);
+        }
+
+        if (areaCollision) {
+            System.out.println("Currently collided with environment. If message continues... there is an error");
         }
 
         //move to next area if leaving screen.
@@ -134,50 +140,40 @@ public class ZombieAttackGame extends BasicGame {
         }
 
         //check for enemy collisions
+
+        Directions enemyAttemptedHorizontal = Directions.NONE;
+        Directions enemyAttemptedVertical = Directions.NONE;
+
         for (EnemyActor enemy : enemyActors) {
+
             if (enemy.getxPos() > player.getxPos()) {
-                enemy.move(Directions.LEFT, delta);
+                enemyAttemptedHorizontal = Directions.LEFT;
+
             } else if (enemy.getxPos() < player.getxPos()) {
-                enemy.move(Directions.RIGHT, delta);
+                enemyAttemptedHorizontal = Directions.RIGHT;
             }
 
             if (enemy.getyPos() > player.getyPos()) {
-                enemy.move(Directions.UP, delta);
+                enemyAttemptedVertical = Directions.UP;
+
             } else if (enemy.getyPos() < player.getyPos()) {
-                enemy.move(Directions.DOWN, delta);
+                enemyAttemptedVertical = Directions.DOWN;
             }
 
             if (enemy.getCollisionRect().intersects(
-                    player.getCollisionRect()
-            )) {
+                    player.getCollisionRect())) {
+
                 player.decreaseHealth(1);
+                enemy.move(enemy.getOppositeLastDirection(), delta);
+
+            } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
+                enemy.move(enemy.getOppositeLastDirection(), delta);
+
+            } else {
+                enemy.move(enemyAttemptedHorizontal, delta);
+                enemy.move(enemyAttemptedVertical, delta);
             }
         }
-
-
-        //collision detection with environment
-/*
-        float tileLeftX = (tempX + 50) / 50;
-        float tileTopY = (tempY + 50) / 50;
-        float tileRightX = tempX / 50;
-        float tileBottomY = tempY / 50;
-
-        //System.out.println("TileX: " + (int)tileX + " TileY: " + (int)tileY);
-        //System.out.println("tempX = " + tempX + " tempY = " + tempY);
-
-        if (tileLeftX > 0 && tileTopY > 0 && tileRightX > 0 && tileBottomY > 0) {
-
-            int tileIdLeft = testMap.getTileId((int) tileLeftX, (int) tileTopY, 0);
-            int tileIdRight = testMap.getTileId((int) tileRightX, (int)tileBottomY, 0);
-          //  System.out.println("tileId = " + tileId);
-
-            if (tileIdLeft != 32 && tileIdRight != 32) {
-                //player.setxPos(tempX);
-               // player.setyPos(tempY);
-                player.move(tempX, tempY, delta);
-            }
-        }
-        */
 
     }
 
@@ -217,5 +213,6 @@ public class ZombieAttackGame extends BasicGame {
             yarnball.setWalkSpeedMultiplier(0.05f);
             enemyActors.add(yarnball);
         }
+
     }
 }

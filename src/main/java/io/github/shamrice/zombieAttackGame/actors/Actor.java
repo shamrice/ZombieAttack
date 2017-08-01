@@ -16,6 +16,7 @@ public abstract class Actor {
     private final float width = 50;
     private final float height = 50;
     private Shape collisionRect;
+    private Directions lastDirection = Directions.NONE;
 
     protected String name;
     protected float xPos = 1;
@@ -90,6 +91,8 @@ public abstract class Actor {
 
     public void move(Directions direction, int delta) {
 
+        lastDirection = direction;
+
         boolean moved = false;
 
         float tempY = this.yPos;
@@ -132,8 +135,24 @@ public abstract class Actor {
         this.isRunning = isRunning;
     }
 
-    public boolean isRunning() {
-        return this.isRunning;
-    }
+    public Directions getOppositeLastDirection() {
 
+        switch (lastDirection) {
+            case UP:
+                return Directions.DOWN;
+
+            case DOWN:
+                return Directions.UP;
+
+            case LEFT:
+                return Directions.RIGHT;
+
+            case RIGHT:
+                return Directions.LEFT;
+
+            default:
+                return Directions.NONE;
+
+        }
+    }
 }
