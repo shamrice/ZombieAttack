@@ -23,6 +23,7 @@ public abstract class Actor {
     protected float yPos = 1;
     protected AssetConfiguration assetConfiguration;
     protected Animation currentAnimation;
+    protected int attackDamage;
 
     public Actor(AssetConfiguration assetConfiguration) {
 
@@ -31,6 +32,8 @@ public abstract class Actor {
 
         this.collisionRect = new Rectangle(xPos, yPos, width, height);
     }
+
+    public abstract int getAttackDamage();
 
     public void setWalkSpeedMultiplier(float walkSpeedMultiplier) {
         this.walkSpeedMultiplier = walkSpeedMultiplier;
