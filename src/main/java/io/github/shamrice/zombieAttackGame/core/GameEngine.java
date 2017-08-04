@@ -60,7 +60,7 @@ public class GameEngine {
     }
 
     public boolean isGameOver() {
-        return !player.isAlive() || !isRunning;
+        return !isRunning;
     }
 
     public void renderScene() {
@@ -74,12 +74,10 @@ public class GameEngine {
         );
 
         for (EnemyActor enemy : enemyActors) {
-            if (enemy.isAlive()) {
-                enemy.getCurrentAnimation().draw(
-                        enemy.getxPos(),
-                        enemy.getyPos()
-                );
-            }
+            enemy.getCurrentAnimation().draw(
+                    enemy.getxPos(),
+                    enemy.getyPos()
+            );
         }
 
         if (player.getCurrentProjectile().isActive()) {
@@ -92,127 +90,135 @@ public class GameEngine {
 
     public void handlePlayerInput(Input input, int delta) {
 
-        Directions attemptedDirection = Directions.NONE;
-
-        //if shift, they're running.
-        if (input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT)) {
-            player.setRunning(true);
-        } else {
-            player.setRunning(false);
-        }
-
-        //player movement
-        if (input.isKeyDown(org.newdawn.slick.Input.KEY_UP)) {
-            attemptedDirection = Directions.UP;
-        }
-        if (input.isKeyDown(org.newdawn.slick.Input.KEY_DOWN)) {
-            attemptedDirection = Directions.DOWN;
-        }
-        if (input.isKeyDown(org.newdawn.slick.Input.KEY_LEFT)) {
-            attemptedDirection = Directions.LEFT;
-        }
-        if (input.isKeyDown(org.newdawn.slick.Input.KEY_RIGHT)) {
-            attemptedDirection = Directions.RIGHT;
-        }
-
         //check for quit
         if (input.isKeyDown(org.newdawn.slick.Input.KEY_ESCAPE) || input.isKeyDown(org.newdawn.slick.Input.KEY_Q)) {
             isRunning = false;
         }
 
-        //fire projectile if not currently fired.
-        if (input.isKeyDown(Input.KEY_SPACE)) {
-            if (!player.getCurrentProjectile().isActive()) {
-                player.getCurrentProjectile().setActive(true);
-                player.getCurrentProjectile().setxPos(player.getxPos());
-                player.getCurrentProjectile().setyPos(player.getyPos());
+        if (player.isAlive()) {
 
-                if (player.getCurrentDirection() != Directions.NONE) {
-                    player.getCurrentProjectile().setDirection(player.getCurrentDirection());
+
+            Directions attemptedDirection = Directions.NONE;
+
+            //if shift, they're running.
+            if (input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT)) {
+                player.setRunning(true);
+            } else {
+                player.setRunning(false);
+            }
+
+            //player movement
+            if (input.isKeyDown(org.newdawn.slick.Input.KEY_UP)) {
+                attemptedDirection = Directions.UP;
+            }
+            if (input.isKeyDown(org.newdawn.slick.Input.KEY_DOWN)) {
+                attemptedDirection = Directions.DOWN;
+            }
+            if (input.isKeyDown(org.newdawn.slick.Input.KEY_LEFT)) {
+                attemptedDirection = Directions.LEFT;
+            }
+            if (input.isKeyDown(org.newdawn.slick.Input.KEY_RIGHT)) {
+                attemptedDirection = Directions.RIGHT;
+            }
+
+
+            //fire projectile if not currently fired.
+            if (input.isKeyDown(Input.KEY_SPACE)) {
+                if (!player.getCurrentProjectile().isActive()) {
+                    player.getCurrentProjectile().setActive(true);
+                    player.getCurrentProjectile().setxPos(player.getxPos());
+                    player.getCurrentProjectile().setyPos(player.getyPos());
+
+                    if (player.getCurrentDirection() != Directions.NONE) {
+                        player.getCurrentProjectile().setDirection(player.getCurrentDirection());
+                    }
                 }
             }
+
+            // TODO: Move into own method?
+            boolean areaCollision = areaManager.getCurrentArea()
+                    .checkCollision(
+                            player.getCollisionRect()
+                    );
+
+            boolean projectileAreaCollision = areaManager.getCurrentArea()
+                    .checkCollision(
+                            player.getCurrentProjectile().getCollisionRect()
+                    );
+
+            if (!areaCollision) {
+                player.move(attemptedDirection, delta);
+            } else {
+                //hack to get unstuck from area collision.
+                //player collision rect is only updated once the new xy is set so checkCollision
+                //is always one move behind. Needs to be fixed.
+                player.move(player.getOppositeLastDirection(), delta);
+            }
+
+            if (projectileAreaCollision) {
+                player.getCurrentProjectile().setActive(false);
+            }
+
+            if (areaCollision) {
+                System.out.println("Currently collided with environment. If message continues... there is an error");
+            }
+
+            checkAreaBounds();
         }
-
-        // TODO: Move into own method?
-        boolean areaCollision = areaManager.getCurrentArea()
-                .checkCollision(
-                        player.getCollisionRect()
-                );
-
-        boolean projectileAreaCollision = areaManager.getCurrentArea()
-                .checkCollision(
-                        player.getCurrentProjectile().getCollisionRect()
-                );
-
-        if (!areaCollision) {
-            player.move(attemptedDirection, delta);
-        } else {
-            //hack to get unstuck from area collision.
-            //player collision rect is only updated once the new xy is set so checkCollision
-            //is always one move behind. Needs to be fixed.
-            player.move(player.getOppositeLastDirection(), delta);
-        }
-
-        if (projectileAreaCollision) {
-            player.getCurrentProjectile().setActive(false);
-        }
-
-        if (areaCollision) {
-            System.out.println("Currently collided with environment. If message continues... there is an error");
-        }
-
-        checkAreaBounds();
-
     }
 
     public void handleEnemyUpdate(int delta) {
         //check for enemy collisions
 
-        Directions enemyAttemptedHorizontal = Directions.NONE;
-        Directions enemyAttemptedVertical = Directions.NONE;
+        if (player.isAlive()) {
 
-        for (EnemyActor enemy : enemyActors) {
+            Directions enemyAttemptedHorizontal = Directions.NONE;
+            Directions enemyAttemptedVertical = Directions.NONE;
 
-            if (enemy.isAlive()) {
-                if (enemy.getxPos() > player.getxPos()) {
-                    enemyAttemptedHorizontal = Directions.LEFT;
+            for (EnemyActor enemy : enemyActors) {
 
-                } else if (enemy.getxPos() < player.getxPos()) {
-                    enemyAttemptedHorizontal = Directions.RIGHT;
-                }
+                if (enemy.isAlive()) {
+                    if (enemy.getxPos() > player.getxPos()) {
+                        enemyAttemptedHorizontal = Directions.LEFT;
 
-                if (enemy.getyPos() > player.getyPos()) {
-                    enemyAttemptedVertical = Directions.UP;
+                    } else if (enemy.getxPos() < player.getxPos()) {
+                        enemyAttemptedHorizontal = Directions.RIGHT;
+                    }
 
-                } else if (enemy.getyPos() < player.getyPos()) {
-                    enemyAttemptedVertical = Directions.DOWN;
-                }
+                    if (enemy.getyPos() > player.getyPos()) {
+                        enemyAttemptedVertical = Directions.UP;
 
-                //check enemy collisions
-                if (enemy
-                        .getCollisionRect()
-                        .intersects(player.getCollisionRect())) {
+                    } else if (enemy.getyPos() < player.getyPos()) {
+                        enemyAttemptedVertical = Directions.DOWN;
+                    }
 
-                    player.decreaseHealth(enemy.getAttackDamage());
-                    //TODO : enemy attack animation
+                    //check enemy collisions
+                    if (enemy
+                            .getCollisionRect()
+                            .intersects(player.getCollisionRect())) {
 
-                } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
-                    enemy.move(enemy.getOppositeLastDirection(), delta);
+                        player.decreaseHealth(enemy.getAttackDamage());
+                        //TODO : enemy attack animation
 
-                } else if (player.getCurrentProjectile().isActive() &&
-                        enemy
-                                .getCollisionRect()
-                                .intersects(player.getCurrentProjectile().getCollisionRect())) {
+                    } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
+                        enemy.move(enemy.getOppositeLastDirection(), delta);
 
-                    enemy.decreaseHealth(player.getCurrentProjectile().getAttackDamage());
-                    player.getCurrentProjectile().setActive(false);
+                    } else if (player.getCurrentProjectile().isActive() &&
+                            enemy
+                                    .getCollisionRect()
+                                    .intersects(player.getCurrentProjectile().getCollisionRect())) {
 
-                } else {
-                    enemy.move(enemyAttemptedHorizontal, delta);
-                    enemy.move(enemyAttemptedVertical, delta);
+                        enemy.decreaseHealth(player.getCurrentProjectile().getAttackDamage());
+                        player.getCurrentProjectile().setActive(false);
+
+                    } else {
+                        enemy.move(enemyAttemptedHorizontal, delta);
+                        enemy.move(enemyAttemptedVertical, delta);
+                    }
                 }
             }
         }
+
     }
 
     public void handleProjectiles(int delta) {

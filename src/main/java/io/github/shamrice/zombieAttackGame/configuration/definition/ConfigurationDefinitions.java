@@ -14,6 +14,7 @@ public class ConfigurationDefinitions {
     public static final String IMAGES_DOWN_SUFFIX = "_IMAGES_DOWN";
     public static final String IMAGES_LEFT_SUFFIX = "_IMAGES_LEFT";
     public static final String IMAGES_RIGHT_SUFFIX = "_IMAGES_RIGHT";
+    public static final String IMAGES_DEAD_SUFFIX = "_IMAGES_DEAD";
     public static final String ANIMATION_DURATION_PER_FRAME_SUFFIX = "_ANIMATION_DURATION_PER_FRAME";
 
     public static final String AREA_FILES_LOCATION = "AREA_FILES_LOCATION";

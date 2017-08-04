@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.actors;
 
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
+import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 
 /**
  * Created by Erik on 7/29/2017.
@@ -26,6 +27,10 @@ public class EnemyActor extends Actor {
 
         //debug
         System.out.println("CURRENT ENEMY: " + health);
+
+        if (health <= 0) {
+            currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
+        }
     }
 
     public boolean isAlive() {

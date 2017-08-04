@@ -3,6 +3,7 @@ package io.github.shamrice.zombieAttackGame.actors;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
+import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import jdk.internal.util.xml.impl.Input;
 
 /**
@@ -28,6 +29,10 @@ public class PlayerActor extends Actor {
 
         //debug
         System.out.println("CURRENT HEALTH: " + health);
+
+        if (health <= 0) {
+            currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
+        }
     }
 
     @Override

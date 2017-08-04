@@ -65,11 +65,16 @@ public class AssetManager {
                         assetConfig + ConfigurationDefinitions.IMAGES_RIGHT_SUFFIX
                 ).split(",");
 
+                String[] deadImageNames = configProperties.getProperty(
+                        assetConfig + ConfigurationDefinitions.IMAGES_DEAD_SUFFIX
+                ).split(",");
+
                 //Load image array with images using file names from config
                 Image[] upImages = new Image[upImageNames.length];
                 Image[] downImages = new Image[downImageNames.length];
                 Image[] leftImages = new Image[leftImageNames.length];
                 Image[] rightImages = new Image[rightImageNames.length];
+                Image[] deadImages = new Image[deadImageNames.length];
 
                 for (int i = 0; i < upImageNames.length; i++) {
                     upImages[i] = new Image(upImageNames[i]);
@@ -83,6 +88,10 @@ public class AssetManager {
                 }
                 for (int i = 0; i < rightImageNames.length; i++) {
                     rightImages[i] = new Image(rightImageNames[i]);
+                }
+
+                for (int i = 0; i < deadImageNames.length; i++) {
+                    deadImages[i] = new Image(deadImageNames[i]);
                 }
 
                 //set animation durations for frames
@@ -102,6 +111,7 @@ public class AssetManager {
                 assetConfiguration.addImages(ImageTypes.IMAGE_DOWN, downImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_LEFT, leftImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_RIGHT, rightImages);
+                assetConfiguration.addImages(ImageTypes.IMAGE_DEAD, deadImages);
                 assetConfiguration.setFrameDurations(durations);
 
                 //add animations to config using images and frame durations
@@ -125,6 +135,10 @@ public class AssetManager {
                         new Animation(rightImages, durations, false)
                 );
 
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_DEAD,
+                        new Animation(deadImages, 1, false)
+                );
 
                 //put completed asset configuration in map
                 try {
