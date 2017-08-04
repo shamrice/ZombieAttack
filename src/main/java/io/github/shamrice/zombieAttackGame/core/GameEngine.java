@@ -237,16 +237,32 @@ public class GameEngine {
         if (player.getxPos() > MAX_X) {
             areaManager.setCurrentAreaLocation(
                     areaManager.getCurrentX() + 1,
-                    0
+                    areaManager.getCurrentY()
             );
-            player.setxPos(20);
+            player.setxPos(MIN_X + 10);
             resetArea();
-        } else if (player.getxPos() < 10) {
+        } else if (player.getxPos() < MIN_X) {
             areaManager.setCurrentAreaLocation(
                     areaManager.getCurrentX() - 1,
-                    0
+                    areaManager.getCurrentY()
             );
-            player.setxPos(750);
+            player.setxPos(MAX_X - 10);
+            resetArea();
+        }
+
+        if (player.getyPos() > MAX_Y) {
+            areaManager.setCurrentAreaLocation(
+                    areaManager.getCurrentX(),
+                    areaManager.getCurrentY() + 1
+            );
+            player.setyPos(MIN_Y + 10);
+            resetArea();
+        } else if (player.getyPos() < MIN_Y) {
+            areaManager.setCurrentAreaLocation(
+                    areaManager.getCurrentX(),
+                    areaManager.getCurrentY() - 1
+            );
+            player.setyPos(MAX_Y - 10);
             resetArea();
         }
 
