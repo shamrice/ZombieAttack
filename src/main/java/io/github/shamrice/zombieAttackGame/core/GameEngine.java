@@ -19,6 +19,11 @@ public class GameEngine {
 
     private static GameEngine instance = null;
 
+    private final int MAX_X = 760;
+    private final int MAX_Y = 560;
+    private final int MIN_X = 20;
+    private final int MIN_Y = 20;
+
     private boolean isConfigured = false;
     private boolean isRunning = true;
 
@@ -69,9 +74,18 @@ public class GameEngine {
         );
 
         for (EnemyActor enemy : enemyActors) {
-            enemy.getCurrentAnimation().draw(
-                    enemy.getxPos(),
-                    enemy.getyPos()
+            if (enemy.isAlive()) {
+                enemy.getCurrentAnimation().draw(
+                        enemy.getxPos(),
+                        enemy.getyPos()
+                );
+            }
+        }
+
+        if (player.getCurrentProjectile().isActive()) {
+            player.getCurrentProjectile().getCurrentAnimation().draw(
+                    player.getCurrentProjectile().getxPos(),
+                    player.getCurrentProjectile().getyPos()
             );
         }
     }
@@ -106,10 +120,28 @@ public class GameEngine {
             isRunning = false;
         }
 
+        //fire projectile if not currently fired.
+        if (input.isKeyDown(Input.KEY_SPACE)) {
+            if (!player.getCurrentProjectile().isActive()) {
+                player.getCurrentProjectile().setActive(true);
+                player.getCurrentProjectile().setxPos(player.getxPos());
+                player.getCurrentProjectile().setyPos(player.getyPos());
+
+                if (player.getCurrentDirection() != Directions.NONE) {
+                    player.getCurrentProjectile().setDirection(player.getCurrentDirection());
+                }
+            }
+        }
+
         // TODO: Move into own method?
         boolean areaCollision = areaManager.getCurrentArea()
                 .checkCollision(
                         player.getCollisionRect()
+                );
+
+        boolean projectileAreaCollision = areaManager.getCurrentArea()
+                .checkCollision(
+                        player.getCurrentProjectile().getCollisionRect()
                 );
 
         if (!areaCollision) {
@@ -119,6 +151,10 @@ public class GameEngine {
             //player collision rect is only updated once the new xy is set so checkCollision
             //is always one move behind. Needs to be fixed.
             player.move(player.getOppositeLastDirection(), delta);
+        }
+
+        if (projectileAreaCollision) {
+            player.getCurrentProjectile().setActive(false);
         }
 
         if (areaCollision) {
@@ -137,41 +173,62 @@ public class GameEngine {
 
         for (EnemyActor enemy : enemyActors) {
 
-            if (enemy.getxPos() > player.getxPos()) {
-                enemyAttemptedHorizontal = Directions.LEFT;
+            if (enemy.isAlive()) {
+                if (enemy.getxPos() > player.getxPos()) {
+                    enemyAttemptedHorizontal = Directions.LEFT;
 
-            } else if (enemy.getxPos() < player.getxPos()) {
-                enemyAttemptedHorizontal = Directions.RIGHT;
+                } else if (enemy.getxPos() < player.getxPos()) {
+                    enemyAttemptedHorizontal = Directions.RIGHT;
+                }
+
+                if (enemy.getyPos() > player.getyPos()) {
+                    enemyAttemptedVertical = Directions.UP;
+
+                } else if (enemy.getyPos() < player.getyPos()) {
+                    enemyAttemptedVertical = Directions.DOWN;
+                }
+
+                //check enemy collisions
+                if (enemy
+                        .getCollisionRect()
+                        .intersects(player.getCollisionRect())) {
+
+                    player.decreaseHealth(enemy.getAttackDamage());
+                    //TODO : enemy attack animation
+
+                } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
+                    enemy.move(enemy.getOppositeLastDirection(), delta);
+
+                } else if (player.getCurrentProjectile().isActive() &&
+                        enemy
+                                .getCollisionRect()
+                                .intersects(player.getCurrentProjectile().getCollisionRect())) {
+
+                    enemy.decreaseHealth(player.getCurrentProjectile().getAttackDamage());
+                    player.getCurrentProjectile().setActive(false);
+
+                } else {
+                    enemy.move(enemyAttemptedHorizontal, delta);
+                    enemy.move(enemyAttemptedVertical, delta);
+                }
             }
+        }
+    }
 
-            if (enemy.getyPos() > player.getyPos()) {
-                enemyAttemptedVertical = Directions.UP;
+    public void handleProjectiles(int delta) {
 
-            } else if (enemy.getyPos() < player.getyPos()) {
-                enemyAttemptedVertical = Directions.DOWN;
-            }
+        if (player.getCurrentProjectile().isActive()) {
 
-            if (enemy
-                    .getCollisionRect()
-                    .intersects(player.getCollisionRect()))
-            {
-
-                player.decreaseHealth(enemy.getAttackDamage());
-                //TODO : enemy attack animation
-
-            } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
-                enemy.move(enemy.getOppositeLastDirection(), delta);
-
-            } else {
-                enemy.move(enemyAttemptedHorizontal, delta);
-                enemy.move(enemyAttemptedVertical, delta);
-            }
+            player.getCurrentProjectile().move(
+                    player.getCurrentProjectile().getDirection(),
+                    delta
+            );
         }
     }
 
     private void checkAreaBounds() {
         //move to next area if leaving screen.
-        if (player.getxPos() > 760) {
+        if (player.getxPos() > MAX_X) {
             areaManager.setCurrentAreaLocation(
                     areaManager.getCurrentX() + 1,
                     0
@@ -186,6 +243,19 @@ public class GameEngine {
             player.setxPos(750);
             resetArea();
         }
+
+
+        //check player projectile
+        if (player.getCurrentProjectile().isActive()) {
+
+            if (player.getCurrentProjectile().getxPos() > MAX_X ||
+                    player.getCurrentProjectile().getxPos() < MIN_X ||
+                    player.getCurrentProjectile().getyPos() > MAX_Y ||
+                    player.getCurrentProjectile().getyPos() < MIN_Y)
+            {
+                player.getCurrentProjectile().setActive(false);
+            }
+        }
     }
 
     private void resetArea() {
@@ -199,8 +269,8 @@ public class GameEngine {
 
         for (int i = 0; i < numEnemies; i++) {
             EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL), 50);
-            yarnball.setxPos(new Random().nextInt(700));
-            yarnball.setyPos(new Random().nextInt(500));
+            yarnball.setxPos(new Random().nextInt(MAX_X));
+            yarnball.setyPos(new Random().nextInt(MAX_Y));
             yarnball.setWalkSpeedMultiplier(0.05f);
             enemyActors.add(yarnball);
         }

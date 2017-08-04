@@ -27,4 +27,9 @@ public class EnemyActor extends Actor {
         //debug
         System.out.println("CURRENT ENEMY: " + health);
     }
+
+    public boolean isAlive() {
+        return this.health > 0;
+    }
+
 }

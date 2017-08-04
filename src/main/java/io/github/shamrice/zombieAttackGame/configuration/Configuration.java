@@ -21,7 +21,8 @@ public class Configuration {
         this.areaManager = areaManager;
 
         playerActor = new PlayerActor(
-                assetManager.getAssetConfiguration(AssetTypes.PLAYER)
+                assetManager.getAssetConfiguration(AssetTypes.PLAYER),
+                assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE)
         );
     }
 

@@ -70,6 +70,7 @@ public class ZombieAttackGame extends BasicGame {
 
         gameEngine.handlePlayerInput(input, delta);
         gameEngine.handleEnemyUpdate(delta);
+        gameEngine.handleProjectiles(delta);
 
     }
 

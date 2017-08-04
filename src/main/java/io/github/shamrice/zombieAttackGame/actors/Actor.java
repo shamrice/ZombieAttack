@@ -17,6 +17,7 @@ public abstract class Actor {
     private final float height = 50;
     private Shape collisionRect;
     private Directions lastDirection = Directions.NONE;
+    private Directions currentDirection = Directions.NONE;
 
     protected String name;
     protected float xPos = 1;
@@ -130,8 +131,10 @@ public abstract class Actor {
                 break;
         }
 
-        if (moved)
+        if (moved) {
+            currentDirection = direction;
             currentAnimation.update(delta);
+        }
     }
 
     public void setRunning(boolean isRunning) {
@@ -157,5 +160,9 @@ public abstract class Actor {
                 return Directions.NONE;
 
         }
+    }
+
+    public Directions getCurrentDirection() {
+        return currentDirection;
     }
 }
