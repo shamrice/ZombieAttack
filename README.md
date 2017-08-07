@@ -4,6 +4,6 @@ Latest compiled jar with assets/configs are located in the out/artifacts/zombieA
 
 No guarantee that it will actually work for anyone. I suggest building from the source if possible. 
 
-The lwjgl64.dll dependency is included. If you're not using Windows, the necessary platform specific 
-dependency will have to be downloaded separately.
+The lwjgl64.dll dependency is included in the compiled source directory. If you're not using Windows, 
+the necessary platform specific dependency will have to be downloaded separately.
 
