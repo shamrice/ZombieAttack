@@ -55,6 +55,8 @@ public class ZombieAttackGame extends BasicGame {
             ex.printStackTrace();
             container.exit();
         }
+
+        System.out.println("Game initialization complete. Starting...");
     }
 
     @Override

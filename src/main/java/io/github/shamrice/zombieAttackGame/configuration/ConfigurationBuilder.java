@@ -1,11 +1,11 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.Definitions;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
 import org.newdawn.slick.SlickException;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,34 +21,57 @@ public class ConfigurationBuilder {
 
     public static Configuration build() throws IOException {
 
-        //TODO: this try catch nested garbage is disgusting.
+        //LOAD BASE CONFIG
+        System.out.println("Loading base config...");
+
+        File configFile = new File(ConfigurationDefinitions.CONFIGURATION_FILE_LOCATION);
+        String configPath = configFile.getPath();
+
+        if (!configFile.exists() && !configFile.isDirectory()) {
+            System.out.println("Cannot find default configuration location. Trying ./conf/config.properties");
+            configPath = "conf/config.properties";
+        }
 
         try {
-            InputStream configInput = new FileInputStream(ConfigurationDefinitions.CONFIGURATION_FILE_LOCATION);
+            InputStream configInput = new FileInputStream(configPath);
             configProperties.load(configInput);
             configInput.close();
         } catch (IOException ioExc) {
             ioExc.printStackTrace();
-            System.out.println("Trying current directory...");
-            try {
-                InputStream configInput = new FileInputStream("conf/config.properties");
-                configProperties.load(configInput);
-                configInput.close();
-            } catch (IOException ioExc2) {
-                ioExc2.printStackTrace();
-                System.out.println("Failed to find config... exiting.");
-                System.exit(-1);
-            }
+            System.out.println("Failed to find config... exiting.");
+            System.exit(-1);
+        }
+
+        // LOAD AREA
+        System.out.println("Loading area config...");
+
+        AreaManager areaManager = null;
+        File areaConfigDirectory = new File(configProperties.getProperty(ConfigurationDefinitions.AREA_CONFIG_FILES_LOCATION));
+        String areaConfigLocation = areaConfigDirectory.getPath() + "/";
+
+        if (!areaConfigDirectory.exists()) {
+            System.out.println("Cannot find configured area config directory. Trying ./conf/areas/");
+            areaConfigLocation = "conf/areas/";
         }
 
         try {
 
-            String areaConfigLocation = configProperties.getProperty(ConfigurationDefinitions.AREA_CONFIG_FILES_LOCATION);
-
-            AreaManager areaManager = new AreaManager(
+             areaManager = new AreaManager(
                     buildAreaTileFilesArray(),
                     areaConfigLocation
             );
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Unable to resolve area config location. Exiting...");
+            System.exit(-1);
+
+        }
+
+        // BUILD CONFIGURATION
+        System.out.println("Building complete configuration...");
+
+        try {
 
             configuration = new Configuration(
                     buildAssetConfiguration(),
@@ -61,6 +84,8 @@ public class ConfigurationBuilder {
             System.exit(-2);
         }
 
+
+        System.out.println("Configuration built successfully.");
         return configuration;
     }
 

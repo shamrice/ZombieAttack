@@ -53,8 +53,8 @@ public class GameEngine {
             areaManager.setCurrentAreaLocation(0, 0);
 
             player = configuration.getConfiguredPlayerActor();
-            player.setxPos(140);
             player.setyPos(65);
+            player.setxPos(140);
 
             resetArea();
         }

@@ -29,7 +29,7 @@ public abstract class Actor {
     public Actor(AssetConfiguration assetConfiguration) {
 
         this.assetConfiguration = assetConfiguration;
-        this.currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_UP);
+        this.currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_RIGHT);
 
         this.collisionRect = new Rectangle(xPos, yPos, width, height);
     }
