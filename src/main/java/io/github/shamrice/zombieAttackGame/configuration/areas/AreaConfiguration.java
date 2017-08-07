@@ -16,7 +16,7 @@ public class AreaConfiguration {
 
     private List<EnemyActor> enemyActors;
     private Properties areaConfigProperties;
-    int numEnemeies = 0;
+    private int numEnemeies = 0;
 
     public AreaConfiguration(String areaConfigFileName) throws FileNotFoundException, IOException {
 
@@ -25,18 +25,30 @@ public class AreaConfiguration {
         areaConfigProperties.load(configInput);
         configInput.close();
 
-        setUpEnemies();
+        if (!setUpEnemies()) {
+            System.out.println("Failure in " + areaConfigFileName + ". Please check for errors.");
+        }
     }
 
     public int getNumEnemeies() {
         return numEnemeies;
     }
 
-    private void setUpEnemies() {
+    private boolean setUpEnemies() {
 
-        numEnemeies = Integer.parseInt(
-                areaConfigProperties.get("NUMBER_OF_ENEMIES").toString()
-        );
+        try {
+            numEnemeies = Integer.parseInt(
+                    areaConfigProperties.get("NUMBER_OF_ENEMIES").toString()
+            );
+
+            return true;
+
+        } catch (NumberFormatException numFormatEx) {
+            System.out.println("ERROR: Failed to set up enemies in area. Defaulting to zero.");
+            numFormatEx.printStackTrace();
+        }
+
+        return false;
     }
 
 }

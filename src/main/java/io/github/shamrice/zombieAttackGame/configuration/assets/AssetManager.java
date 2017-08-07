@@ -12,6 +12,8 @@ import java.util.*;
  */
 public class AssetManager {
 
+    private final int DEFAULT_ANIMATION_DURATION = 150;
+
     private boolean isAssetsBuilt;
     private Properties configProperties;
     private Map<AssetTypes, AssetConfiguration> assetConfigurationMap;
@@ -95,11 +97,19 @@ public class AssetManager {
                 }
 
                 //set animation durations for frames
-                int animationDuration = Integer.parseInt(
-                        configProperties.getProperty(
-                                assetConfig + ConfigurationDefinitions.ANIMATION_DURATION_PER_FRAME_SUFFIX
-                        )
-                );
+                int animationDuration = DEFAULT_ANIMATION_DURATION;
+
+                try {
+                    animationDuration = Integer.parseInt(
+                            configProperties.getProperty(
+                                    assetConfig + ConfigurationDefinitions.ANIMATION_DURATION_PER_FRAME_SUFFIX
+                            )
+                    );
+                } catch (NumberFormatException numFormatEx) {
+                    System.out.println("Failed to set animation duration for " + assetConfig +
+                            ". Defaulting to " + DEFAULT_ANIMATION_DURATION + ".");
+                    numFormatEx.printStackTrace();
+                }
 
                 int[] durations = new int[rightImages.length];
                 for (int i = 0; i < durations.length; i++) {

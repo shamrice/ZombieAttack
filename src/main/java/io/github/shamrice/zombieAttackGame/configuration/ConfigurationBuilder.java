@@ -63,7 +63,7 @@ public class ConfigurationBuilder {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("Unable to resolve area config location. Exiting...");
+            System.out.println("Unable to resolve area config. Exiting...");
             System.exit(-1);
 
         }
