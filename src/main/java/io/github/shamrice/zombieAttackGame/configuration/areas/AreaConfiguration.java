@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,8 +18,11 @@ public class AreaConfiguration {
     private List<EnemyActor> enemyActors;
     private Properties areaConfigProperties;
     private int numEnemeies = 0;
+    private boolean isEnemiesSet = false;
 
     public AreaConfiguration(String areaConfigFileName) throws FileNotFoundException, IOException {
+
+        enemyActors = new ArrayList<EnemyActor>();
 
         areaConfigProperties = new Properties();
         InputStream configInput = new FileInputStream(areaConfigFileName);
@@ -28,6 +32,23 @@ public class AreaConfiguration {
         if (!setUpEnemies()) {
             System.out.println("Failure in " + areaConfigFileName + ". Please check for errors.");
         }
+    }
+
+    public boolean isEnemiesSet() {
+        return isEnemiesSet;
+    }
+
+    public void setEnemyActors(List<EnemyActor> enemyActors) {
+
+        //enemies can only be set once.
+        if (!isEnemiesSet) {
+            isEnemiesSet = true;
+            this.enemyActors = enemyActors;
+        }
+    }
+
+    public List<EnemyActor> getEnemyActors() {
+        return this.enemyActors;
     }
 
     public int getNumEnemeies() {
@@ -50,5 +71,6 @@ public class AreaConfiguration {
 
         return false;
     }
+
 
 }

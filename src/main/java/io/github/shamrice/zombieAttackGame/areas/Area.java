@@ -18,7 +18,6 @@ public class Area {
     private String tileMapFile;
     private TiledMap tiledMap = null;
     private Rectangle collisionMap[][];
-    private String areaConfigFileName;
     private AreaConfiguration areaConfiguration;
 
     private boolean isLoaded = false;
@@ -27,7 +26,12 @@ public class Area {
         this.xPos = xPos;
         this.yPos = yPos;
         this.tileMapFile = tileMapFile;
-        this.areaConfigFileName = areaInformationFileName;
+
+        try {
+            areaConfiguration = new AreaConfiguration(areaInformationFileName);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void load() throws SlickException {
@@ -51,20 +55,14 @@ public class Area {
                 }
             }
 
-            try {
-                areaConfiguration = new AreaConfiguration(areaConfigFileName);
+            isLoaded = true;
 
-                isLoaded = true;
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
     public void unload() {
         if (isLoaded) {
             tiledMap = null;
-            areaConfiguration = null;
             isLoaded = false;
         }
     }

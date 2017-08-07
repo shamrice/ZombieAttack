@@ -312,20 +312,29 @@ public class GameEngine {
 
     private void resetArea() {
 
-        enemyActors = new ArrayList<EnemyActor>();
+        //set area enemies if they haven't already be done. (Needs to be done when walking to new area)
+        if (!areaManager.getCurrentArea().getAreaConfiguration().isEnemiesSet()) {
 
-        int numEnemies = areaManager
-                .getCurrentArea()
-                .getAreaConfiguration()
-                .getNumEnemeies();
+            List<EnemyActor> tempEnemyActors = new ArrayList<EnemyActor>();
 
-        for (int i = 0; i < numEnemies; i++) {
-            EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL), 50);
-            yarnball.setxPos(new Random().nextInt(MAX_X));
-            yarnball.setyPos(new Random().nextInt(MAX_Y));
-            yarnball.setWalkSpeedMultiplier(0.05f);
-            enemyActors.add(yarnball);
+            int numEnemies = areaManager
+                    .getCurrentArea()
+                    .getAreaConfiguration()
+                    .getNumEnemeies();
+
+            for (int i = 0; i < numEnemies; i++) {
+                EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL), 50);
+                yarnball.setxPos(new Random().nextInt(MAX_X));
+                yarnball.setyPos(new Random().nextInt(MAX_Y));
+                yarnball.setWalkSpeedMultiplier(0.05f);
+                tempEnemyActors.add(yarnball);
+            }
+
+            areaManager.getCurrentArea().getAreaConfiguration().setEnemyActors(tempEnemyActors);
+
         }
+
+        enemyActors = areaManager.getCurrentArea().getAreaConfiguration().getEnemyActors();
 
     }
 
