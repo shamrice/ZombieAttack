@@ -60,7 +60,8 @@ public class Inventory {
                     new InventoryItem(
                             inventoryItemName,
                             inventoryItemType,
-                            value
+                            value,
+                            ""
                     )
             );
         }

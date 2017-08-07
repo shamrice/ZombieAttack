@@ -158,9 +158,10 @@ public class GameEngine {
                     InventoryItem item = player.getInventory().getInventoryItem(i);
 
                     System.out.println("SLOT " + i + ":");
-                    System.out.println("     ITEM NAME: " + item.getNameString());
-                    System.out.println("     ITEM TYPE: " + item.getType().name());
-                    System.out.println("    ITEM VALUE: " + item.getValue() + "\n");
+                    System.out.println("  ITEM NAME: " + item.getNameString());
+                    System.out.println("  ITEM TYPE: " + item.getType().name());
+                    System.out.println(" ITEM VALUE: " + item.getValue());
+                    System.out.println("DESCRIPTION: \n" + item.getDescription() + "\n");
                 }
             }
 

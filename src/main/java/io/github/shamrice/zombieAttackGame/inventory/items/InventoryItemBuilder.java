@@ -12,11 +12,21 @@ public class InventoryItemBuilder {
     public static InventoryItem buildItem(InventoryItemNames inventoryItemName) {
 
         int value = new Random().nextInt(10);
+        InventoryItemTypes type = getInventoryItemType(inventoryItemName);
+
+        //just some extra debug stuff.
+        String description = inventoryItemName.name() + " is a(n) " + type.name() + ". " +
+                "It has a value of " + value + ".";
+
+        if (value == 0) {
+            description += " Unfortunately it is rubbish.";
+        }
 
         return new InventoryItem(
                 inventoryItemName,
-                getInventoryItemType(inventoryItemName),
-                value
+                type,
+                value,
+                description
         );
 
     }
