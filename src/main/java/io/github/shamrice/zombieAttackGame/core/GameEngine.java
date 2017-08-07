@@ -7,6 +7,7 @@ import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import org.newdawn.slick.Input;
 
@@ -59,6 +60,9 @@ public class GameEngine {
             player = configuration.getConfiguredPlayerActor();
             player.setyPos(65);
             player.setxPos(140);
+            player.setName("Pepper");
+
+            messageBox.write("Welcome to the world of evil yarnballs. Enjoy your stay!");
 
             resetArea();
         }
@@ -73,11 +77,6 @@ public class GameEngine {
                 .getCurrentAreaTileMap()
                 .render(0, 0);
 
-        player.getCurrentAnimation().draw(
-                player.getxPos(),
-                player.getyPos()
-        );
-
         for (EnemyActor enemy : enemyActors) {
             enemy.getCurrentAnimation().draw(
                     enemy.getxPos(),
@@ -91,6 +90,11 @@ public class GameEngine {
                     player.getCurrentProjectile().getyPos()
             );
         }
+
+        player.getCurrentAnimation().draw(
+                player.getxPos(),
+                player.getyPos()
+        );
 
         messageBox.draw();
 
@@ -159,9 +163,16 @@ public class GameEngine {
 
                             if (itemToAdd != null) {
                                 if (player.addToInventory(itemToAdd)) {
-                                    messageBox.write(itemToAdd.getNameString() + " has been added to your inventory.");
+                                    if (itemToAdd.getName() == InventoryItemNames.COIN) {
+                                        messageBox.write(String.valueOf(itemToAdd.getValue()) + " " + itemToAdd.getName() +
+                                            "(s) have been added to you coins."
+                                        );
+                                    } else {
+                                        messageBox.write(itemToAdd.getNameString() + " has been added to your inventory.");
+                                    }
                                 } else {
-                                    messageBox.write(itemToAdd.getNameString() + " cannot be picked up.");
+                                    messageBox.write(itemToAdd.getNameString() +
+                                            " cannot be picked up. Free up space in inventory.");
                                 }
                             }
                         } else {
@@ -185,6 +196,8 @@ public class GameEngine {
 
                     messageBox.write(item.getNameString());
                 }
+
+                messageBox.write("You have " + player.getInventory().getNumberOfCoins() + " coin(s).");
             }
 
             if (input.isKeyDown(Input.KEY_T)) {
@@ -254,6 +267,8 @@ public class GameEngine {
                             .intersects(player.getCollisionRect())) {
 
                         player.decreaseHealth(enemy.getAttackDamage());
+                        messageBox.write(enemy.getName() + " attacks you for " + enemy.getAttackDamage() + " damage.");
+
                         //TODO : enemy attack animation
 
                     } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
@@ -266,6 +281,14 @@ public class GameEngine {
 
                         enemy.decreaseHealth(player.getCurrentProjectile().getAttackDamage());
                         player.getCurrentProjectile().setActive(false);
+
+                        messageBox.write("You attack " + enemy.getName() +
+                                " for " + player.getAttackDamage() + " damage.");
+
+                        if (!enemy.isAlive()) {
+                            messageBox.write(enemy.getName() + " has expired.");
+                        }
+
 
                     } else {
                         enemy.move(enemyAttemptedHorizontal, delta);
@@ -349,10 +372,11 @@ public class GameEngine {
                     .getNumEnemeies();
 
             for (int i = 0; i < numEnemies; i++) {
-                EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL), 50);
+                EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL), 10);
                 yarnball.setxPos(new Random().nextInt(MAX_X));
                 yarnball.setyPos(new Random().nextInt(MAX_Y));
                 yarnball.setWalkSpeedMultiplier(0.05f);
+                yarnball.setName("Yarnball");
                 tempEnemyActors.add(yarnball);
             }
 

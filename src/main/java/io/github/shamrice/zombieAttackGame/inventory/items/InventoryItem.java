@@ -33,6 +33,10 @@ public class InventoryItem {
         return value;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public String getDescription() {
         return description;
     }

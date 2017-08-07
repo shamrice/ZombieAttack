@@ -13,11 +13,14 @@ import java.util.List;
 public class Inventory {
 
     private List<InventoryItem> inventoryItemList;
+    private InventoryItem coins;
     private int inventorySize;
 
     public Inventory(int inventorySize) {
         this.inventorySize = inventorySize;
         inventoryItemList = new ArrayList<InventoryItem>();
+
+        coins = new InventoryItem(InventoryItemNames.COIN, InventoryItemTypes.ITEM, 0, "Money");
     }
 
     public int getNumberOfItems() {
@@ -26,6 +29,10 @@ public class Inventory {
 
     public boolean isFull() {
         return inventoryItemList.size() == inventorySize;
+    }
+
+    public int getNumberOfCoins() {
+        return coins.getValue();
     }
 
     public InventoryItem getInventoryItem(int inventorySlotNumber) {
@@ -44,9 +51,18 @@ public class Inventory {
     }
 
     public boolean addInventoryItem(InventoryItem inventoryItem) {
-        if (inventoryItemList.size() < inventorySize) {
-            inventoryItemList.add(inventoryItem);
+
+        //if pick up is coins, add to coin bank, if not, add to inventory.
+        if (inventoryItem.getName() == InventoryItemNames.COIN) {
+            coins.setValue(coins.getValue() + inventoryItem.getValue());
             return true;
+
+        } else {
+
+            if (inventoryItemList.size() < inventorySize) {
+                inventoryItemList.add(inventoryItem);
+                return true;
+            }
         }
 
         return false;
