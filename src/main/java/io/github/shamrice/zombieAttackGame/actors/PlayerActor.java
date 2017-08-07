@@ -4,6 +4,8 @@ import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileAc
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
+import io.github.shamrice.zombieAttackGame.inventory.Inventory;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import jdk.internal.util.xml.impl.Input;
 
 /**
@@ -14,6 +16,7 @@ public class PlayerActor extends Actor {
     private int health;
     private boolean isAlive;
     private Projectile currentProjectile;
+    private Inventory inventory;
 
     public PlayerActor(AssetConfiguration assetConfiguration, AssetConfiguration projectileConfig) {
         super(assetConfiguration);
@@ -22,6 +25,8 @@ public class PlayerActor extends Actor {
         this.attackDamage = 50;
 
         this.currentProjectile = new BulletProjectileActor(projectileConfig);
+
+        this.inventory = new Inventory(5);
     }
 
     public void decreaseHealth(int amount) {
@@ -49,5 +54,30 @@ public class PlayerActor extends Actor {
         return currentProjectile;
     }
 
+    public void addToInventory(InventoryItem inventoryItem) {
+
+        //TODO : if blocks can be combined. Currently this way for debug messaging.
+
+        if (!inventory.isFull()) {
+            if (inventoryItem != null) {
+
+                System.out.println("Adding " + inventoryItem.getNameString() + " to inventory.");
+                System.out.println("          Item type: " + inventoryItem.getType().name());
+                System.out.println("         Item Value: " + inventoryItem.getValue());
+
+                if (!inventory.addInventoryItem(inventoryItem)) {
+                    System.out.println("Failed to add item to inventory.");
+                }
+            } else {
+                System.out.println("Item was null. Already looted? Item will not be added.");
+            }
+        } else {
+            System.out.println("Inventory currently full. Cannot be added.");
+        }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 
 }

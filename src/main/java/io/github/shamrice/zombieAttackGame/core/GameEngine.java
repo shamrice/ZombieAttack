@@ -6,6 +6,7 @@ import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import org.newdawn.slick.Input;
 
 import java.util.ArrayList;
@@ -132,6 +133,34 @@ public class GameEngine {
                     if (player.getCurrentDirection() != Directions.NONE) {
                         player.getCurrentProjectile().setDirection(player.getCurrentDirection());
                     }
+                }
+            }
+
+            //get item from fallen enemy.
+            if (input.isKeyDown(Input.KEY_G)) {
+                for (EnemyActor enemy : enemyActors) {
+                    if (enemy
+                            .getCollisionRect()
+                            .intersects(player.getCollisionRect()) &&
+
+                            !enemy.isAlive())
+                    {
+                        player.addToInventory(
+                                enemy.getItemDrop()
+                        );
+                    }
+                }
+            }
+
+            //debug display inventory items
+            if (input.isKeyDown(Input.KEY_I)) {
+                for (int i = 0; i < player.getInventory().getNumberOfItems(); i++) {
+                    InventoryItem item = player.getInventory().getInventoryItem(i);
+
+                    System.out.println("SLOT " + i + ":");
+                    System.out.println("     ITEM NAME: " + item.getNameString());
+                    System.out.println("     ITEM TYPE: " + item.getType().name());
+                    System.out.println("    ITEM VALUE: " + item.getValue() + "\n");
                 }
             }
 
