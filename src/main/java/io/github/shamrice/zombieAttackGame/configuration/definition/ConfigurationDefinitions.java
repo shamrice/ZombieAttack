@@ -22,4 +22,6 @@ public class ConfigurationDefinitions {
     public static final String AREA_MAX_Y = "AREA_MAX_Y";
 
     public static final String AREA_CONFIG_FILES_LOCATION = "AREA_CONFIG_FILES_LOCATION";
+
+    public static final String MESSAGE_BOX_FONT_NAME = "MESSAGE_BOX_FONT_NAME";
 }

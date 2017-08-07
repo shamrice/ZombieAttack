@@ -7,6 +7,7 @@ import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import org.newdawn.slick.Input;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class GameEngine {
     private Configuration configuration;
     private AreaManager areaManager;
     private PlayerActor player;
+    private MessageBox messageBox;
     private List<EnemyActor> enemyActors;
 
     private GameEngine() { }
@@ -51,6 +53,8 @@ public class GameEngine {
         if (!isConfigured) {
             areaManager = configuration.getAreaManager();
             areaManager.setCurrentAreaLocation(0, 0);
+
+            messageBox = new MessageBox(configuration.getMessageBoxConfig());
 
             player = configuration.getConfiguredPlayerActor();
             player.setyPos(65);
@@ -87,6 +91,9 @@ public class GameEngine {
                     player.getCurrentProjectile().getyPos()
             );
         }
+
+        messageBox.draw();
+
     }
 
     public void handlePlayerInput(Input input, int delta) {
@@ -145,9 +152,22 @@ public class GameEngine {
 
                             !enemy.isAlive())
                     {
-                        player.addToInventory(
-                                enemy.getItemDrop()
-                        );
+
+                        if (!enemy.isLooted()) {
+
+                            InventoryItem itemToAdd = enemy.getItemDrop();
+
+                            if (itemToAdd != null) {
+                                if (player.addToInventory(itemToAdd)) {
+                                    messageBox.write(itemToAdd.getNameString() + " has been added to your inventory.");
+                                } else {
+                                    messageBox.write(itemToAdd.getNameString() + " cannot be picked up.");
+                                }
+                            }
+                        } else {
+                            // TODO: this floods the messagebox with too many of the same messages.
+                            //messageBox.write("There is nothing to be picked up.");
+                        }
                     }
                 }
             }
@@ -162,7 +182,13 @@ public class GameEngine {
                     System.out.println("  ITEM TYPE: " + item.getType().name());
                     System.out.println(" ITEM VALUE: " + item.getValue());
                     System.out.println("DESCRIPTION: \n" + item.getDescription() + "\n");
+
+                    messageBox.write(item.getNameString());
                 }
+            }
+
+            if (input.isKeyDown(Input.KEY_T)) {
+                messageBox.write("TEST BUTTON PRESSED");
             }
 
             // TODO: Move into own method?

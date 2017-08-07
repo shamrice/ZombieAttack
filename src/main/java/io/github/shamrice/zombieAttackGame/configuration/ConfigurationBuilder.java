@@ -4,7 +4,9 @@ import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -75,7 +77,8 @@ public class ConfigurationBuilder {
 
             configuration = new Configuration(
                     buildAssetConfiguration(),
-                    areaManager
+                    areaManager,
+                    buildMessageBoxFont()
             );
 
         } catch (Exception ex) {
@@ -121,5 +124,15 @@ public class ConfigurationBuilder {
 
         return fileNames;
 
+    }
+
+    private static TrueTypeFont buildMessageBoxFont() {
+        String fontName = configProperties.getProperty(
+                ConfigurationDefinitions.MESSAGE_BOX_FONT_NAME
+        );
+
+        Font font = new Font(fontName, Font.PLAIN, 12);
+
+        return new TrueTypeFont(font, true);
     }
 }

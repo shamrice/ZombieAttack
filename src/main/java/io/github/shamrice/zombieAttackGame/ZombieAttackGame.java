@@ -1,19 +1,10 @@
 package io.github.shamrice.zombieAttackGame;
 
-import io.github.shamrice.zombieAttackGame.actors.Directions;
-import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
-import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
-import io.github.shamrice.zombieAttackGame.areas.AreaManager;
-import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.ConfigurationBuilder;
-import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.core.GameEngine;
 import org.newdawn.slick.*;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Erik on 7/20/2017.
@@ -30,7 +21,7 @@ public class ZombieAttackGame extends BasicGame {
     public static void main(String[] arguments) {
         try {
             AppGameContainer app = new AppGameContainer(new ZombieAttackGame());
-            app.setDisplayMode(800, 600, false);
+            app.setDisplayMode(1024, 768, false);
             app.setTargetFrameRate(60);
             app.start();
         }
@@ -79,6 +70,7 @@ public class ZombieAttackGame extends BasicGame {
     public void render(GameContainer container, Graphics g) throws SlickException {
 
         gameEngine.renderScene();
+
     }
 
 }

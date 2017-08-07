@@ -43,6 +43,10 @@ public class EnemyActor extends Actor {
         return this.health > 0;
     }
 
+    public boolean isLooted() {
+        return isLooted;
+    }
+
     public InventoryItem getItemDrop() {
 
         if (!isLooted) {

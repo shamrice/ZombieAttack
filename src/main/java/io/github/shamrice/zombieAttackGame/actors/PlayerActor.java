@@ -54,7 +54,7 @@ public class PlayerActor extends Actor {
         return currentProjectile;
     }
 
-    public void addToInventory(InventoryItem inventoryItem) {
+    public boolean addToInventory(InventoryItem inventoryItem) {
 
         //TODO : if blocks can be combined. Currently this way for debug messaging.
 
@@ -67,13 +67,18 @@ public class PlayerActor extends Actor {
 
                 if (!inventory.addInventoryItem(inventoryItem)) {
                     System.out.println("Failed to add item to inventory.");
+                    return false;
                 }
             } else {
                 System.out.println("Item was null. Already looted? Item will not be added.");
+                return false;
             }
         } else {
             System.out.println("Inventory currently full. Cannot be added.");
+            return false;
         }
+
+        return true;
     }
 
     public Inventory getInventory() {
