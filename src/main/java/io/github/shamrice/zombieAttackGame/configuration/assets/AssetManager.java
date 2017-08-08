@@ -48,6 +48,11 @@ public class AssetManager {
 
                 AssetConfiguration assetConfiguration = new AssetConfiguration(assetConfig);
 
+                /* TODO:
+                        only build asset configuration for images that exist. Currently this requires
+                       redundant images for each image possibility. (Even if they aren't used)
+                */
+
                 //Read image file names from config.
                 String[] upImageNames = configProperties.getProperty(
                         assetConfig + ConfigurationDefinitions.IMAGES_UP_SUFFIX

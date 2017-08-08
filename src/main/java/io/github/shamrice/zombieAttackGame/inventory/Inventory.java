@@ -68,18 +68,4 @@ public class Inventory {
         return false;
     }
 
-    // TODO : Possibly remove this as the builder should be used instead.
-    public void addInventoryItem(InventoryItemNames inventoryItemName, InventoryItemTypes inventoryItemType, int value) {
-
-        if (inventoryItemList.size() < inventorySize) {
-            inventoryItemList.add(
-                    new InventoryItem(
-                            inventoryItemName,
-                            inventoryItemType,
-                            value,
-                            ""
-                    )
-            );
-        }
-    }
 }

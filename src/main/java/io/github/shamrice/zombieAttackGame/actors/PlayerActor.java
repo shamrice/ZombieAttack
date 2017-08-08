@@ -58,8 +58,7 @@ public class PlayerActor extends Actor {
 
         //TODO : if blocks can be combined. Currently this way for debug messaging.
 
-        if (!inventory.isFull()) {
-            if (inventoryItem != null) {
+        if (inventoryItem != null) {
 
                 System.out.println("Adding " + inventoryItem.getNameString() + " to inventory.");
                 System.out.println("          Item type: " + inventoryItem.getType().name());
@@ -70,13 +69,10 @@ public class PlayerActor extends Actor {
                     return false;
                 }
             } else {
-                System.out.println("Item was null. Already looted? Item will not be added.");
-                return false;
-            }
-        } else {
-            System.out.println("Inventory currently full. Cannot be added.");
+            System.out.println("Item was null. Already looted? Item will not be added.");
             return false;
         }
+
 
         return true;
     }

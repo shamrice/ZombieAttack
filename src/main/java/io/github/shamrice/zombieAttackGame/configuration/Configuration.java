@@ -18,6 +18,7 @@ public class Configuration {
     private AssetManager assetManager;
     private AreaManager areaManager;
     private MessageBoxConfig messageBoxConfig;
+    private MessageBoxConfig inventoryMessageBoxConfig;
 
     public Configuration(AssetManager assetManager, AreaManager areaManager, TrueTypeFont messageBoxFont) throws SlickException {
         this.assetManager = assetManager;
@@ -31,6 +32,13 @@ public class Configuration {
         this.messageBoxConfig = new MessageBoxConfig(
                 assetManager.getAssetConfiguration(AssetTypes.MESSAGE_BOX),
                 messageBoxFont
+        );
+
+        this.inventoryMessageBoxConfig = new MessageBoxConfig(
+                assetManager.getAssetConfiguration(AssetTypes.INVENTORY),
+                messageBoxFont,
+                800,
+                0
         );
     }
 
@@ -50,4 +58,7 @@ public class Configuration {
         return messageBoxConfig;
     }
 
+    public MessageBoxConfig getInventoryMessageBoxConfig() {
+        return inventoryMessageBoxConfig;
+    }
 }

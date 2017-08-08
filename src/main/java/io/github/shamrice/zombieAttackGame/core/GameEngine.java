@@ -6,6 +6,7 @@ import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
+import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
@@ -34,6 +35,7 @@ public class GameEngine {
     private AreaManager areaManager;
     private PlayerActor player;
     private MessageBox messageBox;
+    private InventoryDialogBox inventoryDialogBox;
     private List<EnemyActor> enemyActors;
 
     private GameEngine() { }
@@ -56,6 +58,8 @@ public class GameEngine {
             areaManager.setCurrentAreaLocation(0, 0);
 
             messageBox = new MessageBox(configuration.getMessageBoxConfig());
+
+            inventoryDialogBox = new InventoryDialogBox(configuration.getInventoryMessageBoxConfig());
 
             player = configuration.getConfiguredPlayerActor();
             player.setyPos(65);
@@ -97,6 +101,7 @@ public class GameEngine {
         );
 
         messageBox.draw();
+        inventoryDialogBox.draw(player.getInventory());
 
     }
 
@@ -185,6 +190,10 @@ public class GameEngine {
 
             //debug display inventory items
             if (input.isKeyDown(Input.KEY_I)) {
+
+                messageBox.write("INVENTORY:");
+                messageBox.write("----------");
+
                 for (int i = 0; i < player.getInventory().getNumberOfItems(); i++) {
                     InventoryItem item = player.getInventory().getInventoryItem(i);
 

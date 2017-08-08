@@ -10,5 +10,6 @@ public enum AssetTypes {
     YARNBALL,
     BULLET_PROJECTILE,
     MESSAGE_BOX,
+    INVENTORY,
     OTHER
 }

@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration.messaging;
 
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
+import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import org.newdawn.slick.TrueTypeFont;
 
 /**
@@ -8,8 +9,8 @@ import org.newdawn.slick.TrueTypeFont;
  */
 public class MessageBoxConfig {
 
-    private final int xPos = 0;
-    private final int yPos = 600;
+    private int xPos = 0;
+    private int yPos = 600;
 
     private AssetConfiguration assetConfiguration;
     private TrueTypeFont trueTypeFont;
@@ -18,6 +19,16 @@ public class MessageBoxConfig {
 
         this.assetConfiguration = assetConfiguration;
         this.trueTypeFont = trueTypeFont;
+    }
+
+    public MessageBoxConfig(AssetConfiguration assetConfiguration, TrueTypeFont trueTypeFont,
+                            int xPos, int yPos) {
+
+        this.assetConfiguration = assetConfiguration;
+        this.trueTypeFont = trueTypeFont;
+        this.xPos = xPos;
+        this.yPos = yPos;
+
     }
 
     public AssetConfiguration getAssetConfiguration() {
@@ -35,4 +46,5 @@ public class MessageBoxConfig {
     public int getyPos() {
         return yPos;
     }
+
 }
