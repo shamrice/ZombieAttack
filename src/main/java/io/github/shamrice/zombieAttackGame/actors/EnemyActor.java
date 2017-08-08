@@ -30,6 +30,7 @@ public class EnemyActor extends Actor {
 
     public void decreaseHealth(int amount) {
         health -= amount;
+        currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
         System.out.println("CURRENT ENEMY: " + health);

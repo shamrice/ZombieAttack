@@ -76,12 +76,17 @@ public class AssetManager {
                         assetConfig + ConfigurationDefinitions.IMAGES_DEAD_SUFFIX
                 ).split(",");
 
+                String[] hurtImageNames = configProperties.getProperty(
+                        assetConfig + ConfigurationDefinitions.IMAGES_HURT_SUFFIX
+                ).split(",");
+
                 //Load image array with images using file names from config
                 Image[] upImages = new Image[upImageNames.length];
                 Image[] downImages = new Image[downImageNames.length];
                 Image[] leftImages = new Image[leftImageNames.length];
                 Image[] rightImages = new Image[rightImageNames.length];
                 Image[] deadImages = new Image[deadImageNames.length];
+                Image[] hurtImages = new Image[hurtImageNames.length];
 
                 for (int i = 0; i < upImageNames.length; i++) {
                     upImages[i] = new Image(upImageNames[i]);
@@ -99,6 +104,10 @@ public class AssetManager {
 
                 for (int i = 0; i < deadImageNames.length; i++) {
                     deadImages[i] = new Image(deadImageNames[i]);
+                }
+
+                for (int i = 0; i < hurtImageNames.length; i++) {
+                    hurtImages[i] = new Image(hurtImageNames[i]);
                 }
 
                 //set animation durations for frames
@@ -127,9 +136,13 @@ public class AssetManager {
                 assetConfiguration.addImages(ImageTypes.IMAGE_LEFT, leftImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_RIGHT, rightImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_DEAD, deadImages);
+                assetConfiguration.addImages(ImageTypes.IMAGE_HURT, hurtImages);
                 assetConfiguration.setFrameDurations(durations);
 
                 //add animations to config using images and frame durations
+
+                //TODO : number of durations should be based on number of images, not hardcoded.
+
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_UP,
                         new Animation(upImages, durations, false)
@@ -153,6 +166,11 @@ public class AssetManager {
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_DEAD,
                         new Animation(deadImages, 1, false)
+                );
+
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_HURT,
+                        new Animation(hurtImages, 1, false)
                 );
 
                 //put completed asset configuration in map
