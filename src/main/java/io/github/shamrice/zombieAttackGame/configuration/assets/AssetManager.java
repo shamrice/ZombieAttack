@@ -80,6 +80,10 @@ public class AssetManager {
                         assetConfig + ConfigurationDefinitions.IMAGES_HURT_SUFFIX
                 ).split(",");
 
+                String[] attackImageNames = configProperties.getProperty(
+                        assetConfig + ConfigurationDefinitions.IMAGES_ATTACK_SUFFIX
+                ).split(",");
+
                 //Load image array with images using file names from config
                 Image[] upImages = new Image[upImageNames.length];
                 Image[] downImages = new Image[downImageNames.length];
@@ -87,6 +91,7 @@ public class AssetManager {
                 Image[] rightImages = new Image[rightImageNames.length];
                 Image[] deadImages = new Image[deadImageNames.length];
                 Image[] hurtImages = new Image[hurtImageNames.length];
+                Image[] attackImages = new Image[attackImageNames.length];
 
                 for (int i = 0; i < upImageNames.length; i++) {
                     upImages[i] = new Image(upImageNames[i]);
@@ -108,6 +113,10 @@ public class AssetManager {
 
                 for (int i = 0; i < hurtImageNames.length; i++) {
                     hurtImages[i] = new Image(hurtImageNames[i]);
+                }
+
+                for (int i = 0; i < attackImageNames.length; i++) {
+                    attackImages[i] = new Image(attackImageNames[i]);
                 }
 
                 //set animation durations for frames
@@ -137,6 +146,7 @@ public class AssetManager {
                 assetConfiguration.addImages(ImageTypes.IMAGE_RIGHT, rightImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_DEAD, deadImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_HURT, hurtImages);
+                assetConfiguration.addImages(ImageTypes.IMAGE_ATTACK, hurtImages);
                 assetConfiguration.setFrameDurations(durations);
 
                 //add animations to config using images and frame durations
@@ -171,6 +181,11 @@ public class AssetManager {
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_HURT,
                         new Animation(hurtImages, 1, false)
+                );
+
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_ATTACK,
+                        new Animation(attackImages, 1, false)
                 );
 
                 //put completed asset configuration in map

@@ -40,6 +40,10 @@ public class EnemyActor extends Actor {
         }
     }
 
+    public void attack() {
+        currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_ATTACK);
+    }
+
     public boolean isAlive() {
         return this.health > 0;
     }

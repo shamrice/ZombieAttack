@@ -141,15 +141,7 @@ public class GameEngine {
 
             //fire projectile if not currently fired.
             if (input.isKeyDown(Input.KEY_SPACE)) {
-                if (!player.getCurrentProjectile().isActive()) {
-                    player.getCurrentProjectile().setActive(true);
-                    player.getCurrentProjectile().setxPos(player.getxPos());
-                    player.getCurrentProjectile().setyPos(player.getyPos());
-
-                    if (player.getCurrentDirection() != Directions.NONE) {
-                        player.getCurrentProjectile().setDirection(player.getCurrentDirection());
-                    }
-                }
+                player.attack();
             }
 
             //get item from fallen enemy.
@@ -275,10 +267,9 @@ public class GameEngine {
                             .getCollisionRect()
                             .intersects(player.getCollisionRect())) {
 
+                        enemy.attack();
                         player.decreaseHealth(enemy.getAttackDamage());
                         messageBox.write(enemy.getName() + " attacks you for " + enemy.getAttackDamage() + " damage.");
-
-                        //TODO : enemy attack animation
 
                     } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
                         enemy.move(enemy.getOppositeLastDirection(), delta);

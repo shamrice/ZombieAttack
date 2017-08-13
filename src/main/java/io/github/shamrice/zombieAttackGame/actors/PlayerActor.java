@@ -48,6 +48,20 @@ public class PlayerActor extends Actor {
         return attackDamage;
     }
 
+    public void attack() {
+        if (!currentProjectile.isActive()) {
+            currentProjectile.setActive(true);
+            currentProjectile.setxPos(xPos);
+            currentProjectile.setyPos(yPos);
+
+            if (getCurrentDirection() != Directions.NONE) {
+                currentProjectile.setDirection(getCurrentDirection());
+            }
+
+            currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_ATTACK);
+        }
+    }
+
     public boolean isAlive() {
         return this.health > 0;
     }
