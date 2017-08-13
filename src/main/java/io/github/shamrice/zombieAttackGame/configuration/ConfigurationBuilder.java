@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
+import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
 import org.newdawn.slick.SlickException;
@@ -48,20 +49,11 @@ public class ConfigurationBuilder {
         System.out.println("Loading area config...");
 
         AreaManager areaManager = null;
-        File areaConfigDirectory = new File(configProperties.getProperty(ConfigurationDefinitions.AREA_CONFIG_FILES_LOCATION));
-        String areaConfigLocation = areaConfigDirectory.getPath() + "/";
 
-        if (!areaConfigDirectory.exists()) {
-            System.out.println("Cannot find configured area config directory. Trying ./conf/areas/");
-            areaConfigLocation = "conf/areas/";
-        }
 
         try {
 
-             areaManager = new AreaManager(
-                    buildAreaTileFilesArray(),
-                    areaConfigLocation
-            );
+             areaManager = new AreaManager(buildWorldsConfiguration());
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -99,7 +91,13 @@ public class ConfigurationBuilder {
         return assetManager;
     }
 
-    private static String[][] buildAreaTileFilesArray() {
+    private static WorldsConfiguration buildWorldsConfiguration() {
+
+        int numWorlds = Integer.parseInt(
+                configProperties.getProperty(
+                        ConfigurationDefinitions.AREA_NUM_WORLDS
+                )
+        );
 
         int maxX = Integer.parseInt(
                 configProperties.getProperty(
@@ -111,18 +109,31 @@ public class ConfigurationBuilder {
                         ConfigurationDefinitions.AREA_MAX_Y
                 ));
 
-        String[][] fileNames = new String[maxX][maxY];
+        String[][][] fileNames = new String[numWorlds][maxX][maxY];
 
-        for (int x = 0; x < maxX; x++) {
-            for (int y = 0; y < maxY; y++) {
-                fileNames[x][y] = configProperties.getProperty(
-                        ConfigurationDefinitions.AREA_FILES_LOCATION
-                ) + x + "_" + y + ".tmx";
+        for (int w = 0; w < numWorlds; w++) {
+            for (int x = 0; x < maxX; x++) {
+                for (int y = 0; y < maxY; y++) {
+                    fileNames[w][x][y] = configProperties.getProperty(
+                            ConfigurationDefinitions.AREA_FILES_LOCATION
+                    ) + w + "_" + x + "_" + y + ".tmx";
 
+                }
             }
         }
 
-        return fileNames;
+        File areaConfigDirectory = new File(configProperties.getProperty(ConfigurationDefinitions.AREA_CONFIG_FILES_LOCATION));
+        String areaConfigLocation = areaConfigDirectory.getPath() + "/";
+
+        if (!areaConfigDirectory.exists()) {
+            System.out.println("Cannot find configured area config directory. Trying ./conf/areas/");
+            areaConfigLocation = "conf/areas/";
+        }
+
+        WorldsConfiguration worldsConfiguration = new WorldsConfiguration(numWorlds, maxX, maxY, areaConfigLocation);
+        worldsConfiguration.setTileFileNames(fileNames);
+
+        return worldsConfiguration;
 
     }
 

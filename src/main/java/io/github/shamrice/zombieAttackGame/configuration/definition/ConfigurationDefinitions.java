@@ -19,6 +19,7 @@ public class ConfigurationDefinitions {
     public static final String ANIMATION_DURATION_PER_FRAME_SUFFIX = "_ANIMATION_DURATION_PER_FRAME";
 
     public static final String AREA_FILES_LOCATION = "AREA_FILES_LOCATION";
+    public static final String AREA_NUM_WORLDS = "AREA_NUM_WORLDS";
     public static final String AREA_MAX_X= "AREA_MAX_X";
     public static final String AREA_MAX_Y = "AREA_MAX_Y";
 

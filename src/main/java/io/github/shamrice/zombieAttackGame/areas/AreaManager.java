@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.areas;
 
+import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -8,28 +9,30 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class AreaManager {
 
-    private Area[][] areaMatrix;
-    private int mapSizeX;
-    private int mapSizeY;
+    private Area[][][] areaMatrix;
+    private WorldsConfiguration worldsConfiguration;
+    private int currentWorld;
     private int currentX;
     private int currentY;
-    private String areaConfigLocation;
 
-    public AreaManager(String[][] tileMapFileNames, String areaConfigLocation) {
+    public AreaManager(WorldsConfiguration worldsConfiguration) {
 
-        this.areaConfigLocation = areaConfigLocation;
+        this.worldsConfiguration = worldsConfiguration;
 
-        this.mapSizeX = tileMapFileNames.length;
-        this.mapSizeY = tileMapFileNames[0].length;
-        this.areaMatrix = new Area[mapSizeX][mapSizeY];
+        this.areaMatrix = new Area
+                [worldsConfiguration.getMaxWorlds()]
+                [worldsConfiguration.getMaxWorldX()]
+                [worldsConfiguration.getMaxWorldY()];
 
-        for (int x = 0; x < mapSizeX; x++) {
-            for (int y = 0; y < mapSizeY; y++) {
-                areaMatrix[x][y] = new Area(x,
-                        y,
-                        tileMapFileNames[x][y],
-                        areaConfigLocation + "area_" + x + "_" + y + ".properties"
-                );
+        for (int w = 0; w < worldsConfiguration.getMaxWorlds(); w++) {
+            for (int x = 0; x < worldsConfiguration.getMaxWorldX(); x++) {
+                for (int y = 0; y < worldsConfiguration.getMaxWorldY(); y++) {
+                    areaMatrix[w][x][y] = new Area(x,
+                            y,
+                            worldsConfiguration.getTileFileName(w, x, y),
+                            worldsConfiguration.getAreaConfigLocation() + "area_" + w + "_" + x + "_" + y + ".properties"
+                    );
+                }
             }
         }
 
@@ -45,30 +48,30 @@ public class AreaManager {
         return this.currentY;
     }
 
-    public Area getArea(int xPos, int yPos) {
-        if ((xPos < mapSizeX && xPos >= 0) && (yPos < mapSizeY && yPos >= 0)) {
-            return areaMatrix[xPos][yPos];
+    public Area getArea(int world, int xPos, int yPos) {
+        if ((xPos < worldsConfiguration.getMaxWorldX() && xPos >= 0) && (yPos < worldsConfiguration.getMaxWorldY() && yPos >= 0)) {
+            return areaMatrix[world][xPos][yPos];
         }
 
         return null;
     }
 
     public Area getCurrentArea() {
-        return areaMatrix[currentX][currentY];
+        return areaMatrix[currentWorld][currentX][currentY];
     }
 
     public void setCurrentAreaLocation(int newX, int newY) {
-        if ((newX < mapSizeX && newX >= 0) && (newY < mapSizeY && newY >= 0)) {
+        if ((newX < worldsConfiguration.getMaxWorldX() && newX >= 0) && (newY < worldsConfiguration.getMaxWorldY() && newY >= 0)) {
 
             //unload previous area map
-            areaMatrix[currentX][currentY].unload();
+            areaMatrix[currentWorld][currentX][currentY].unload();
 
             currentX = newX;
             currentY = newY;
 
             //load new area map
             try {
-                areaMatrix[currentX][currentY].load();
+                areaMatrix[currentWorld][currentX][currentY].load();
             } catch (SlickException slickExc) {
                 System.out.println("ERROR: unable to load area [" + currentX + "][" + currentY + "].");
                 slickExc.printStackTrace();
@@ -76,7 +79,17 @@ public class AreaManager {
         }
     }
 
+    /**
+     * Sets current world to newWorld and sets CurrentX and CurrentY to 0,0 in
+     * new world.
+     * @param newWorld
+     */
+    public void setCurrentWorld(int newWorld) {
+        this.currentWorld = newWorld;
+        setCurrentAreaLocation(0, 0);
+    }
+
     public TiledMap getCurrentAreaTileMap() {
-        return areaMatrix[currentX][currentY].getTiledMap();
+        return areaMatrix[currentWorld][currentX][currentY].getTiledMap();
     }
 }
