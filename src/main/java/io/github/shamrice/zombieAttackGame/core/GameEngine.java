@@ -9,6 +9,8 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
+import io.github.shamrice.zombieAttackGame.logger.ConsoleLogger;
+import io.github.shamrice.zombieAttackGame.logger.FileLogger;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import org.newdawn.slick.Input;
 
@@ -53,6 +55,7 @@ public class GameEngine {
     }
 
     public void configure() {
+        
         if (!isConfigured) {
             areaManager = configuration.getAreaManager();
             areaManager.setCurrentAreaLocation(0, 0);
