@@ -5,9 +5,10 @@ import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 
 /**
  * Created by Erik on 7/23/2017.
@@ -18,28 +19,17 @@ public class Configuration {
     private AssetManager assetManager;
     private AreaManager areaManager;
     private MessageBoxConfig messageBoxConfig;
-    private MessageBoxConfig inventoryMessageBoxConfig;
+    private InventoryBoxConfig inventoryBoxConfig;
 
-    public Configuration(AssetManager assetManager, AreaManager areaManager, TrueTypeFont messageBoxFont) throws SlickException {
+    public Configuration(AssetManager assetManager, AreaManager areaManager,
+                         PlayerActor playerActor, MessageBoxConfig messageBoxConfig,
+                         InventoryBoxConfig inventoryBoxConfig) throws SlickException {
+
         this.assetManager = assetManager;
         this.areaManager = areaManager;
-
-        playerActor = new PlayerActor(
-                assetManager.getAssetConfiguration(AssetTypes.PLAYER),
-                assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE)
-        );
-
-        this.messageBoxConfig = new MessageBoxConfig(
-                assetManager.getAssetConfiguration(AssetTypes.MESSAGE_BOX),
-                messageBoxFont
-        );
-
-        this.inventoryMessageBoxConfig = new MessageBoxConfig(
-                assetManager.getAssetConfiguration(AssetTypes.INVENTORY),
-                messageBoxFont,
-                800,
-                0
-        );
+        this.playerActor = playerActor;
+        this.messageBoxConfig = messageBoxConfig;
+        this.inventoryBoxConfig = inventoryBoxConfig;
     }
 
     public AssetConfiguration getAssetConfiguration(AssetTypes type) {
@@ -54,11 +44,11 @@ public class Configuration {
         return playerActor;
     }
 
-    public MessageBoxConfig getMessageBoxConfig() {
+    public InformationBoxConfig getMessageBoxConfig() {
         return messageBoxConfig;
     }
 
-    public MessageBoxConfig getInventoryMessageBoxConfig() {
-        return inventoryMessageBoxConfig;
+    public InformationBoxConfig getInventoryMessageBoxConfig() {
+        return inventoryBoxConfig;
     }
 }

@@ -1,7 +1,7 @@
 package io.github.shamrice.zombieAttackGame.messaging;
 
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
-import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ public class MessageBox {
 
     private final int MAX_LINES = 7;
 
-    private MessageBoxConfig messageBoxConfig;
+    private InformationBoxConfig messageBoxConfig;
     private List<String> currentText;
 
-    public MessageBox(MessageBoxConfig messageBoxConfig) {
+    public MessageBox(InformationBoxConfig messageBoxConfig) {
         this.messageBoxConfig = messageBoxConfig;
 
         this.currentText = new ArrayList<String>();

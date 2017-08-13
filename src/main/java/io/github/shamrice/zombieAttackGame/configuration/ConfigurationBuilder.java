@@ -1,9 +1,13 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
+import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
+import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -46,15 +50,12 @@ public class ConfigurationBuilder {
         }
 
         // LOAD AREA
-        System.out.println("Loading area config...");
+        System.out.println("Loading area configs and building world configuration...");
 
         AreaManager areaManager = null;
 
-
         try {
-
              areaManager = new AreaManager(buildWorldsConfiguration());
-
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Unable to resolve area config. Exiting...");
@@ -62,15 +63,50 @@ public class ConfigurationBuilder {
 
         }
 
+        //Asset configs
+        System.out.println("Building assets...");
+        AssetManager assetManager = null;
+
+        try {
+            assetManager = buildAssetConfiguration();
+        } catch (SlickException slickExc) {
+            slickExc.printStackTrace();
+            System.exit(-1);
+        }
+
+        //Information Box Configs
+        System.out.println("Building information box Configurations...");
+
+        TrueTypeFont trueTypeFont = buildMessageBoxFont();
+
+        MessageBoxConfig messageBoxConfig = new MessageBoxConfig(
+                assetManager.getAssetConfiguration(AssetTypes.MESSAGE_BOX),
+                trueTypeFont
+        );
+
+        InventoryBoxConfig inventoryBoxConfig = new InventoryBoxConfig(
+                assetManager.getAssetConfiguration(AssetTypes.INVENTORY),
+                trueTypeFont
+        );
+
+        //PlayerConfig
+        System.out.println("Building player configuration...");
+
+        PlayerActor playerActor = new PlayerActor(
+                assetManager.getAssetConfiguration(AssetTypes.PLAYER),
+                assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE)
+        );
+
         // BUILD CONFIGURATION
         System.out.println("Building complete configuration...");
-
         try {
 
             configuration = new Configuration(
                     buildAssetConfiguration(),
                     areaManager,
-                    buildMessageBoxFont()
+                    playerActor,
+                    messageBoxConfig,
+                    inventoryBoxConfig
             );
 
         } catch (Exception ex) {
@@ -78,7 +114,6 @@ public class ConfigurationBuilder {
             System.out.println("Failed to build configuration... exiting");
             System.exit(-2);
         }
-
 
         System.out.println("Configuration built successfully.");
         return configuration;
@@ -146,5 +181,6 @@ public class ConfigurationBuilder {
 
         return new TrueTypeFont(font, true);
     }
+
 
 }

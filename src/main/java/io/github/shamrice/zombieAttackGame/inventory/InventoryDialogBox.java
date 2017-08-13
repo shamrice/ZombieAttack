@@ -1,7 +1,7 @@
 package io.github.shamrice.zombieAttackGame.inventory;
 
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
-import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import org.newdawn.slick.Color;
 
@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class InventoryDialogBox {
 
-    private MessageBoxConfig config;
+    private InformationBoxConfig config;
     private List<String> currentText;
 
-    public InventoryDialogBox(MessageBoxConfig config) {
+    public InventoryDialogBox(InformationBoxConfig config) {
         this.config = config;
 
         this.currentText = new ArrayList<String>();
