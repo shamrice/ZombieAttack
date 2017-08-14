@@ -55,7 +55,7 @@ public class ZombieAttackGame extends BasicGame {
 
         //check if dead or quit requested
         if (gameEngine.isGameOver()) {
-            System.out.println("Game over");
+            System.out.println("Exiting...");
             container.exit();
         }
 

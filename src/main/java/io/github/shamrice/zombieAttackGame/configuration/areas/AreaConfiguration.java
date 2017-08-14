@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration.areas;
 
 import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,7 +31,7 @@ public class AreaConfiguration {
         configInput.close();
 
         if (!setUpEnemies()) {
-            System.out.println("Failure in " + areaConfigFileName + ". Please check for errors.");
+            Log.logError("Failure in " + areaConfigFileName + ". Please check for errors.");
         }
     }
 
@@ -65,8 +66,10 @@ public class AreaConfiguration {
             return true;
 
         } catch (NumberFormatException numFormatEx) {
-            System.out.println("ERROR: Failed to set up enemies in area. Defaulting to zero.");
-            numFormatEx.printStackTrace();
+            Log.logException(
+                    "ERROR: Failed to set up enemies in area. Defaulting to zero.",
+                    numFormatEx
+            );
         }
 
         return false;

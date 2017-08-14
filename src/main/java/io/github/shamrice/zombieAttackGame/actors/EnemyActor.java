@@ -4,6 +4,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfigurati
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.inventory.DropCalculator;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 
 /**
  * Created by Erik on 7/29/2017.
@@ -33,7 +34,7 @@ public class EnemyActor extends Actor {
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
-        System.out.println("CURRENT ENEMY: " + health);
+        Log.logDebug("CURRENT ENEMY: " + health);
 
         if (health <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
@@ -55,7 +56,7 @@ public class EnemyActor extends Actor {
     public InventoryItem getItemDrop() {
 
         if (!isLooted) {
-            System.out.println("Getting item from fallen enemy: " + itemDrop.getNameString());
+            Log.logDebug("Getting item from fallen enemy: " + itemDrop.getNameString());
 
             isLooted = true;
             return itemDrop;

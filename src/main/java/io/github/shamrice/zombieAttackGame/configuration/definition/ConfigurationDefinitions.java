@@ -8,6 +8,10 @@ public class ConfigurationDefinitions {
     //TODO : debug location... set to final location or pass as parameter???
     public static final String CONFIGURATION_FILE_LOCATION = "target/classes/conf/config.properties";
 
+    public static final String LOG_FILENAME = "log.filename";
+    public static final String LOG_LEVEL = "log.level";
+    public static final String LOG_TYPE = "log.type";
+
     public static final String ASSET_CONFIGURATIONS = "ASSET_CONFIGURATIONS";
 
     public static final String IMAGES_UP_SUFFIX = "_IMAGES_UP";

@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration.assets;
 
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -129,9 +130,10 @@ public class AssetManager {
                             )
                     );
                 } catch (NumberFormatException numFormatEx) {
-                    System.out.println("Failed to set animation duration for " + assetConfig +
-                            ". Defaulting to " + DEFAULT_ANIMATION_DURATION + ".");
-                    numFormatEx.printStackTrace();
+                    Log.logException("Failed to set animation duration for " + assetConfig +
+                            ". Defaulting to " + DEFAULT_ANIMATION_DURATION + ".",
+                            numFormatEx
+                    );
                 }
 
                 int[] durations = new int[rightImages.length];
@@ -195,8 +197,10 @@ public class AssetManager {
                             assetConfiguration
                     );
                 } catch (Exception addAsssetEx) {
-                    System.out.println("ERROR: Unable to add asset " + assetConfig + ".");
-                    addAsssetEx.printStackTrace();
+                    Log.logException(
+                            "ERROR: Unable to add asset " + assetConfig + ".",
+                            addAsssetEx
+                    );
                 }
             }
         }

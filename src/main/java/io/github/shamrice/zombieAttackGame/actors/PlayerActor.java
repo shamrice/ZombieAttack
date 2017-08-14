@@ -6,6 +6,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfigurati
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 import jdk.internal.util.xml.impl.Input;
 
 /**
@@ -35,7 +36,7 @@ public class PlayerActor extends Actor {
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
-        System.out.println("CURRENT HEALTH: " + health);
+        Log.logDebug("CURRENT HEALTH: " + health);
 
         if (health <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
@@ -76,16 +77,16 @@ public class PlayerActor extends Actor {
 
         if (inventoryItem != null) {
 
-                System.out.println("Adding " + inventoryItem.getNameString() + " to inventory.");
-                System.out.println("          Item type: " + inventoryItem.getType().name());
-                System.out.println("         Item Value: " + inventoryItem.getValue());
+            Log.logDebug("Adding " + inventoryItem.getNameString() + " to inventory.");
+            Log.logDebug("          Item type: " + inventoryItem.getType().name());
+            Log.logDebug("         Item Value: " + inventoryItem.getValue());
 
-                if (!inventory.addInventoryItem(inventoryItem)) {
-                    System.out.println("Failed to add item to inventory.");
-                    return false;
-                }
-            } else {
-            System.out.println("Item was null. Already looted? Item will not be added.");
+            if (!inventory.addInventoryItem(inventoryItem)) {
+                Log.logDebug("Failed to add item to inventory.");
+                return false;
+            }
+        } else {
+            Log.logDebug("Item was null. Already looted? Item will not be added.");
             return false;
         }
 

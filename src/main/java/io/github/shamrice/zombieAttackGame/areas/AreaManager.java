@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.areas;
 
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -73,8 +74,10 @@ public class AreaManager {
             try {
                 areaMatrix[currentWorld][currentX][currentY].load();
             } catch (SlickException slickExc) {
-                System.out.println("ERROR: unable to load area [" + currentX + "][" + currentY + "].");
-                slickExc.printStackTrace();
+                Log.logException(
+                        "ERROR: unable to load area [" + currentX + "][" + currentY + "].",
+                        slickExc
+                );
             }
         }
     }

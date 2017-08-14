@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.configuration.assets;
 
+import io.github.shamrice.zombieAttackGame.logger.Log;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 
@@ -54,7 +55,7 @@ public class AssetConfiguration {
         try {
             return animations.get(ImageTypes.valueOf(imageType));
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Log.logException("Error returning animation", ex);
             return null;
         }
     }

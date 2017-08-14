@@ -9,8 +9,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
-import io.github.shamrice.zombieAttackGame.logger.ConsoleLogger;
-import io.github.shamrice.zombieAttackGame.logger.FileLogger;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import org.newdawn.slick.Input;
 
@@ -55,7 +54,7 @@ public class GameEngine {
     }
 
     public void configure() {
-        
+
         if (!isConfigured) {
             areaManager = configuration.getAreaManager();
             areaManager.setCurrentAreaLocation(0, 0);
@@ -117,7 +116,6 @@ public class GameEngine {
 
         if (player.isAlive()) {
 
-
             Directions attemptedDirection = Directions.NONE;
 
             //if shift, they're running.
@@ -153,7 +151,6 @@ public class GameEngine {
                     if (enemy
                             .getCollisionRect()
                             .intersects(player.getCollisionRect()) &&
-
                             !enemy.isAlive())
                     {
 
@@ -233,7 +230,7 @@ public class GameEngine {
             }
 
             if (areaCollision) {
-                System.out.println("Currently collided with environment. If message continues... there is an error");
+                Log.logDebug("Currently collided with environment. If message continues... there is an error");
             }
 
             checkAreaBounds();

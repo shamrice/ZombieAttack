@@ -6,8 +6,13 @@ import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfigurati
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
+import io.github.shamrice.zombieAttackGame.configuration.logger.LogTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.logger.Log;
+import io.github.shamrice.zombieAttackGame.logger.LogLevel;
+import io.github.shamrice.zombieAttackGame.logger.types.ConsoleLogger;
+import io.github.shamrice.zombieAttackGame.logger.types.FileLogger;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -17,6 +22,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import static io.github.shamrice.zombieAttackGame.configuration.logger.LogTypes.CONSOLE;
 
 /**
  * Created by Erik on 7/23/2017.
@@ -49,33 +56,45 @@ public class ConfigurationBuilder {
             System.exit(-1);
         }
 
+        //Set up logger
+        String logType = configProperties.getProperty(ConfigurationDefinitions.LOG_TYPE);
+        LogLevel logLevel = LogLevel.valueOf(configProperties.getProperty(ConfigurationDefinitions.LOG_LEVEL));
+
+        if (logType.equals(LogTypes.CONSOLE.name())) {
+            Log.setLogger(new ConsoleLogger(), logLevel);
+        } else if (logType.equals(LogTypes.FILE.name())) {
+            Log.setLogger(
+                    new FileLogger(configProperties.getProperty(ConfigurationDefinitions.LOG_FILENAME)),
+                    logLevel
+            );
+        }
+
         // LOAD AREA
-        System.out.println("Loading area configs and building world configuration...");
+        Log.logInfo("Loading area configs and building world configuration...");
 
         AreaManager areaManager = null;
 
         try {
              areaManager = new AreaManager(buildWorldsConfiguration());
         } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Unable to resolve area config. Exiting...");
+            Log.logException("Unable to resolve area config. Exiting...", ex);
             System.exit(-1);
 
         }
 
         //Asset configs
-        System.out.println("Building assets...");
+        Log.logInfo("Building assets...");
         AssetManager assetManager = null;
 
         try {
             assetManager = buildAssetConfiguration();
         } catch (SlickException slickExc) {
-            slickExc.printStackTrace();
+            Log.logException("Error building assets configuration", slickExc);
             System.exit(-1);
         }
 
         //Information Box Configs
-        System.out.println("Building information box Configurations...");
+        Log.logInfo("Building information box Configurations...");
 
         TrueTypeFont trueTypeFont = buildMessageBoxFont();
 
@@ -90,7 +109,7 @@ public class ConfigurationBuilder {
         );
 
         //PlayerConfig
-        System.out.println("Building player configuration...");
+        Log.logInfo("Building player configuration...");
 
         PlayerActor playerActor = new PlayerActor(
                 assetManager.getAssetConfiguration(AssetTypes.PLAYER),
@@ -98,7 +117,7 @@ public class ConfigurationBuilder {
         );
 
         // BUILD CONFIGURATION
-        System.out.println("Building complete configuration...");
+        Log.logInfo("Building complete configuration...");
         try {
 
             configuration = new Configuration(
@@ -110,12 +129,11 @@ public class ConfigurationBuilder {
             );
 
         } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Failed to build configuration... exiting");
+            Log.logException("Failed to build configuration... exiting", ex);
             System.exit(-2);
         }
 
-        System.out.println("Configuration built successfully.");
+        Log.logInfo("Configuration built successfully.");
         return configuration;
     }
 
@@ -161,7 +179,7 @@ public class ConfigurationBuilder {
         String areaConfigLocation = areaConfigDirectory.getPath() + "/";
 
         if (!areaConfigDirectory.exists()) {
-            System.out.println("Cannot find configured area config directory. Trying ./conf/areas/");
+            Log.logError("Cannot find configured area config directory. Trying ./conf/areas/");
             areaConfigLocation = "conf/areas/";
         }
 
