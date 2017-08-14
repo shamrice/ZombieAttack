@@ -60,7 +60,9 @@ public class AreaConfiguration {
 
         try {
             numEnemeies = Integer.parseInt(
-                    areaConfigProperties.get("NUMBER_OF_ENEMIES").toString()
+                    areaConfigProperties.get(
+                            AreaConfigurationDefinitions.AREA_ENEMIES_COUNT
+                    ).toString()
             );
 
             return true;

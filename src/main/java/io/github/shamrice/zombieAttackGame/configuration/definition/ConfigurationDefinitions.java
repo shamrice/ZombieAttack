@@ -12,24 +12,23 @@ public class ConfigurationDefinitions {
     public static final String LOG_LEVEL = "log.level";
     public static final String LOG_TYPE = "log.type";
 
-    public static final String ASSET_CONFIGURATIONS = "ASSET_CONFIGURATIONS";
+    public static final String ASSET_CONFIGURATIONS = "asset.configurations";
 
-    public static final String IMAGES_UP_SUFFIX = "_IMAGES_UP";
-    public static final String IMAGES_DOWN_SUFFIX = "_IMAGES_DOWN";
-    public static final String IMAGES_LEFT_SUFFIX = "_IMAGES_LEFT";
-    public static final String IMAGES_RIGHT_SUFFIX = "_IMAGES_RIGHT";
-    public static final String IMAGES_DEAD_SUFFIX = "_IMAGES_DEAD";
-    public static final String IMAGES_HURT_SUFFIX = "_IMAGES_HURT";
-    public static final String IMAGES_ATTACK_SUFFIX = "_IMAGES_ATTACK";
-    public static final String ANIMATION_DURATION_PER_FRAME_SUFFIX = "_ANIMATION_DURATION_PER_FRAME";
+    public static final String IMAGES_UP_SUFFIX = ".images.up";
+    public static final String IMAGES_DOWN_SUFFIX = ".images.down";
+    public static final String IMAGES_LEFT_SUFFIX = ".images.left";
+    public static final String IMAGES_RIGHT_SUFFIX = ".images.right";
+    public static final String IMAGES_DEAD_SUFFIX = ".images.dead";
+    public static final String IMAGES_HURT_SUFFIX = ".images.hurt";
+    public static final String IMAGES_ATTACK_SUFFIX = ".images.attack";
+    public static final String ANIMATION_DURATION_PER_FRAME_SUFFIX = ".animation.duration.perFrame";
 
-    public static final String AREA_FILES_LOCATION = "AREA_FILES_LOCATION";
-    public static final String AREA_NUM_WORLDS = "AREA_NUM_WORLDS";
-    public static final String AREA_MAX_X= "AREA_MAX_X";
-    public static final String AREA_MAX_Y = "AREA_MAX_Y";
+    public static final String AREA_CONFIG_FILES_LOCATION = "area.files.configuration.location";
+    public static final String AREA_FILES_LOCATION = "area.files.data.location";
+    public static final String AREA_NUM_WORLDS = "area.num.worlds";
+    public static final String AREA_MAX_X= "area.max.x";
+    public static final String AREA_MAX_Y = "area.max.y";
 
-    public static final String AREA_CONFIG_FILES_LOCATION = "AREA_CONFIG_FILES_LOCATION";
-
-    public static final String MESSAGE_BOX_FONT_NAME = "MESSAGE_BOX_FONT_NAME";
-    public static final String INVENTORY_FONT_NAME = "INVENTORY_FONT_NAME";
+    public static final String MESSAGE_BOX_FONT_NAME = "MESSAGE_BOX.font.name";
+    public static final String INVENTORY_FONT_NAME = "INVENTORY.font.name";
 }
