@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
+import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
@@ -111,9 +112,11 @@ public class ConfigurationBuilder {
         //PlayerConfig
         Log.logInfo("Building player configuration...");
 
+        //TODO: Build player stats correctly
         PlayerActor playerActor = new PlayerActor(
                 assetManager.getAssetConfiguration(AssetTypes.PLAYER),
-                assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE)
+                assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
+                new PlayerStatistics(1, 10000, 50)
         );
 
         // BUILD CONFIGURATION

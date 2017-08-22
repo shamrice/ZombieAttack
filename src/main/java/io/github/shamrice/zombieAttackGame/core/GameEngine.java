@@ -4,6 +4,7 @@ import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
+import io.github.shamrice.zombieAttackGame.actors.actorStats.EnemyStatistics;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
@@ -237,25 +238,37 @@ public class GameEngine {
                     //enemy movement
                     if (enemy.getxPos() > player.getxPos()) {
                         if (!checkActorAreaCollision(enemy, Directions.LEFT, delta)) {
-                            enemy.move(Directions.LEFT, delta);
+                            enemy.move(
+                                    enemy.directionRandomizer(Directions.LEFT),
+                                    delta
+                            );
                         }
                     }
 
                     if (enemy.getxPos() < player.getxPos()) {
                         if (!checkActorAreaCollision(enemy, Directions.RIGHT, delta)) {
-                            enemy.move(Directions.RIGHT, delta);
+                            enemy.move(
+                                    enemy.directionRandomizer(Directions.RIGHT),
+                                    delta
+                            );
                         }
                     }
 
                     if (enemy.getyPos() > player.getyPos()) {
                         if (!checkActorAreaCollision(enemy, Directions.UP, delta)) {
-                            enemy.move(Directions.UP, delta);
+                            enemy.move(
+                                    enemy.directionRandomizer(Directions.UP),
+                                    delta
+                            );
                         }
                     }
 
                     if (enemy.getyPos() < player.getyPos()) {
                         if (!checkActorAreaCollision(enemy, Directions.DOWN, delta)) {
-                            enemy.move(Directions.DOWN, delta);
+                            enemy.move(
+                                    enemy.directionRandomizer(Directions.DOWN),
+                                    delta
+                            );
                         }
                     }
 
@@ -360,7 +373,14 @@ public class GameEngine {
                     .getNumEnemeies();
 
             for (int i = 0; i < numEnemies; i++) {
-                EnemyActor yarnball = new EnemyActor(configuration.getAssetConfiguration(AssetTypes.YARNBALL), 10);
+
+                //TODO: Build enemy stats correctly
+                EnemyActor yarnball = new EnemyActor(
+                        configuration.getAssetConfiguration(AssetTypes.YARNBALL),
+                        new EnemyStatistics(1, 100, 10, 25)
+                );
+
+                //TODO : start positions should be set in configs
                 yarnball.setxPos(new Random().nextInt(MAX_X));
                 yarnball.setyPos(new Random().nextInt(MAX_Y));
                 yarnball.setWalkSpeedMultiplier(0.05f);

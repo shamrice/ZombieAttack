@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.actors;
 
+import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import org.newdawn.slick.Animation;
@@ -24,11 +25,12 @@ public abstract class Actor {
     protected float yPos = 1;
     protected AssetConfiguration assetConfiguration;
     protected Animation currentAnimation;
-    protected int attackDamage;
+    protected ActorStatistics actorStatistics;
 
-    public Actor(AssetConfiguration assetConfiguration) {
+    public Actor(AssetConfiguration assetConfiguration, ActorStatistics actorStatistics) {
 
         this.assetConfiguration = assetConfiguration;
+        this.actorStatistics = actorStatistics;
         this.currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_RIGHT);
 
         this.collisionRect = new Rectangle(xPos, yPos, width, height);
@@ -169,27 +171,6 @@ public abstract class Actor {
 
     public void setRunning(boolean isRunning) {
         this.isRunning = isRunning;
-    }
-
-    public Directions getOppositeLastDirection() {
-
-        switch (lastDirection) {
-            case UP:
-                return Directions.DOWN;
-
-            case DOWN:
-                return Directions.UP;
-
-            case LEFT:
-                return Directions.RIGHT;
-
-            case RIGHT:
-                return Directions.LEFT;
-
-            default:
-                return Directions.NONE;
-
-        }
     }
 
     public Directions getCurrentDirection() {

@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.actors.projectiles;
 
 import io.github.shamrice.zombieAttackGame.actors.Actor;
+import io.github.shamrice.zombieAttackGame.actors.actorStats.ProjectileStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 
 /**
@@ -9,13 +10,16 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfigurati
 public class BulletProjectileActor extends Projectile {
 
     public BulletProjectileActor(AssetConfiguration assetConfiguration) {
-        super(assetConfiguration);
+        super(
+                assetConfiguration,
+                new ProjectileStatistics()
+        );
 
         setWalkSpeedMultiplier(0.9f);
     }
 
     @Override
     public int getAttackDamage() {
-        return 25;
+        return actorStatistics.getAttackDamage();
     }
 }

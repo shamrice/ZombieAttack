@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.actors;
 
+import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
@@ -14,31 +15,31 @@ import jdk.internal.util.xml.impl.Input;
  */
 public class PlayerActor extends Actor {
 
-    private int health;
     private boolean isAlive;
     private Projectile currentProjectile;
     private Inventory inventory;
 
-    public PlayerActor(AssetConfiguration assetConfiguration, AssetConfiguration projectileConfig) {
-        super(assetConfiguration);
+    public PlayerActor(AssetConfiguration assetConfiguration, AssetConfiguration projectileConfig,
+                       ActorStatistics actorStatistics) {
 
-        this.health = 10000; // DEBUG SET INSANELY HIGH
-        this.attackDamage = 50;
+        super(assetConfiguration, actorStatistics);
 
         this.currentProjectile = new BulletProjectileActor(projectileConfig);
 
+        //TODO: build inventory correctly
         this.inventory = new Inventory(5);
     }
 
     public void decreaseHealth(int amount) {
-        health -= amount;
+        actorStatistics.decreaseHealth(amount);
+        //health -= amount;
 
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
-        Log.logDebug("CURRENT HEALTH: " + health);
+        Log.logDebug("CURRENT HEALTH: " + actorStatistics.getCurrentHealth());
 
-        if (health <= 0) {
+        if (actorStatistics.getCurrentHealth() <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
         }
     }
@@ -46,7 +47,7 @@ public class PlayerActor extends Actor {
     @Override
     public int getAttackDamage() {
         //will change based on weapon later on.
-        return attackDamage;
+        return actorStatistics.getAttackDamage();
     }
 
     public void attack() {
@@ -64,7 +65,7 @@ public class PlayerActor extends Actor {
     }
 
     public boolean isAlive() {
-        return this.health > 0;
+        return this.actorStatistics.getCurrentHealth() > 0;
     }
 
     public Projectile getCurrentProjectile() {
