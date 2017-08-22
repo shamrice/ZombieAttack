@@ -52,6 +52,36 @@ public abstract class Actor {
         return this.collisionRect;
     }
 
+    public Shape getCollisionRectAtDirection(Directions attemptedDirection, int delta) {
+
+        float tempY = this.collisionRect.getY();
+        float tempX = this.collisionRect.getX();
+
+        float currentWalkSpeed = getCurrentWalkSpeed();
+
+        switch (attemptedDirection) {
+
+            case UP:
+                tempY -= delta * currentWalkSpeed;
+                break;
+
+            case DOWN:
+                tempY += delta * currentWalkSpeed;
+                break;
+
+            case LEFT:
+                tempX -= delta * currentWalkSpeed;
+                break;
+
+            case RIGHT:
+                tempX += delta * currentWalkSpeed;
+                break;
+        }
+
+        return new Rectangle(tempX, tempY,
+                this.collisionRect.getWidth(), this.collisionRect.getHeight());
+    }
+
     public void setxPos(float xNewPos) {
 
         if (xNewPos != this.xPos) {
@@ -102,7 +132,7 @@ public abstract class Actor {
         float tempY = this.yPos;
         float tempX = this.xPos;
 
-        float currentWalkSpeed = isRunning ? walkSpeedMultiplier * 3 :walkSpeedMultiplier;
+        float currentWalkSpeed = getCurrentWalkSpeed();
 
         switch (direction) {
 
@@ -164,5 +194,9 @@ public abstract class Actor {
 
     public Directions getCurrentDirection() {
         return currentDirection;
+    }
+
+    private float getCurrentWalkSpeed() {
+        return isRunning ? walkSpeedMultiplier * 3 : walkSpeedMultiplier;
     }
 }

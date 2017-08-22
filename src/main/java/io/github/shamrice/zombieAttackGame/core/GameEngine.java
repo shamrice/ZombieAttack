@@ -1,5 +1,6 @@
 package io.github.shamrice.zombieAttackGame.core;
 
+import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
@@ -116,8 +117,6 @@ public class GameEngine {
 
         if (player.isAlive()) {
 
-            Directions attemptedDirection = Directions.NONE;
-
             //if shift, they're running.
             if (input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT)) {
                 player.setRunning(true);
@@ -127,18 +126,25 @@ public class GameEngine {
 
             //player movement
             if (input.isKeyDown(org.newdawn.slick.Input.KEY_UP)) {
-                attemptedDirection = Directions.UP;
+                if (!checkActorAreaCollision(player, Directions.UP, delta)) {
+                    player.move(Directions.UP, delta);
+                }
             }
             if (input.isKeyDown(org.newdawn.slick.Input.KEY_DOWN)) {
-                attemptedDirection = Directions.DOWN;
+                if (!checkActorAreaCollision(player, Directions.DOWN, delta)) {
+                    player.move(Directions.DOWN, delta);
+                }
             }
             if (input.isKeyDown(org.newdawn.slick.Input.KEY_LEFT)) {
-                attemptedDirection = Directions.LEFT;
+                if (!checkActorAreaCollision(player, Directions.LEFT, delta)) {
+                    player.move(Directions.LEFT, delta);
+                }
             }
             if (input.isKeyDown(org.newdawn.slick.Input.KEY_RIGHT)) {
-                attemptedDirection = Directions.RIGHT;
+                if (!checkActorAreaCollision(player, Directions.RIGHT, delta)) {
+                    player.move(Directions.RIGHT, delta);
+                }
             }
-
 
             //fire projectile if not currently fired.
             if (input.isKeyDown(Input.KEY_SPACE)) {
@@ -146,6 +152,7 @@ public class GameEngine {
             }
 
             //get item from fallen enemy.
+            //TODO: Move to own method.
             if (input.isKeyDown(Input.KEY_G)) {
                 for (EnemyActor enemy : enemyActors) {
                     if (enemy
@@ -189,11 +196,11 @@ public class GameEngine {
                 for (int i = 0; i < player.getInventory().getNumberOfItems(); i++) {
                     InventoryItem item = player.getInventory().getInventoryItem(i);
 
-                    System.out.println("SLOT " + i + ":");
-                    System.out.println("  ITEM NAME: " + item.getNameString());
-                    System.out.println("  ITEM TYPE: " + item.getType().name());
-                    System.out.println(" ITEM VALUE: " + item.getValue());
-                    System.out.println("DESCRIPTION: \n" + item.getDescription() + "\n");
+                    Log.logDebug("SLOT " + i + ":");
+                    Log.logDebug("  ITEM NAME: " + item.getNameString());
+                    Log.logDebug("  ITEM TYPE: " + item.getType().name());
+                    Log.logDebug(" ITEM VALUE: " + item.getValue());
+                    Log.logDebug("DESCRIPTION: \n" + item.getDescription() + "\n");
 
                     messageBox.write(item.getNameString());
                 }
@@ -205,32 +212,13 @@ public class GameEngine {
                 messageBox.write("TEST BUTTON PRESSED");
             }
 
-            // TODO: Move into own method?
-            boolean areaCollision = areaManager.getCurrentArea()
-                    .checkCollision(
-                            player.getCollisionRect()
-                    );
-
             boolean projectileAreaCollision = areaManager.getCurrentArea()
                     .checkCollision(
                             player.getCurrentProjectile().getCollisionRect()
                     );
 
-            if (!areaCollision) {
-                player.move(attemptedDirection, delta);
-            } else {
-                //hack to get unstuck from area collision.
-                //player collision rect is only updated once the new xy is set so checkCollision
-                //is always one move behind. Needs to be fixed.
-                player.move(player.getOppositeLastDirection(), delta);
-            }
-
             if (projectileAreaCollision) {
                 player.getCurrentProjectile().setActive(false);
-            }
-
-            if (areaCollision) {
-                Log.logDebug("Currently collided with environment. If message continues... there is an error");
             }
 
             checkAreaBounds();
@@ -242,24 +230,33 @@ public class GameEngine {
 
         if (player.isAlive()) {
 
-            Directions enemyAttemptedHorizontal = Directions.NONE;
-            Directions enemyAttemptedVertical = Directions.NONE;
-
             for (EnemyActor enemy : enemyActors) {
 
                 if (enemy.isAlive()) {
-                    if (enemy.getxPos() > player.getxPos()) {
-                        enemyAttemptedHorizontal = Directions.LEFT;
 
-                    } else if (enemy.getxPos() < player.getxPos()) {
-                        enemyAttemptedHorizontal = Directions.RIGHT;
+                    //enemy movement
+                    if (enemy.getxPos() > player.getxPos()) {
+                        if (!checkActorAreaCollision(enemy, Directions.LEFT, delta)) {
+                            enemy.move(Directions.LEFT, delta);
+                        }
+                    }
+
+                    if (enemy.getxPos() < player.getxPos()) {
+                        if (!checkActorAreaCollision(enemy, Directions.RIGHT, delta)) {
+                            enemy.move(Directions.RIGHT, delta);
+                        }
                     }
 
                     if (enemy.getyPos() > player.getyPos()) {
-                        enemyAttemptedVertical = Directions.UP;
+                        if (!checkActorAreaCollision(enemy, Directions.UP, delta)) {
+                            enemy.move(Directions.UP, delta);
+                        }
+                    }
 
-                    } else if (enemy.getyPos() < player.getyPos()) {
-                        enemyAttemptedVertical = Directions.DOWN;
+                    if (enemy.getyPos() < player.getyPos()) {
+                        if (!checkActorAreaCollision(enemy, Directions.DOWN, delta)) {
+                            enemy.move(Directions.DOWN, delta);
+                        }
                     }
 
                     //check enemy collisions
@@ -270,9 +267,6 @@ public class GameEngine {
                         enemy.attack();
                         player.decreaseHealth(enemy.getAttackDamage());
                         messageBox.write(enemy.getName() + " attacks you for " + enemy.getAttackDamage() + " damage.");
-
-                    } else if (areaManager.getCurrentArea().checkCollision(enemy.getCollisionRect())) {
-                        enemy.move(enemy.getOppositeLastDirection(), delta);
 
                     } else if (player.getCurrentProjectile().isActive() &&
                             enemy
@@ -288,16 +282,10 @@ public class GameEngine {
                         if (!enemy.isAlive()) {
                             messageBox.write(enemy.getName() + " has expired.");
                         }
-
-
-                    } else {
-                        enemy.move(enemyAttemptedHorizontal, delta);
-                        enemy.move(enemyAttemptedVertical, delta);
                     }
                 }
             }
         }
-
     }
 
     public void handleProjectiles(int delta) {
@@ -386,6 +374,13 @@ public class GameEngine {
 
         enemyActors = areaManager.getCurrentArea().getAreaConfiguration().getEnemyActors();
 
+    }
+
+    private boolean checkActorAreaCollision(Actor actor, Directions attemptedDirection, int delta) {
+        return areaManager.getCurrentArea()
+                .checkCollision(
+                        actor.getCollisionRectAtDirection(attemptedDirection, delta)
+                );
     }
 
 }
