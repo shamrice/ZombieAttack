@@ -1,6 +1,5 @@
 package io.github.shamrice.zombieAttackGame.actors;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import org.newdawn.slick.Animation;
@@ -25,14 +24,11 @@ public abstract class Actor {
     protected float yPos = 1;
     protected AssetConfiguration assetConfiguration;
     protected Animation currentAnimation;
-    protected ActorStatistics actorStatistics;
 
-    public Actor(AssetConfiguration assetConfiguration, ActorStatistics actorStatistics) {
+    public Actor(AssetConfiguration assetConfiguration) {
 
         this.assetConfiguration = assetConfiguration;
-        this.actorStatistics = actorStatistics;
         this.currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_RIGHT);
-
         this.collisionRect = new Rectangle(xPos, yPos, width, height);
     }
 

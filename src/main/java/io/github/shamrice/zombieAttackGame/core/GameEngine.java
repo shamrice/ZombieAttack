@@ -286,14 +286,15 @@ public class GameEngine {
                                     .getCollisionRect()
                                     .intersects(player.getCurrentProjectile().getCollisionRect())) {
 
-                        enemy.decreaseHealth(player.getCurrentProjectile().getAttackDamage());
+                        int amountDamaged = enemy.decreaseHealth(player.getAttackDamage());
                         player.getCurrentProjectile().setActive(false);
 
                         messageBox.write("You attack " + enemy.getName() +
-                                " for " + player.getAttackDamage() + " damage.");
+                                " for " + amountDamaged + " damage.");
 
                         if (!enemy.isAlive()) {
                             messageBox.write(enemy.getName() + " has expired.");
+                            player.addExperience(enemy.getExperienceWorth());
                         }
                     }
                 }
@@ -377,7 +378,7 @@ public class GameEngine {
                 //TODO: Build enemy stats correctly
                 EnemyActor yarnball = new EnemyActor(
                         configuration.getAssetConfiguration(AssetTypes.YARNBALL),
-                        new EnemyStatistics(1, 100, 10, 25)
+                        new EnemyStatistics(1, 100, 10, 2, 5, 25)
                 );
 
                 //TODO : start positions should be set in configs

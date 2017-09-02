@@ -47,8 +47,7 @@ public class Area {
                     for (int y = 0; y < tiledMap.getHeight(); y++) {
                         int tileId =tiledMap.getTileId(x, y, objectLayer);
                         if (tileId > 0) {
-                            //DEBUG
-                            //System.out.println("Found " + tileId + " in collision layer");
+                            //collision found
                             collisionMap[x][y] = new Rectangle(x * 50, y * 50, 50, 50);
                         }
                     }

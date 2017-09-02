@@ -10,9 +10,10 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfigurati
 public class BulletProjectileActor extends Projectile {
 
     public BulletProjectileActor(AssetConfiguration assetConfiguration) {
+
         super(
                 assetConfiguration,
-                new ProjectileStatistics()
+                new ProjectileStatistics(25)
         );
 
         setWalkSpeedMultiplier(0.9f);
@@ -20,6 +21,6 @@ public class BulletProjectileActor extends Projectile {
 
     @Override
     public int getAttackDamage() {
-        return actorStatistics.getAttackDamage();
+        return this.projectileStatistics.getAttackDamage();
     }
 }

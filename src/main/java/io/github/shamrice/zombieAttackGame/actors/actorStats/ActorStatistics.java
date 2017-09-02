@@ -8,17 +8,21 @@ public abstract class ActorStatistics {
     protected int level = 1;
     protected int baseHealth;
     protected int currentHealth;
-    protected int baseaAttackDamage;
+    protected int baseAttackDamage;
     protected int currentAttackDamage;
+    protected int baseDefense;
+    protected int currentDefense;
 
 
-    public ActorStatistics(int level, int baseHealth, int baseAttackDamage) {
+    public ActorStatistics(int level, int baseHealth, int baseAttackDamage, int baseDefense) {
         this.level = level;
         this.baseHealth = baseHealth;
-        this.baseaAttackDamage = baseAttackDamage;
+        this.baseAttackDamage = baseAttackDamage;
+        this.baseDefense = baseDefense;
 
         this.currentHealth = this.baseHealth;
-        this.currentAttackDamage = this.baseaAttackDamage;
+        this.currentAttackDamage = this.baseAttackDamage;
+        this.currentDefense = this.baseDefense;
     }
 
     public int getCurrentHealth() {
@@ -27,17 +31,15 @@ public abstract class ActorStatistics {
 
     public void setCurrentHealth(int newCurrentHealth) {
         currentHealth = newCurrentHealth;
+
+        //can't heal over base health.
+        if (currentHealth > baseHealth)
+            currentHealth = baseHealth;
     }
 
-    public void decreaseHealth(int amount) {
-         currentHealth -= amount;
-        if (currentHealth < 0)
-            currentHealth = 0;
-    }
+    public abstract int decreaseHealth(int amount);
 
-    public int getAttackDamage() {
-        return this.currentAttackDamage;
-    }
+    public abstract int getAttackDamage();
 
     public int getLevel() {
         return this.level;

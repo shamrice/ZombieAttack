@@ -1,6 +1,5 @@
 package io.github.shamrice.zombieAttackGame.actors;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
 import io.github.shamrice.zombieAttackGame.actors.actorStats.EnemyStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
@@ -18,28 +17,32 @@ public class EnemyActor extends Actor {
 
     private boolean isLooted = false;
     private InventoryItem itemDrop;
+    private EnemyStatistics enemyStatistics;
 
-    public EnemyActor(AssetConfiguration assetConfiguration, ActorStatistics actorStatistics) {
-        super(assetConfiguration, actorStatistics);
+    public EnemyActor(AssetConfiguration assetConfiguration, EnemyStatistics enemyStatistics) {
+        super(assetConfiguration);
 
         this.itemDrop = DropCalculator.getItemDrop(1);
+        this.enemyStatistics = enemyStatistics;
     }
 
     @Override
     public int getAttackDamage() {
-        return actorStatistics.getAttackDamage();
+        return enemyStatistics.getAttackDamage();
     }
 
-    public void decreaseHealth(int amount) {
-        actorStatistics.decreaseHealth(amount);
+    public int decreaseHealth(int amount) {
+        int amountDamaged = enemyStatistics.decreaseHealth(amount);
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
-        Log.logDebug("CURRENT ENEMY: " + actorStatistics.getCurrentHealth());
+        Log.logDebug("CURRENT ENEMY: " + enemyStatistics.getCurrentHealth());
 
-        if (actorStatistics.getCurrentHealth() <= 0) {
+        if (enemyStatistics.getCurrentHealth() <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
         }
+
+        return amountDamaged;
     }
 
     public void attack() {
@@ -47,7 +50,7 @@ public class EnemyActor extends Actor {
     }
 
     public boolean isAlive() {
-        return this.actorStatistics.getCurrentHealth() > 0;
+        return this.enemyStatistics.getCurrentHealth() > 0;
     }
 
     public boolean isLooted() {
@@ -69,7 +72,7 @@ public class EnemyActor extends Actor {
     public Directions directionRandomizer(Directions attemptedDirection) {
 
         //TODO : potentially unsafe casting.
-        int randomPercentageThreshold = ((EnemyStatistics)actorStatistics).getRandomizerPercentage();
+        int randomPercentageThreshold = ((EnemyStatistics)enemyStatistics).getRandomizerPercentage();
         int randInt = new Random(new Date().getTime()).nextInt(100);
 
         if (randInt <= randomPercentageThreshold) {
@@ -107,6 +110,10 @@ public class EnemyActor extends Actor {
         }
 
         return attemptedDirection;
+    }
+
+    public int getExperienceWorth() {
+        return enemyStatistics.getExperienceWorth();
     }
 
 }

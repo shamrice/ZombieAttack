@@ -3,6 +3,7 @@ package io.github.shamrice.zombieAttackGame.actors.projectiles;
 import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
+import io.github.shamrice.zombieAttackGame.actors.actorStats.ProjectileStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 
 
@@ -14,8 +15,12 @@ public abstract class Projectile extends Actor {
     private boolean isActive = false;
     private Directions direction;
 
-    public Projectile(AssetConfiguration assetConfiguration, ActorStatistics actorStatistics) {
-        super(assetConfiguration, actorStatistics);
+    protected ProjectileStatistics projectileStatistics;
+
+    public Projectile(AssetConfiguration assetConfiguration, ProjectileStatistics projectileStatistics) {
+        super(assetConfiguration);
+
+        this.projectileStatistics = projectileStatistics;
 
         //default direction
         this.direction = Directions.RIGHT;

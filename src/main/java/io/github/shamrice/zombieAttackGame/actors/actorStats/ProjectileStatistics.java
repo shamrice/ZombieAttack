@@ -5,7 +5,18 @@ package io.github.shamrice.zombieAttackGame.actors.actorStats;
  */
 public class ProjectileStatistics extends ActorStatistics {
 
-    public ProjectileStatistics() {
-        super(1, 1000, 25);
+    public ProjectileStatistics(int attackDamage) {
+        super(1, 1000, attackDamage, 0);
     }
+
+    @Override
+    public int decreaseHealth(int amount) {
+        return 0;
+    }
+
+    @Override
+    public int getAttackDamage() {
+        return this.currentAttackDamage;
+    }
+
 }

@@ -1,45 +1,40 @@
 package io.github.shamrice.zombieAttackGame.actors;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
+import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.logger.Log;
-import jdk.internal.util.xml.impl.Input;
 
 /**
  * Created by Erik on 7/22/2017.
  */
 public class PlayerActor extends Actor {
 
-    private boolean isAlive;
-    private Projectile currentProjectile;
     private Inventory inventory;
+    private PlayerStatistics playerStatistics;
 
-    public PlayerActor(AssetConfiguration assetConfiguration, AssetConfiguration projectileConfig,
-                       ActorStatistics actorStatistics) {
+    public PlayerActor(AssetConfiguration assetConfiguration, PlayerStatistics playerStatistics) {
+        super(assetConfiguration);
 
-        super(assetConfiguration, actorStatistics);
-
-        this.currentProjectile = new BulletProjectileActor(projectileConfig);
+        this.playerStatistics = playerStatistics;
 
         //TODO: build inventory correctly
         this.inventory = new Inventory(5);
     }
 
     public void decreaseHealth(int amount) {
-        actorStatistics.decreaseHealth(amount);
+        playerStatistics.decreaseHealth(amount);
         //health -= amount;
 
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
-        Log.logDebug("CURRENT HEALTH: " + actorStatistics.getCurrentHealth());
+        Log.logDebug("CURRENT HEALTH: " + playerStatistics.getCurrentHealth());
 
-        if (actorStatistics.getCurrentHealth() <= 0) {
+        if (playerStatistics.getCurrentHealth() <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
         }
     }
@@ -47,17 +42,21 @@ public class PlayerActor extends Actor {
     @Override
     public int getAttackDamage() {
         //will change based on weapon later on.
-        return actorStatistics.getAttackDamage();
+        return playerStatistics.getAttackDamage();
+    }
+
+    public int getCurrentAttackDamage() {
+        return playerStatistics.getAttackDamage();
     }
 
     public void attack() {
-        if (!currentProjectile.isActive()) {
-            currentProjectile.setActive(true);
-            currentProjectile.setxPos(xPos);
-            currentProjectile.setyPos(yPos);
+        if (!playerStatistics.getCurrentProjectile().isActive()) {
+            playerStatistics.getCurrentProjectile().setActive(true);
+            playerStatistics.getCurrentProjectile().setxPos(xPos);
+            playerStatistics.getCurrentProjectile().setyPos(yPos);
 
             if (getCurrentDirection() != Directions.NONE) {
-                currentProjectile.setDirection(getCurrentDirection());
+                playerStatistics.getCurrentProjectile().setDirection(getCurrentDirection());
             }
 
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_ATTACK);
@@ -65,11 +64,11 @@ public class PlayerActor extends Actor {
     }
 
     public boolean isAlive() {
-        return this.actorStatistics.getCurrentHealth() > 0;
+        return this.playerStatistics.getCurrentHealth() > 0;
     }
 
     public Projectile getCurrentProjectile() {
-        return currentProjectile;
+        return playerStatistics.getCurrentProjectile();
     }
 
     public boolean addToInventory(InventoryItem inventoryItem) {
@@ -97,6 +96,10 @@ public class PlayerActor extends Actor {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public void addExperience(int amount) {
+        playerStatistics.addExperience(amount);
     }
 
 }
