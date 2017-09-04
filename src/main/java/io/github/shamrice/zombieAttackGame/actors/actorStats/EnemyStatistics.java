@@ -8,8 +8,10 @@ public class EnemyStatistics extends ActorStatistics {
     private int randomizerPercentage;
     private int experienceWorth;
 
-    public EnemyStatistics(int level, int health, int attackDamage, int defense, int experienceWorth, int randomizerPercentage) {
-        super(level, health, attackDamage, defense);
+    public EnemyStatistics(String name, int level, int health, int attackDamage, int defense,
+                           int experienceWorth, int randomizerPercentage) {
+
+        super(name, level, health, attackDamage, defense);
 
         this.randomizerPercentage = randomizerPercentage;
         this.experienceWorth = experienceWorth;
@@ -42,4 +44,5 @@ public class EnemyStatistics extends ActorStatistics {
         return experienceWorth;
     }
 
+    public int getDefense() { return currentDefense; }
 }

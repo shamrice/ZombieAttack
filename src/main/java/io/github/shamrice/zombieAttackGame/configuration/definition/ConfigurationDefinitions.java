@@ -31,4 +31,10 @@ public class ConfigurationDefinitions {
 
     public static final String MESSAGE_BOX_FONT_NAME = "MESSAGE_BOX.font.name";
     public static final String INVENTORY_FONT_NAME = "INVENTORY.font.name";
+
+    public static final String STATISTICS_CONFIG_FILES_LOCATION = "stats.files.configuration.location";
+    public static final String STATISTICS_CONFIGURED_ENEMIES = "stats.enemies.items";
+    public static final String STATISTICS_CONFIGURED_PROJECTILES = "stats.projectiles.items";
+
+
 }

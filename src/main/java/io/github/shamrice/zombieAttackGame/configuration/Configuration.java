@@ -8,6 +8,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.StatisticsConfiguration;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -20,16 +21,19 @@ public class Configuration {
     private AreaManager areaManager;
     private MessageBoxConfig messageBoxConfig;
     private InventoryBoxConfig inventoryBoxConfig;
+    private StatisticsConfiguration statisticsConfiguration;
 
     public Configuration(AssetManager assetManager, AreaManager areaManager,
                          PlayerActor playerActor, MessageBoxConfig messageBoxConfig,
-                         InventoryBoxConfig inventoryBoxConfig) throws SlickException {
+                         InventoryBoxConfig inventoryBoxConfig, StatisticsConfiguration statisticsConfiguration)
+            throws SlickException {
 
         this.assetManager = assetManager;
         this.areaManager = areaManager;
         this.playerActor = playerActor;
         this.messageBoxConfig = messageBoxConfig;
         this.inventoryBoxConfig = inventoryBoxConfig;
+        this.statisticsConfiguration = statisticsConfiguration;
     }
 
     public AssetConfiguration getAssetConfiguration(AssetTypes type) {
@@ -50,5 +54,9 @@ public class Configuration {
 
     public InformationBoxConfig getInventoryMessageBoxConfig() {
         return inventoryBoxConfig;
+    }
+
+    public StatisticsConfiguration getStatisticsConfiguration() {
+        return statisticsConfiguration;
     }
 }

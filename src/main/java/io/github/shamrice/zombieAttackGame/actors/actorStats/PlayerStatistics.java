@@ -15,10 +15,8 @@ public class PlayerStatistics extends ActorStatistics {
     private int experienceToNextLevel = 10;
     private Projectile currentProjectile;
 
-    public PlayerStatistics(int level, int baseHealth, int baseAttackDamage, int baseDefense, Projectile projectile) {
-        super(level, baseHealth, baseAttackDamage, baseDefense);
-
-        this.currentProjectile = projectile;
+    public PlayerStatistics(String name, int level, int baseHealth, int baseAttackDamage, int baseDefense) {
+        super(name, level, baseHealth, baseAttackDamage, baseDefense);
     }
 
     public void addExperience(int expAmount) {

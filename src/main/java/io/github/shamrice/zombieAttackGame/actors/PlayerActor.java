@@ -67,6 +67,10 @@ public class PlayerActor extends Actor {
         return this.playerStatistics.getCurrentHealth() > 0;
     }
 
+    public void setCurrentProjectile(Projectile newProjectile) {
+        playerStatistics.setProjectile(newProjectile);
+    }
+
     public Projectile getCurrentProjectile() {
         return playerStatistics.getCurrentProjectile();
     }

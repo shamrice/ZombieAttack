@@ -5,6 +5,8 @@ package io.github.shamrice.zombieAttackGame.actors.actorStats;
  */
 public abstract class ActorStatistics {
 
+    private String name;
+
     protected int level = 1;
     protected int baseHealth;
     protected int currentHealth;
@@ -14,7 +16,10 @@ public abstract class ActorStatistics {
     protected int currentDefense;
 
 
-    public ActorStatistics(int level, int baseHealth, int baseAttackDamage, int baseDefense) {
+    public ActorStatistics(String name, int level, int baseHealth, int baseAttackDamage, int baseDefense) {
+
+        this.name = name;
+
         this.level = level;
         this.baseHealth = baseHealth;
         this.baseAttackDamage = baseAttackDamage;
@@ -43,5 +48,9 @@ public abstract class ActorStatistics {
 
     public int getLevel() {
         return this.level;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

@@ -1,8 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
-import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.EmptyProjectile;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
@@ -11,6 +10,7 @@ import io.github.shamrice.zombieAttackGame.configuration.definition.Configuratio
 import io.github.shamrice.zombieAttackGame.configuration.logger.LogTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.StatisticsConfiguration;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import io.github.shamrice.zombieAttackGame.logger.LogLevel;
 import io.github.shamrice.zombieAttackGame.logger.types.ConsoleLogger;
@@ -24,8 +24,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import static io.github.shamrice.zombieAttackGame.configuration.logger.LogTypes.CONSOLE;
 
 /**
  * Created by Erik on 7/23/2017.
@@ -110,17 +108,27 @@ public class ConfigurationBuilder {
                 trueTypeFont
         );
 
+        Log.logInfo("Building actor statistics configurations...");
+
+        StatisticsConfiguration statisticsConfiguration = null;
+        try {
+            statisticsConfiguration = buildStatisticsConfiguration();
+        } catch (IOException ioExc) {
+            Log.logException("Unable to build actor statistics", ioExc);
+            System.exit(-1);
+        }
+
         //PlayerConfig
         Log.logInfo("Building player configuration...");
 
-        //TODO: Build player stats correctly
         PlayerActor playerActor = new PlayerActor(
                 assetManager.getAssetConfiguration(AssetTypes.PLAYER),
-                new PlayerStatistics(1, 1000, 20, 5,
-                        new BulletProjectileActor(
-                                assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE)
-                        )
-                )
+                statisticsConfiguration.getPlayerStatistics()
+        );
+
+        //TODO : Maybe change? currently sets to empty projectile.
+        playerActor.setCurrentProjectile(
+                new EmptyProjectile(assetManager.getAssetConfiguration(AssetTypes.EMPTY_PROJECTILE))
         );
 
         // BUILD CONFIGURATION
@@ -132,7 +140,8 @@ public class ConfigurationBuilder {
                     areaManager,
                     playerActor,
                     messageBoxConfig,
-                    inventoryBoxConfig
+                    inventoryBoxConfig,
+                    statisticsConfiguration
             );
 
         } catch (Exception ex) {
@@ -205,6 +214,28 @@ public class ConfigurationBuilder {
         Font font = new Font(fontName, Font.PLAIN, 12);
 
         return new TrueTypeFont(font, true);
+    }
+
+    private static StatisticsConfiguration buildStatisticsConfiguration() throws IOException {
+        String configDirectory = configProperties.getProperty(
+                ConfigurationDefinitions.STATISTICS_CONFIG_FILES_LOCATION
+        );
+
+        String[] listOfEnemyItems = configProperties
+                .getProperty(ConfigurationDefinitions.STATISTICS_CONFIGURED_ENEMIES)
+                .split(",");
+
+        String[] listOfProjectileItems = configProperties
+                .getProperty(ConfigurationDefinitions.STATISTICS_CONFIGURED_PROJECTILES)
+                .split(",");
+
+        StatisticsConfiguration statsConfig = new StatisticsConfiguration(
+                configDirectory, listOfEnemyItems, listOfProjectileItems
+        );
+
+        statsConfig.build();
+
+        return statsConfig;
     }
 
 

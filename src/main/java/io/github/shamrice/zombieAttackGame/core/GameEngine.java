@@ -8,6 +8,7 @@ import io.github.shamrice.zombieAttackGame.actors.actorStats.EnemyStatistics;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.EnemyTypes;
 import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
@@ -378,7 +379,7 @@ public class GameEngine {
                 //TODO: Build enemy stats correctly
                 EnemyActor yarnball = new EnemyActor(
                         configuration.getAssetConfiguration(AssetTypes.YARNBALL),
-                        new EnemyStatistics(1, 100, 10, 2, 5, 25)
+                        configuration.getStatisticsConfiguration().getEnemyStatistics(EnemyTypes.YARNBALL)
                 );
 
                 //TODO : start positions should be set in configs
