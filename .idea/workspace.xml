@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f7c7048-7448-4bfa-a30e-33ed7ec635d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" afterPath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/config.properties" afterPath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/PlayerActor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/ActorStatistics.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/ActorStatistics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/EnemyStatistics.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/EnemyStatistics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/PlayerStatistics.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/PlayerStatistics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/ProjectileStatistics.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/actorStats/ProjectileStatistics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/projectiles/BulletProjectileActor.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/actors/projectiles/BulletProjectileActor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/Configuration.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/Configuration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/ConfigurationBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetTypes.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetTypes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/definition/ConfigurationDefinitions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/core/GameEngine.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/core/GameEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/conf/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/conf/config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/conf/config.properties" afterPath="$PROJECT_DIR$/target/classes/conf/config.properties" />
-    </list>
+    <list default="true" id="3f7c7048-7448-4bfa-a30e-33ed7ec635d9" name="Default" comment="" />
     <ignored path="zombieAttack.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -1242,12 +1225,12 @@
       <workItem from="1500587163933" duration="23596000" />
       <workItem from="1501275951265" duration="17565000" />
       <workItem from="1501308830289" duration="80556000" />
-      <workItem from="1504331249004" duration="13530000" />
+      <workItem from="1504331249004" duration="14253000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135247000" />
+    <option name="totallyTimeSpent" value="135970000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1444" y="24" width="1448" height="880" extended-state="6" />
