@@ -311,6 +311,8 @@ public class GameEngine {
                     player.getCurrentProjectile().getDirection(),
                     delta
             );
+
+            player.getCurrentProjectile().increaseDistanceTravelled(delta);
         }
     }
 

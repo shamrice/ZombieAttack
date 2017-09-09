@@ -5,6 +5,7 @@ import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.actorStats.ActorStatistics;
 import io.github.shamrice.zombieAttackGame.actors.actorStats.ProjectileStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 
 
 /**
@@ -14,6 +15,7 @@ public abstract class Projectile extends Actor {
 
     private boolean isActive = false;
     private Directions direction;
+    private float distanceTravelled = 0;
 
     protected ProjectileStatistics projectileStatistics;
 
@@ -26,11 +28,21 @@ public abstract class Projectile extends Actor {
         this.direction = Directions.RIGHT;
     }
 
+    public void increaseDistanceTravelled(float distanceDelta) {
+        this.distanceTravelled += distanceDelta;
+
+        //if greater than max allowed, stop being active.
+        if (distanceTravelled >= projectileStatistics.getMaxDistance()) {
+            setActive(false);
+        }
+    }
+
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
+        distanceTravelled = 0;
         isActive = active;
     }
 

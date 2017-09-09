@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.EmptyProjectile;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
@@ -129,10 +130,16 @@ public class ConfigurationBuilder {
 
         //TODO : Maybe change? currently sets to empty projectile.
         playerActor.setCurrentProjectile(
+                new BulletProjectileActor(
+                        assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
+                        statisticsConfiguration.getProjectileStatistics(ProjectileTypes.BULLET)
+                )
+                /*
                 new EmptyProjectile(
                         assetManager.getAssetConfiguration(AssetTypes.EMPTY_PROJECTILE),
                         statisticsConfiguration.getProjectileStatistics(ProjectileTypes.UNARMED)
                 )
+                */
         );
 
         // BUILD CONFIGURATION
