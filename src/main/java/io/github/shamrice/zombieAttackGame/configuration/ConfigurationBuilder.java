@@ -10,6 +10,7 @@ import io.github.shamrice.zombieAttackGame.configuration.definition.Configuratio
 import io.github.shamrice.zombieAttackGame.configuration.logger.LogTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.StatisticsConfiguration;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import io.github.shamrice.zombieAttackGame.logger.LogLevel;
@@ -128,7 +129,10 @@ public class ConfigurationBuilder {
 
         //TODO : Maybe change? currently sets to empty projectile.
         playerActor.setCurrentProjectile(
-                new EmptyProjectile(assetManager.getAssetConfiguration(AssetTypes.EMPTY_PROJECTILE))
+                new EmptyProjectile(
+                        assetManager.getAssetConfiguration(AssetTypes.EMPTY_PROJECTILE),
+                        statisticsConfiguration.getProjectileStatistics(ProjectileTypes.UNARMED)
+                )
         );
 
         // BUILD CONFIGURATION

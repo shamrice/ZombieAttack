@@ -12,6 +12,7 @@ public class StatisticsConfigurationDefinitions {
 
     public static final String PROJECTILES_PREFIX = "stats.projectiles.";
     public static final String PROJECTILES_ATTACK_DAMAGE_SUFFIX = ".attackDamage";
+    public static final String PROJECTILES_MAX_DISTANCE_SUFFIX = ".maxDistance";
 
     public static final String ENEMY_PREFIX = "stats.enemies.";
     public static final String ENEMY_HEALTH_SUFFIX = ".health";

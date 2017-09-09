@@ -5,8 +5,12 @@ package io.github.shamrice.zombieAttackGame.actors.actorStats;
  */
 public class ProjectileStatistics extends ActorStatistics {
 
-    public ProjectileStatistics(String name, int attackDamage) {
+    private int maxDistance;
+
+    public ProjectileStatistics(String name, int attackDamage, int maxDistance) {
         super(name, 1, 1000, attackDamage, 0);
+
+        this.maxDistance = maxDistance;
     }
 
     @Override
@@ -17,6 +21,10 @@ public class ProjectileStatistics extends ActorStatistics {
     @Override
     public int getAttackDamage() {
         return this.currentAttackDamage;
+    }
+
+    public int getMaxDistance() {
+        return this.maxDistance;
     }
 
 }

@@ -9,10 +9,10 @@ import io.github.shamrice.zombieAttackGame.logger.Log;
  */
 public class EmptyProjectile extends Projectile {
 
-    public EmptyProjectile(AssetConfiguration assetConfiguration) {
+    public EmptyProjectile(AssetConfiguration assetConfiguration, ProjectileStatistics projectileStatistics) {
         super(
                 assetConfiguration,
-                new ProjectileStatistics("EMPTY", 0)
+                projectileStatistics
         );
 
         setWalkSpeedMultiplier(0.9f);

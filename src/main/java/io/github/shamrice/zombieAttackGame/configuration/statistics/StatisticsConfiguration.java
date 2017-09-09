@@ -94,7 +94,8 @@ public class StatisticsConfiguration {
             if (projectileStatistic.getName().equals(projectileType.name().toLowerCase())) {
                 return new ProjectileStatistics(
                         projectileStatistic.getName(),
-                        projectileStatistic.getAttackDamage()
+                        projectileStatistic.getAttackDamage(),
+                        projectileStatistic.getMaxDistance()
                 );
             }
         }
@@ -171,12 +172,18 @@ public class StatisticsConfiguration {
                     )
             );
 
+            int maxDistance = Integer.parseInt(
+                    projectileStatProperties.getProperty(
+                            projectilePrefixString + StatisticsConfigurationDefinitions.PROJECTILES_MAX_DISTANCE_SUFFIX
+                    )
+            );
 
-            projectileStatistics = new ProjectileStatistics(projectileName, attackDamage);
+            projectileStatistics = new ProjectileStatistics(projectileName, attackDamage, maxDistance);
 
         } catch (NumberFormatException numFormatEx) {
             Log.logException(
-                    "Unable to parse enemy " + projectileName + " stats config",
+                    "Unable to parse projectile " + projectileName + " stats config file " +
+                    projectileStatPropertyFile + ". Prefix string used: " + projectilePrefixString + ".",
                     numFormatEx
             );
         }
