@@ -25,9 +25,8 @@ public class PlayerActor extends Actor {
         this.inventory = new Inventory(5);
     }
 
-    public void decreaseHealth(int amount) {
-        playerStatistics.decreaseHealth(amount);
-        //health -= amount;
+    public int decreaseHealth(int amount) {
+        int amountDamaged = playerStatistics.decreaseHealth(amount);
 
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
@@ -37,6 +36,8 @@ public class PlayerActor extends Actor {
         if (playerStatistics.getCurrentHealth() <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
         }
+
+        return amountDamaged;
     }
 
     @Override

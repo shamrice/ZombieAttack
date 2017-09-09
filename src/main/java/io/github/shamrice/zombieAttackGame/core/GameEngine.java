@@ -279,8 +279,8 @@ public class GameEngine {
                             .intersects(player.getCollisionRect())) {
 
                         enemy.attack();
-                        player.decreaseHealth(enemy.getAttackDamage());
-                        messageBox.write(enemy.getName() + " attacks you for " + enemy.getAttackDamage() + " damage.");
+                        int amountDamaged = player.decreaseHealth(enemy.getAttackDamage());
+                        messageBox.write(enemy.getName() + " attacks you for " + amountDamaged + " damage.");
 
                     } else if (player.getCurrentProjectile().isActive() &&
                             enemy
