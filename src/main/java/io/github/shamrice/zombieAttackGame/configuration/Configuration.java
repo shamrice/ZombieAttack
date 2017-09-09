@@ -8,6 +8,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.StatisticsBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.StatisticsConfiguration;
 import org.newdawn.slick.SlickException;
 
@@ -21,11 +22,13 @@ public class Configuration {
     private AreaManager areaManager;
     private MessageBoxConfig messageBoxConfig;
     private InventoryBoxConfig inventoryBoxConfig;
+    private StatisticsBoxConfig statisticsBoxConfig;
     private StatisticsConfiguration statisticsConfiguration;
 
     public Configuration(AssetManager assetManager, AreaManager areaManager,
                          PlayerActor playerActor, MessageBoxConfig messageBoxConfig,
-                         InventoryBoxConfig inventoryBoxConfig, StatisticsConfiguration statisticsConfiguration)
+                         InventoryBoxConfig inventoryBoxConfig, StatisticsBoxConfig statisticsBoxConfig,
+                         StatisticsConfiguration statisticsConfiguration)
             throws SlickException {
 
         this.assetManager = assetManager;
@@ -33,6 +36,7 @@ public class Configuration {
         this.playerActor = playerActor;
         this.messageBoxConfig = messageBoxConfig;
         this.inventoryBoxConfig = inventoryBoxConfig;
+        this.statisticsBoxConfig = statisticsBoxConfig;
         this.statisticsConfiguration = statisticsConfiguration;
     }
 
@@ -54,6 +58,10 @@ public class Configuration {
 
     public InformationBoxConfig getInventoryMessageBoxConfig() {
         return inventoryBoxConfig;
+    }
+
+    public StatisticsBoxConfig getStatisticsBoxConfig() {
+        return statisticsBoxConfig;
     }
 
     public StatisticsConfiguration getStatisticsConfiguration() {

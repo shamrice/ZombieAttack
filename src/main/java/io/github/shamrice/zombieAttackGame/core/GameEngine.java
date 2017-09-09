@@ -4,7 +4,6 @@ import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
-import io.github.shamrice.zombieAttackGame.actors.actorStats.EnemyStatistics;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
@@ -14,6 +13,7 @@ import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
+import io.github.shamrice.zombieAttackGame.messaging.StatisticsMessageBox;
 import org.newdawn.slick.Input;
 
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ public class GameEngine {
     private PlayerActor player;
     private MessageBox messageBox;
     private InventoryDialogBox inventoryDialogBox;
+    private StatisticsMessageBox statisticsMessageBox;
     private List<EnemyActor> enemyActors;
 
     private GameEngine() { }
@@ -65,6 +66,8 @@ public class GameEngine {
             messageBox = new MessageBox(configuration.getMessageBoxConfig());
 
             inventoryDialogBox = new InventoryDialogBox(configuration.getInventoryMessageBoxConfig());
+
+            statisticsMessageBox = new StatisticsMessageBox(configuration.getStatisticsBoxConfig());
 
             player = configuration.getConfiguredPlayerActor();
             player.setyPos(65);
@@ -106,6 +109,7 @@ public class GameEngine {
         );
 
         messageBox.draw();
+        statisticsMessageBox.draw(player.getPlayerStatistics());
         inventoryDialogBox.draw(player.getInventory());
 
     }

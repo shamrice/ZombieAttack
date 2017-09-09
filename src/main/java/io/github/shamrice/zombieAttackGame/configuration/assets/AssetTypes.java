@@ -11,5 +11,6 @@ public enum AssetTypes {
     EMPTY_PROJECTILE,
     MESSAGE_BOX,
     INVENTORY,
+    STATS_BOX,
     OTHER
 }

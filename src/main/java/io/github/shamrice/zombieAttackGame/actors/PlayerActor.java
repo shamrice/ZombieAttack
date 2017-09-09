@@ -107,4 +107,7 @@ public class PlayerActor extends Actor {
         playerStatistics.addExperience(amount);
     }
 
+    public PlayerStatistics getPlayerStatistics() {
+        return playerStatistics;
+    }
 }

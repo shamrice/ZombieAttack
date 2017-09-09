@@ -19,6 +19,35 @@ public class PlayerStatistics extends ActorStatistics {
         super(name, level, baseHealth, baseAttackDamage, baseDefense);
     }
 
+    @Override
+    public int getAttackDamage() {
+        return baseAttackDamage + currentProjectile.getAttackDamage();
+    }
+
+    public int getBaseAttackDamage() {
+        return baseAttackDamage;
+    }
+
+    public int getBaseDefense() {
+        return baseDefense;
+    }
+
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public int getCurrentDefense() {
+        return currentDefense;
+    }
+
+    public int getCurrentExperience() {
+        return currentExperience;
+    }
+
+    public int getExperienceToNextLevel() {
+        return experienceToNextLevel;
+    }
+
     public void addExperience(int expAmount) {
         currentExperience += expAmount;
 
@@ -54,11 +83,6 @@ public class PlayerStatistics extends ActorStatistics {
         return damageAmount;
     }
 
-    @Override
-    public int getAttackDamage() {
-        return baseAttackDamage + currentProjectile.getAttackDamage();
-    }
-
     private void levelUp() {
 
         Log.logDebug("PLAYER LEVEL UP. WAS LEVEL " + level);
@@ -86,4 +110,5 @@ public class PlayerStatistics extends ActorStatistics {
         Log.logDebug("EXP TO NEXT LEVEL: " + experienceToNextLevel);
 
     }
+
 }

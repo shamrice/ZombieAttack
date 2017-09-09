@@ -11,6 +11,7 @@ import io.github.shamrice.zombieAttackGame.configuration.definition.Configuratio
 import io.github.shamrice.zombieAttackGame.configuration.logger.LogTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InventoryBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.MessageBoxConfig;
+import io.github.shamrice.zombieAttackGame.configuration.messaging.StatisticsBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.StatisticsConfiguration;
 import io.github.shamrice.zombieAttackGame.logger.Log;
@@ -110,6 +111,11 @@ public class ConfigurationBuilder {
                 trueTypeFont
         );
 
+        StatisticsBoxConfig statisticsBoxConfig = new StatisticsBoxConfig(
+                assetManager.getAssetConfiguration(AssetTypes.STATS_BOX),
+                trueTypeFont
+        );
+
         Log.logInfo("Building actor statistics configurations...");
 
         StatisticsConfiguration statisticsConfiguration = null;
@@ -152,6 +158,7 @@ public class ConfigurationBuilder {
                     playerActor,
                     messageBoxConfig,
                     inventoryBoxConfig,
+                    statisticsBoxConfig,
                     statisticsConfiguration
             );
 
