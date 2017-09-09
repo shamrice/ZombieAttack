@@ -228,9 +228,6 @@ public class ConfigurationBuilder {
     }
 
     private static StatisticsConfiguration buildStatisticsConfiguration() throws IOException {
-        String configDirectory = configProperties.getProperty(
-                ConfigurationDefinitions.STATISTICS_CONFIG_FILES_LOCATION
-        );
 
         String[] listOfEnemyItems = configProperties
                 .getProperty(ConfigurationDefinitions.STATISTICS_CONFIGURED_ENEMIES)
@@ -239,6 +236,18 @@ public class ConfigurationBuilder {
         String[] listOfProjectileItems = configProperties
                 .getProperty(ConfigurationDefinitions.STATISTICS_CONFIGURED_PROJECTILES)
                 .split(",");
+
+
+        File statsConfigDirectory = new File(configProperties.getProperty(
+                ConfigurationDefinitions.STATISTICS_CONFIG_FILES_LOCATION)
+        );
+
+        String configDirectory = statsConfigDirectory.getPath() + "/";
+
+        if (!statsConfigDirectory.exists()) {
+            Log.logError("Cannot find configured stats config directory. Trying ./conf/stats/");
+            configDirectory = "conf/stats/";
+        }
 
         StatisticsConfiguration statsConfig = new StatisticsConfiguration(
                 configDirectory, listOfEnemyItems, listOfProjectileItems
