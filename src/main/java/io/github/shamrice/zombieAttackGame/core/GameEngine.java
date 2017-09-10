@@ -22,6 +22,8 @@ import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import io.github.shamrice.zombieAttackGame.messaging.StatisticsMessageBox;
 import org.newdawn.slick.Input;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -226,69 +228,12 @@ public class GameEngine {
 
             // Save game
             if (input.isKeyPressed(Input.KEY_F2)) {
-
-                //TODO : move into own method, dynamic file names.
-
-                SaveGameStorageManager saveGameStorageManager = new SaveGameStorageManager();
-                GameState gameState = new GameState(
-                        new AreaState(
-                                areaManager.getCurrentWorld(),
-                                areaManager.getCurrentX(),
-                                areaManager.getCurrentY()
-                        ),
-                        new PlayerState(
-                                player.getxPos(),
-                                player.getyPos(),
-                                player.getPlayerStatistics()
-                        ),
-                        player.getInventory());
-
-                String fileName = "playerSaveTest.txt";
-                if (!saveGameStorageManager.saveGame(fileName, gameState)) {
-                    messageBox.write("Unable to save game. Please check logs.");
-                } else {
-                    messageBox.write("Game saved in file " + fileName + ".");
-                }
+                saveGame();
             }
 
             //load game
             if (input.isKeyPressed(Input.KEY_F3)) {
-
-                //TODO : move into own method, dynamic file names.
-
-                String fileName = "playerSaveTest.txt";
-                SaveGameStorageManager saveGameStorageManager = new SaveGameStorageManager();
-                GameState loadedGameState = saveGameStorageManager.loadGame(fileName);
-
-                if (loadedGameState != null) {
-                    areaManager.setCurrentWorld(loadedGameState.getAreaState().getCurrentWorld());
-                    areaManager.setCurrentAreaLocation(
-                            loadedGameState.getAreaState().getCurrentX(),
-                            loadedGameState.getAreaState().getCurrentY()
-                    );
-
-                    player.setxPos(loadedGameState.getPlayerState().getX());
-                    player.setyPos(loadedGameState.getPlayerState().getY());
-
-                    player.setInventory(loadedGameState.getInventory());
-
-                    player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
-
-                    //TODO : This should be loaded dynamically from save.
-                    player.setCurrentProjectile(
-                            new BulletProjectileActor(
-                                    configuration.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
-                                    configuration.getStatisticsConfiguration().getProjectileStatistics(ProjectileTypes.BULLET)
-                            )
-                    );
-
-                    messageBox.write("Game loaded from file " + fileName);
-
-                    resetArea();
-
-                } else {
-                    messageBox.write("Failed to load game save from file " + fileName);
-                }
+                loadGame();
             }
 
             boolean projectileAreaCollision = areaManager.getCurrentArea()
@@ -482,6 +427,80 @@ public class GameEngine {
                 .checkCollision(
                         actor.getCollisionRectAtDirection(attemptedDirection, delta)
                 );
+    }
+
+    private void saveGame() {
+
+        SaveGameStorageManager saveGameStorageManager = new SaveGameStorageManager();
+
+        GameState gameState = new GameState(
+                new AreaState(
+                        areaManager.getCurrentWorld(),
+                        areaManager.getCurrentX(),
+                        areaManager.getCurrentY()
+                ),
+                new PlayerState(
+                        player.getxPos(),
+                        player.getyPos(),
+                        player.getPlayerStatistics()
+                ),
+                player.getInventory()
+        );
+        
+        //TODO : Eventually move this from a JOptionPane to a more formal dialog.
+        String fileName = JOptionPane.showInputDialog(null, "Select filename to save as: ");
+
+        if (fileName != null) {
+
+            if (!saveGameStorageManager.saveGame(fileName, gameState)) {
+                messageBox.write("Unable to save game. Please check logs.");
+                Log.logError("Unable to save game to file " + fileName);
+            } else {
+                messageBox.write("Game saved to file " + fileName + ".");
+                Log.logInfo("Game saved to file " + fileName);
+            }
+        }
+    }
+
+    private void loadGame() {
+
+        //TODO : Eventually move this from a JOptionPane to a more formal dialog.
+        String fileName = JOptionPane.showInputDialog(null, "Select filename to load: ");
+
+        SaveGameStorageManager saveGameStorageManager = new SaveGameStorageManager();
+        GameState loadedGameState = saveGameStorageManager.loadGame(fileName);
+
+        if (loadedGameState != null) {
+            areaManager.setCurrentWorld(loadedGameState.getAreaState().getCurrentWorld());
+            areaManager.setCurrentAreaLocation(
+                    loadedGameState.getAreaState().getCurrentX(),
+                    loadedGameState.getAreaState().getCurrentY()
+            );
+
+            player.setxPos(loadedGameState.getPlayerState().getX());
+            player.setyPos(loadedGameState.getPlayerState().getY());
+
+            player.setInventory(loadedGameState.getInventory());
+
+            player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
+
+            //TODO : This should be loaded dynamically from save.
+            player.setCurrentProjectile(
+                    new BulletProjectileActor(
+                            configuration.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
+                            configuration.getStatisticsConfiguration().getProjectileStatistics(ProjectileTypes.BULLET)
+                    )
+            );
+
+            messageBox.write("Game loaded from file " + fileName);
+            Log.logInfo("Loaded game from file " + fileName);
+
+            resetArea();
+
+        } else {
+            messageBox.write("Failed to load game save from file " + fileName);
+            Log.logError("Unable to load game from file " + fileName);
+        }
     }
 
 }
