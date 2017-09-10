@@ -19,6 +19,14 @@ public class PlayerStatistics extends ActorStatistics {
         super(name, level, baseHealth, baseAttackDamage, baseDefense);
     }
 
+    public PlayerStatistics(String name, int level, int baseHealth, int baseAttackDamage, int baseDefense,
+                            int currentExperience, int experienceToNextLevel) {
+        super(name, level, baseHealth, baseAttackDamage, baseDefense);
+
+        this.currentExperience = currentExperience;
+        this.experienceToNextLevel = experienceToNextLevel;
+    }
+
     @Override
     public int getAttackDamage() {
         return baseAttackDamage + currentProjectile.getAttackDamage();

@@ -113,8 +113,9 @@ public class SaveGameStorageManager {
                     Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_LEVEL).toString()),
                     Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_HEALTH_BASE).toString()),
                     Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_ATTACK_BASE).toString()),
-                    Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_DEFENSE_BASE).toString())
-
+                    Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_DEFENSE_BASE).toString()),
+                    Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_EXPERIENCE_CURRENT).toString()),
+                    Integer.parseInt(saveFileProperties.get(SaveFileDefinitions.PLAYER_EXPERIENCE_TO_NEXT_LEVEL).toString())
             );
 
 
