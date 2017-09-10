@@ -103,11 +103,19 @@ public class PlayerActor extends Actor {
         return inventory;
     }
 
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     public void addExperience(int amount) {
         playerStatistics.addExperience(amount);
     }
 
     public PlayerStatistics getPlayerStatistics() {
         return playerStatistics;
+    }
+
+    public void setPlayerStatistics(PlayerStatistics playerStatistics) {
+        this.playerStatistics = playerStatistics;
     }
 }

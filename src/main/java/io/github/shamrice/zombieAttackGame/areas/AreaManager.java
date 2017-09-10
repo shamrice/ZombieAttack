@@ -92,6 +92,10 @@ public class AreaManager {
         setCurrentAreaLocation(0, 0);
     }
 
+    public int getCurrentWorld() {
+        return currentWorld;
+    }
+
     public TiledMap getCurrentAreaTileMap() {
         return areaMatrix[currentWorld][currentX][currentY].getTiledMap();
     }

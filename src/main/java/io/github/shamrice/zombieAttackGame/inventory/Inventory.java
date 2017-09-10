@@ -50,6 +50,10 @@ public class Inventory {
         return null;
     }
 
+    public List<InventoryItem> getInventoryItemList() {
+        return inventoryItemList;
+    }
+
     public boolean addInventoryItem(InventoryItem inventoryItem) {
 
         //if pick up is coins, add to coin bank, if not, add to inventory.

@@ -4,10 +4,16 @@ import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.EnemyTypes;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
+import io.github.shamrice.zombieAttackGame.core.state.GameState;
+import io.github.shamrice.zombieAttackGame.core.state.area.AreaState;
+import io.github.shamrice.zombieAttackGame.core.state.player.PlayerState;
+import io.github.shamrice.zombieAttackGame.core.storage.SaveGameStorageManager;
 import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
@@ -194,7 +200,7 @@ public class GameEngine {
             }
 
             //debug display inventory items
-            if (input.isKeyDown(Input.KEY_I)) {
+            if (input.isKeyPressed(Input.KEY_I)) {
 
                 messageBox.write("INVENTORY:");
                 messageBox.write("----------");
@@ -214,8 +220,75 @@ public class GameEngine {
                 messageBox.write("You have " + player.getInventory().getNumberOfCoins() + " coin(s).");
             }
 
-            if (input.isKeyDown(Input.KEY_T)) {
+            if (input.isKeyPressed(Input.KEY_T)) {
                 messageBox.write("TEST BUTTON PRESSED");
+            }
+
+            // Save game
+            if (input.isKeyPressed(Input.KEY_F2)) {
+
+                //TODO : move into own method, dynamic file names.
+
+                SaveGameStorageManager saveGameStorageManager = new SaveGameStorageManager();
+                GameState gameState = new GameState(
+                        new AreaState(
+                                areaManager.getCurrentWorld(),
+                                areaManager.getCurrentX(),
+                                areaManager.getCurrentY()
+                        ),
+                        new PlayerState(
+                                player.getxPos(),
+                                player.getyPos(),
+                                player.getPlayerStatistics()
+                        ),
+                        player.getInventory());
+
+                String fileName = "playerSaveTest.txt";
+                if (!saveGameStorageManager.saveGame(fileName, gameState)) {
+                    messageBox.write("Unable to save game. Please check logs.");
+                } else {
+                    messageBox.write("Game saved in file " + fileName + ".");
+                }
+            }
+
+            //load game
+            if (input.isKeyPressed(Input.KEY_F3)) {
+
+                //TODO : move into own method, dynamic file names.
+
+                String fileName = "playerSaveTest.txt";
+                SaveGameStorageManager saveGameStorageManager = new SaveGameStorageManager();
+                GameState loadedGameState = saveGameStorageManager.loadGame(fileName);
+
+                if (loadedGameState != null) {
+                    areaManager.setCurrentWorld(loadedGameState.getAreaState().getCurrentWorld());
+                    areaManager.setCurrentAreaLocation(
+                            loadedGameState.getAreaState().getCurrentX(),
+                            loadedGameState.getAreaState().getCurrentY()
+                    );
+
+                    player.setxPos(loadedGameState.getPlayerState().getX());
+                    player.setyPos(loadedGameState.getPlayerState().getY());
+
+                    player.setInventory(loadedGameState.getInventory());
+
+                    player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
+
+                    //TODO : This should be loaded dynamically from save.
+                    player.setCurrentProjectile(
+                            new BulletProjectileActor(
+                                    configuration.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
+                                    configuration.getStatisticsConfiguration().getProjectileStatistics(ProjectileTypes.BULLET)
+                            )
+                    );
+
+                    messageBox.write("Game loaded from file " + fileName);
+
+                    resetArea();
+
+                } else {
+                    messageBox.write("Failed to load game save from file " + fileName);
+                }
             }
 
             boolean projectileAreaCollision = areaManager.getCurrentArea()
