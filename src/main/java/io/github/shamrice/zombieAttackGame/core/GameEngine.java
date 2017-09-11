@@ -446,7 +446,7 @@ public class GameEngine {
                 ),
                 player.getInventory()
         );
-        
+
         //TODO : Eventually move this from a JOptionPane to a more formal dialog.
         String fileName = JOptionPane.showInputDialog(null, "Select filename to save as: ");
 

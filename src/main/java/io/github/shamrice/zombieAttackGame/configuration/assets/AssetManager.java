@@ -77,6 +77,10 @@ public class AssetManager {
                         assetConfig + ConfigurationDefinitions.IMAGES_DEAD_SUFFIX
                 ).split(",");
 
+                String[] lootedImageNames = configProperties.getProperty(
+                        assetConfig + ConfigurationDefinitions.IMAGES_LOOTED_SUFFIX
+                ).split(",");
+
                 String[] hurtImageNames = configProperties.getProperty(
                         assetConfig + ConfigurationDefinitions.IMAGES_HURT_SUFFIX
                 ).split(",");
@@ -91,6 +95,7 @@ public class AssetManager {
                 Image[] leftImages = new Image[leftImageNames.length];
                 Image[] rightImages = new Image[rightImageNames.length];
                 Image[] deadImages = new Image[deadImageNames.length];
+                Image[] lootedImages = new Image[lootedImageNames.length];
                 Image[] hurtImages = new Image[hurtImageNames.length];
                 Image[] attackImages = new Image[attackImageNames.length];
 
@@ -110,6 +115,10 @@ public class AssetManager {
 
                 for (int i = 0; i < deadImageNames.length; i++) {
                     deadImages[i] = new Image(deadImageNames[i]);
+                }
+
+                for (int i = 0; i < lootedImageNames.length; i++) {
+                    lootedImages[i] = new Image(lootedImageNames[i]);
                 }
 
                 for (int i = 0; i < hurtImageNames.length; i++) {
@@ -147,6 +156,7 @@ public class AssetManager {
                 assetConfiguration.addImages(ImageTypes.IMAGE_LEFT, leftImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_RIGHT, rightImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_DEAD, deadImages);
+                assetConfiguration.addImages(ImageTypes.IMAGE_LOOTED, lootedImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_HURT, hurtImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_ATTACK, hurtImages);
                 assetConfiguration.setFrameDurations(durations);
@@ -178,6 +188,11 @@ public class AssetManager {
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_DEAD,
                         new Animation(deadImages, 1, false)
+                );
+
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_LOOTED,
+                        new Animation(lootedImages, 1, false)
                 );
 
                 assetConfiguration.addAnimation(

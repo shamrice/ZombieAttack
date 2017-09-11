@@ -63,6 +63,9 @@ public class EnemyActor extends Actor {
             Log.logDebug("Getting item from fallen enemy: " + itemDrop.getNameString());
 
             isLooted = true;
+
+            currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_LOOTED);
+
             return itemDrop;
 
         } else
