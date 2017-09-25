@@ -26,7 +26,7 @@ public class MessageBox {
     public void draw() {
         messageBoxConfig
                 .getAssetConfiguration()
-                .getAnimation(ImageTypes.IMAGE_UP)
+                .getAnimation(ImageTypes.DEFAULT)
                 .draw(
                         messageBoxConfig.getxPos(),
                         messageBoxConfig.getyPos()

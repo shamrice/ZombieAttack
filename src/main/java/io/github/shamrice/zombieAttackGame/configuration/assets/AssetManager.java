@@ -1,11 +1,13 @@
 package io.github.shamrice.zombieAttackGame.configuration.assets;
 
+import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -38,7 +40,7 @@ public class AssetManager {
         }
     }
 
-    public void buildAssets() throws SlickException {
+    public void buildAssets() throws SlickException, IOException {
 
         if (!isAssetsBuilt) {
 
@@ -49,87 +51,32 @@ public class AssetManager {
 
                 AssetConfiguration assetConfiguration = new AssetConfiguration(assetConfig);
 
-                /* TODO:
-                        only build asset configuration for images that exist. Currently this requires
-                       redundant images for each image possibility. (Even if they aren't used)
-                */
-
-                //Read image file names from config.
-                String[] upImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_UP_SUFFIX
-                ).split(",");
-
-                String[] downImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_DOWN_SUFFIX
-                ).split(",");
-
-
-                String[] leftImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_LEFT_SUFFIX
-                ).split(",");
-
-
-                String[] rightImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_RIGHT_SUFFIX
-                ).split(",");
-
-                String[] deadImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_DEAD_SUFFIX
-                ).split(",");
-
-                String[] lootedImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_LOOTED_SUFFIX
-                ).split(",");
-
-                String[] hurtImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_HURT_SUFFIX
-                ).split(",");
-
-                String[] attackImageNames = configProperties.getProperty(
-                        assetConfig + ConfigurationDefinitions.IMAGES_ATTACK_SUFFIX
-                ).split(",");
+                //get array of images names from config, using default image if not configured.
+                String[] defaultImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_DEFAULT_SUFFIX);
+                String[] upImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_UP_SUFFIX);
+                String[] downImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_DOWN_SUFFIX);
+                String[] leftImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_LEFT_SUFFIX);
+                String[] rightImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_RIGHT_SUFFIX);
+                String[] deadImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_DEAD_SUFFIX);
+                String[] lootedImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_LOOTED_SUFFIX);
+                String[] hurtImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_HURT_SUFFIX);
+                String[] attackImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_ATTACK_SUFFIX);
 
                 //Load image array with images using file names from config
-                Image[] upImages = new Image[upImageNames.length];
-                Image[] downImages = new Image[downImageNames.length];
-                Image[] leftImages = new Image[leftImageNames.length];
-                Image[] rightImages = new Image[rightImageNames.length];
-                Image[] deadImages = new Image[deadImageNames.length];
-                Image[] lootedImages = new Image[lootedImageNames.length];
-                Image[] hurtImages = new Image[hurtImageNames.length];
-                Image[] attackImages = new Image[attackImageNames.length];
-
-                for (int i = 0; i < upImageNames.length; i++) {
-                    upImages[i] = new Image(upImageNames[i]);
-                }
-
-                for (int i = 0; i < downImageNames.length; i++) {
-                    downImages[i] = new Image(downImageNames[i]);
-                }
-                for (int i = 0; i < leftImageNames.length; i++) {
-                    leftImages[i] = new Image(leftImageNames[i]);
-                }
-                for (int i = 0; i < rightImageNames.length; i++) {
-                    rightImages[i] = new Image(rightImageNames[i]);
-                }
-
-                for (int i = 0; i < deadImageNames.length; i++) {
-                    deadImages[i] = new Image(deadImageNames[i]);
-                }
-
-                for (int i = 0; i < lootedImageNames.length; i++) {
-                    lootedImages[i] = new Image(lootedImageNames[i]);
-                }
-
-                for (int i = 0; i < hurtImageNames.length; i++) {
-                    hurtImages[i] = new Image(hurtImageNames[i]);
-                }
-
-                for (int i = 0; i < attackImageNames.length; i++) {
-                    attackImages[i] = new Image(attackImageNames[i]);
-                }
+                Image[] defaultImages = initializeImageArray(defaultImageNames);
+                Image[] upImages = initializeImageArray(upImageNames);
+                Image[] downImages = initializeImageArray(downImageNames);
+                Image[] leftImages = initializeImageArray(leftImageNames);
+                Image[] rightImages = initializeImageArray(rightImageNames);
+                Image[] deadImages = initializeImageArray(deadImageNames);
+                Image[] lootedImages = initializeImageArray(lootedImageNames);
+                Image[] hurtImages = initializeImageArray(hurtImageNames);
+                Image[] attackImages = initializeImageArray(attackImageNames);
 
                 //set animation durations for frames
+
+                /* TODO : The whole animation setup should be rethought. */
+
                 int animationDuration = DEFAULT_ANIMATION_DURATION;
 
                 try {
@@ -151,6 +98,7 @@ public class AssetManager {
                 }
 
                 //add images to config
+                assetConfiguration.addImages(ImageTypes.DEFAULT, defaultImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_UP, upImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_DOWN, downImages);
                 assetConfiguration.addImages(ImageTypes.IMAGE_LEFT, leftImages);
@@ -164,6 +112,8 @@ public class AssetManager {
                 //add animations to config using images and frame durations
 
                 //TODO : number of durations should be based on number of images, not hardcoded.
+
+                assetConfiguration.addAnimation(ImageTypes.DEFAULT, new Animation(defaultImages, 1, false));
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_UP,
@@ -219,5 +169,44 @@ public class AssetManager {
                 }
             }
         }
+    }
+
+    private String[] getImageNamesFromConfig(String assetName, String propertyName) throws IOException {
+
+        //Read image file names from config.
+        String defaultImageConfigNames = configProperties.getProperty(
+                assetName + ConfigurationDefinitions.IMAGES_DEFAULT_SUFFIX
+        );
+
+        //check to see if there's a default image, if not, we can't do anything.
+        if (defaultImageConfigNames == null) {
+            Log.logError("Default image name missing for asset " + assetName);
+            throw new IOException("Missing default image name for " + assetName);
+        }
+
+        String[] defaultImageNames = defaultImageConfigNames.split(",");
+
+        String attemptedImageConfigNames = configProperties.getProperty(
+                assetName + propertyName
+        );
+
+        if (attemptedImageConfigNames == null) {
+            return defaultImageNames;
+        } else {
+            return attemptedImageConfigNames.split(",");
+        }
+    }
+
+    private Image[] initializeImageArray(String[] filenamesToUse) throws SlickException {
+
+        //Load image array with images using file names from config
+        Image[] images = new Image[filenamesToUse.length];
+
+        for (int i = 0; i < images.length; i++) {
+            images[i] = new Image(filenamesToUse[i]);
+        }
+
+        return images;
+
     }
 }

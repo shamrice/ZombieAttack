@@ -91,8 +91,8 @@ public class ConfigurationBuilder {
 
         try {
             assetManager = buildAssetConfiguration();
-        } catch (SlickException slickExc) {
-            Log.logException("Error building assets configuration", slickExc);
+        } catch (Exception exc) {
+            Log.logException("Error building assets configuration", exc);
             System.exit(-1);
         }
 
@@ -171,7 +171,7 @@ public class ConfigurationBuilder {
         return configuration;
     }
 
-    private static AssetManager buildAssetConfiguration() throws SlickException {
+    private static AssetManager buildAssetConfiguration() throws SlickException, IOException {
         AssetManager assetManager = new AssetManager(configProperties);
         assetManager.buildAssets();
 

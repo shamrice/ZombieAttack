@@ -22,7 +22,7 @@ public class StatisticsMessageBox {
     public void draw(PlayerStatistics playerStatistics) {
         statisticsBoxConfig
                 .getAssetConfiguration()
-                .getAnimation(ImageTypes.IMAGE_UP)
+                .getAnimation(ImageTypes.DEFAULT)
                 .draw(
                         statisticsBoxConfig.getxPos(),
                         statisticsBoxConfig.getyPos()

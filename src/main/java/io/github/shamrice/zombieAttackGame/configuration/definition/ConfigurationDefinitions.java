@@ -14,6 +14,7 @@ public class ConfigurationDefinitions {
 
     public static final String ASSET_CONFIGURATIONS = "asset.configurations";
 
+    public static final String IMAGES_DEFAULT_SUFFIX = ".images.default";
     public static final String IMAGES_UP_SUFFIX = ".images.up";
     public static final String IMAGES_DOWN_SUFFIX = ".images.down";
     public static final String IMAGES_LEFT_SUFFIX = ".images.left";

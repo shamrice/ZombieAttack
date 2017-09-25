@@ -26,7 +26,7 @@ public class InventoryDialogBox {
 
         config
                 .getAssetConfiguration()
-                .getAnimation(ImageTypes.IMAGE_UP)
+                .getAnimation(ImageTypes.DEFAULT)
                 .draw(
                         config.getxPos(),
                         config.getyPos()

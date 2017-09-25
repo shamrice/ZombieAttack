@@ -12,5 +12,6 @@ public enum ImageTypes {
     IMAGE_LOOTED,
     IMAGE_HURT,
     IMAGE_ATTACK,
+    DEFAULT,
     OTHER
 }
