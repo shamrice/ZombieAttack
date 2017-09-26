@@ -19,9 +19,18 @@ public class ZombieAttackGame extends BasicGame {
     }
 
     public static void main(String[] arguments) {
+
+        boolean fullscreen = false;
+
+        if (arguments.length > 0) {
+            if (arguments[0].toLowerCase().equals("--full") || arguments[0].toLowerCase().equals("-f")) {
+                fullscreen = true;
+            }
+        }
+
         try {
             AppGameContainer app = new AppGameContainer(new ZombieAttackGame());
-            app.setDisplayMode(1024, 768, false);
+            app.setDisplayMode(1024, 768, fullscreen);
             app.setTargetFrameRate(60);
             app.start();
         }
