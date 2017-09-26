@@ -1,6 +1,5 @@
 package io.github.shamrice.zombieAttackGame.configuration.assets;
 
-import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.definition.ConfigurationDefinitions;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import org.newdawn.slick.Animation;
@@ -24,20 +23,11 @@ public class AssetManager {
     public AssetManager(Properties configProperties) {
         isAssetsBuilt = false;
         this.configProperties = configProperties;
-        assetConfigurationMap = new HashMap<AssetTypes, AssetConfiguration>();
+        assetConfigurationMap = new HashMap<>();
     }
 
     public AssetConfiguration getAssetConfiguration(AssetTypes assetType) {
         return assetConfigurationMap.get(assetType);
-    }
-
-    public AssetConfiguration getAssetConfiguration(String assetType) {
-        try {
-            return assetConfigurationMap.get(AssetTypes.valueOf(assetType));
-        } catch (Exception getAssetExc) {
-            getAssetExc.printStackTrace();
-            return null;
-        }
     }
 
     public void buildAssets() throws SlickException, IOException {
@@ -73,86 +63,50 @@ public class AssetManager {
                 Image[] hurtImages = initializeImageArray(hurtImageNames);
                 Image[] attackImages = initializeImageArray(attackImageNames);
 
-                //set animation durations for frames
-
-                /* TODO : The whole animation setup should be rethought. */
-
-                int animationDuration = DEFAULT_ANIMATION_DURATION;
-
-                try {
-                    animationDuration = Integer.parseInt(
-                            configProperties.getProperty(
-                                    assetConfig + ConfigurationDefinitions.ANIMATION_DURATION_PER_FRAME_SUFFIX
-                            )
-                    );
-                } catch (NumberFormatException numFormatEx) {
-                    Log.logException("Failed to set animation duration for " + assetConfig +
-                            ". Defaulting to " + DEFAULT_ANIMATION_DURATION + ".",
-                            numFormatEx
-                    );
-                }
-
-                int[] durations = new int[rightImages.length];
-                for (int i = 0; i < durations.length; i++) {
-                    durations[i] = animationDuration;
-                }
-
-                //add images to config
-                assetConfiguration.addImages(ImageTypes.DEFAULT, defaultImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_UP, upImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_DOWN, downImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_LEFT, leftImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_RIGHT, rightImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_DEAD, deadImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_LOOTED, lootedImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_HURT, hurtImages);
-                assetConfiguration.addImages(ImageTypes.IMAGE_ATTACK, hurtImages);
-                assetConfiguration.setFrameDurations(durations);
-
-                //add animations to config using images and frame durations
-
-                //TODO : number of durations should be based on number of images, not hardcoded.
-
-                assetConfiguration.addAnimation(ImageTypes.DEFAULT, new Animation(defaultImages, 1, false));
+                //add animations to config
+                assetConfiguration.addAnimation(
+                        ImageTypes.DEFAULT,
+                        buildAnimation(assetConfig, defaultImages, false)
+                );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_UP,
-                        new Animation(upImages, durations, false)
+                        buildAnimation(assetConfig, upImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_DOWN,
-                        new Animation(downImages, durations, false)
+                        buildAnimation(assetConfig, downImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_LEFT,
-                        new Animation(leftImages, durations, false)
+                        buildAnimation(assetConfig, leftImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_RIGHT,
-                        new Animation(rightImages, durations, false)
+                        buildAnimation(assetConfig, rightImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_DEAD,
-                        new Animation(deadImages, 1, false)
+                        buildAnimation(assetConfig, deadImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_LOOTED,
-                        new Animation(lootedImages, 1, false)
+                        buildAnimation(assetConfig, lootedImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_HURT,
-                        new Animation(hurtImages, 1, false)
+                        buildAnimation(assetConfig, hurtImages, false)
                 );
 
                 assetConfiguration.addAnimation(
                         ImageTypes.IMAGE_ATTACK,
-                        new Animation(attackImages, 1, false)
+                        buildAnimation(assetConfig, attackImages, false)
                 );
 
                 //put completed asset configuration in map
@@ -207,6 +161,32 @@ public class AssetManager {
         }
 
         return images;
+    }
+
+    private Animation buildAnimation(String assetName, Image[] images, boolean autoUpdate) {
+
+        int animationDuration = DEFAULT_ANIMATION_DURATION;
+
+        try {
+            animationDuration = Integer.parseInt(
+                    configProperties.getProperty(
+                            assetName + ConfigurationDefinitions.ANIMATION_DURATION_PER_FRAME_SUFFIX
+                    )
+            );
+        } catch (NumberFormatException numFormatEx) {
+            Log.logException("Failed to set animation duration for " + assetName +
+                            ". Defaulting to " + DEFAULT_ANIMATION_DURATION + ".",
+                    numFormatEx
+            );
+        }
+
+        //set frame durations
+        int[] durations = new int[images.length];
+        for (int i = 0; i < durations.length; i++) {
+            durations[i] = animationDuration;
+        }
+
+        return new Animation(images, durations, autoUpdate);
 
     }
 }
