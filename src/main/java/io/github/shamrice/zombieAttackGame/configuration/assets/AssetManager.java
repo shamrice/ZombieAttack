@@ -50,7 +50,10 @@ public class AssetManager {
                 String[] deadImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_DEAD_SUFFIX);
                 String[] lootedImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_LOOTED_SUFFIX);
                 String[] hurtImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_HURT_SUFFIX);
-                String[] attackImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_ATTACK_SUFFIX);
+                String[] attackUpImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_UP_ATTACK_SUFFIX);
+                String[] attackDownImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_DOWN_ATTACK_SUFFIX);
+                String[] attackLeftImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_LEFT_ATTACK_SUFFIX);
+                String[] attackRightImageNames = getImageNamesFromConfig(assetConfig, ConfigurationDefinitions.IMAGES_RIGHT_ATTACK_SUFFIX);
 
                 //Load image array with images using file names from config
                 Image[] defaultImages = initializeImageArray(defaultImageNames);
@@ -61,7 +64,10 @@ public class AssetManager {
                 Image[] deadImages = initializeImageArray(deadImageNames);
                 Image[] lootedImages = initializeImageArray(lootedImageNames);
                 Image[] hurtImages = initializeImageArray(hurtImageNames);
-                Image[] attackImages = initializeImageArray(attackImageNames);
+                Image[] attackUpImages = initializeImageArray(attackUpImageNames);
+                Image[] attackDownImages = initializeImageArray(attackDownImageNames);
+                Image[] attackLeftImages = initializeImageArray(attackLeftImageNames);
+                Image[] attackRightImages = initializeImageArray(attackRightImageNames);
 
                 //add animations to config
                 assetConfiguration.addAnimation(
@@ -105,14 +111,26 @@ public class AssetManager {
                 );
 
                 assetConfiguration.addAnimation(
-                        ImageTypes.IMAGE_ATTACK,
-                        buildAnimation(assetConfig, attackImages, false)
+                        ImageTypes.IMAGE_UP_ATTACK,
+                        buildAnimation(assetConfig, attackUpImages, true)
+                );
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_DOWN_ATTACK,
+                        buildAnimation(assetConfig, attackDownImages, true)
+                );
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_LEFT_ATTACK,
+                        buildAnimation(assetConfig, attackLeftImages, true)
+                );
+                assetConfiguration.addAnimation(
+                        ImageTypes.IMAGE_RIGHT_ATTACK,
+                        buildAnimation(assetConfig, attackRightImages, true)
                 );
 
                 //put completed asset configuration in map
                 try {
                     assetConfigurationMap.put(
-                            AssetTypes.valueOf(assetConfig),
+                            AssetTypes.valueOf(assetConfig.toUpperCase()),
                             assetConfiguration
                     );
                 } catch (Exception addAsssetEx) {

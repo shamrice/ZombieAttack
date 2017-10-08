@@ -173,6 +173,21 @@ public abstract class Actor {
         return currentDirection;
     }
 
+    protected ImageTypes getAttackImageTypeForCurrentDirection() {
+        switch (currentDirection) {
+            case UP:
+                return ImageTypes.IMAGE_UP_ATTACK;
+            case DOWN:
+                return ImageTypes.IMAGE_DOWN_ATTACK;
+            case LEFT:
+                return ImageTypes.IMAGE_LEFT_ATTACK;
+            case RIGHT:
+                return ImageTypes.IMAGE_RIGHT_ATTACK;
+            default:
+                return ImageTypes.DEFAULT;
+        }
+    }
+
     private float getCurrentWalkSpeed() {
         return isRunning ? walkSpeedMultiplier * 3 : walkSpeedMultiplier;
     }

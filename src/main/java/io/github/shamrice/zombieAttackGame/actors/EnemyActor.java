@@ -46,7 +46,7 @@ public class EnemyActor extends Actor {
     }
 
     public void attack() {
-        currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_ATTACK);
+        currentAnimation = assetConfiguration.getAnimation(getAttackImageTypeForCurrentDirection());
     }
 
     public boolean isAlive() {

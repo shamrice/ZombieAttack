@@ -7,6 +7,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.logger.Log;
+import org.newdawn.slick.Animation;
 
 /**
  * Created by Erik on 7/22/2017.
@@ -60,7 +61,7 @@ public class PlayerActor extends Actor {
                 playerStatistics.getCurrentProjectile().setDirection(getCurrentDirection());
             }
 
-            currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_ATTACK);
+            currentAnimation = assetConfiguration.getAnimation(getAttackImageTypeForCurrentDirection());
         }
     }
 

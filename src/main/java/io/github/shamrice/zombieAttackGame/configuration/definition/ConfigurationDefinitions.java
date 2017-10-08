@@ -22,7 +22,10 @@ public class ConfigurationDefinitions {
     public static final String IMAGES_DEAD_SUFFIX = ".images.dead";
     public static final String IMAGES_LOOTED_SUFFIX = ".images.looted";
     public static final String IMAGES_HURT_SUFFIX = ".images.hurt";
-    public static final String IMAGES_ATTACK_SUFFIX = ".images.attack";
+    public static final String IMAGES_UP_ATTACK_SUFFIX = ".images.up.attack";
+    public static final String IMAGES_DOWN_ATTACK_SUFFIX = ".images.down.attack";
+    public static final String IMAGES_LEFT_ATTACK_SUFFIX = ".images.left.attack";
+    public static final String IMAGES_RIGHT_ATTACK_SUFFIX = ".images.right.attack";
     public static final String ANIMATION_DURATION_PER_FRAME_SUFFIX = ".animation.duration.perFrame";
 
     public static final String AREA_CONFIG_FILES_LOCATION = "area.files.configuration.location";
