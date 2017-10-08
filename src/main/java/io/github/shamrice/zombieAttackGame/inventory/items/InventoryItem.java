@@ -9,12 +9,14 @@ public class InventoryItem {
     private InventoryItemTypes type;
     private int value;
     private String description;
+    private boolean isEquipped;
 
     public InventoryItem(InventoryItemNames name, InventoryItemTypes type, int value, String description) {
         this.name = name;
         this.type = type;
         this.value = value;
         this.description = description;
+        this.isEquipped = false;
     }
 
     public String getNameString() {
@@ -39,5 +41,11 @@ public class InventoryItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isEquipped() { return this.isEquipped; }
+
+    public void setEquipped(boolean isEquipped) {
+        this.isEquipped = isEquipped;
     }
 }

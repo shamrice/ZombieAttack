@@ -17,6 +17,7 @@ import io.github.shamrice.zombieAttackGame.core.storage.SaveGameStorageManager;
 import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemTypes;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import io.github.shamrice.zombieAttackGame.messaging.StatisticsMessageBox;
@@ -117,7 +118,9 @@ public class GameEngine {
         );
 
         messageBox.draw();
-        statisticsMessageBox.draw(player.getPlayerStatistics());
+        statisticsMessageBox.draw(
+                player.getPlayerStatistics(),
+                player.getInventory().getEquippedItem(InventoryItemTypes.WEAPON));
         inventoryDialogBox.draw(player.getInventory());
 
     }
@@ -224,6 +227,17 @@ public class GameEngine {
 
             if (input.isKeyPressed(Input.KEY_T)) {
                 messageBox.write("TEST BUTTON PRESSED");
+            }
+
+            //debug for now. just equip the first weapon in the inventory.
+            if (input.isKeyPressed(Input.KEY_E)) {
+                for (InventoryItem item : player.getInventory().getInventoryItemList()) {
+                    if (item.getType() == InventoryItemTypes.WEAPON) {
+                        item.setEquipped(true);
+                        messageBox.write("Equipped item " + item.getNameString());
+                        break;
+                    }
+                }
             }
 
             // Save game

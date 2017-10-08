@@ -35,6 +35,16 @@ public class Inventory {
         return coins.getValue();
     }
 
+    public InventoryItem getEquippedItem(InventoryItemTypes itemType) {
+        for (InventoryItem item : inventoryItemList) {
+            if (item.isEquipped() && itemType == item.getType()) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
     public InventoryItem getInventoryItem(int inventorySlotNumber) {
         return inventoryItemList.get(inventorySlotNumber);
     }

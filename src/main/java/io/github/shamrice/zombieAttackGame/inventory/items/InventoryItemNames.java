@@ -6,5 +6,5 @@ package io.github.shamrice.zombieAttackGame.inventory.items;
 public enum InventoryItemNames {
     BLASTER,
     COIN,
-    OTHER
+    NONE,
 }

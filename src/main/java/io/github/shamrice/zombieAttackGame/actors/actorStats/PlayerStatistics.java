@@ -13,7 +13,6 @@ public class PlayerStatistics extends ActorStatistics {
 
     private int currentExperience = 0;
     private int experienceToNextLevel = 10;
-    private Projectile currentProjectile;
 
     public PlayerStatistics(String name, int level, int baseHealth, int baseAttackDamage, int baseDefense) {
         super(name, level, baseHealth, baseAttackDamage, baseDefense);
@@ -29,7 +28,7 @@ public class PlayerStatistics extends ActorStatistics {
 
     @Override
     public int getAttackDamage() {
-        return baseAttackDamage + currentProjectile.getAttackDamage();
+        return baseAttackDamage;// + currentProjectile.getAttackDamage();
     }
 
     public int getBaseAttackDamage() {
@@ -69,14 +68,6 @@ public class PlayerStatistics extends ActorStatistics {
         }
     }
 
-    public void setProjectile(Projectile newProjectile) {
-        this.currentProjectile = newProjectile;
-    }
-
-    public Projectile getCurrentProjectile() {
-        return currentProjectile;
-    }
-
     @Override
     public int decreaseHealth(int amount) {
         int damageAmount = amount - this.currentDefense;
@@ -109,7 +100,7 @@ public class PlayerStatistics extends ActorStatistics {
         this.baseDefense += new Random(dateSeed).nextInt(3) + 1;
 
         this.currentHealth = this.baseHealth;
-        this.currentAttackDamage = this.baseAttackDamage + currentProjectile.getAttackDamage();
+        this.currentAttackDamage = this.baseAttackDamage;// + currentProjectile.getAttackDamage();
         this.currentDefense = this.baseDefense;
 
         Log.logDebug("CURRENT HEALTH: " + currentHealth);

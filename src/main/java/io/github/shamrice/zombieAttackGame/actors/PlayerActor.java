@@ -15,6 +15,7 @@ import org.newdawn.slick.Animation;
 public class PlayerActor extends Actor {
 
     private Inventory inventory;
+    private Projectile currentProjectile;
     private PlayerStatistics playerStatistics;
 
     public PlayerActor(AssetConfiguration assetConfiguration, PlayerStatistics playerStatistics) {
@@ -44,21 +45,17 @@ public class PlayerActor extends Actor {
     @Override
     public int getAttackDamage() {
         //will change based on weapon later on.
-        return playerStatistics.getAttackDamage();
-    }
-
-    public int getCurrentAttackDamage() {
-        return playerStatistics.getAttackDamage();
+        return (playerStatistics.getBaseAttackDamage() + currentProjectile.getAttackDamage());
     }
 
     public void attack() {
-        if (!playerStatistics.getCurrentProjectile().isActive()) {
-            playerStatistics.getCurrentProjectile().setActive(true);
-            playerStatistics.getCurrentProjectile().setxPos(xPos);
-            playerStatistics.getCurrentProjectile().setyPos(yPos);
+        if (!currentProjectile.isActive()) {
+            currentProjectile.setActive(true);
+            currentProjectile.setxPos(xPos);
+            currentProjectile.setyPos(yPos);
 
             if (getCurrentDirection() != Directions.NONE) {
-                playerStatistics.getCurrentProjectile().setDirection(getCurrentDirection());
+                currentProjectile.setDirection(getCurrentDirection());
             }
 
             currentAnimation = assetConfiguration.getAnimation(getAttackImageTypeForCurrentDirection());
@@ -70,11 +67,13 @@ public class PlayerActor extends Actor {
     }
 
     public void setCurrentProjectile(Projectile newProjectile) {
-        playerStatistics.setProjectile(newProjectile);
+        if (newProjectile != null) {
+            currentProjectile = newProjectile;
+        }
     }
 
     public Projectile getCurrentProjectile() {
-        return playerStatistics.getCurrentProjectile();
+        return currentProjectile;
     }
 
     public boolean addToInventory(InventoryItem inventoryItem) {

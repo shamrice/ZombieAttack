@@ -4,6 +4,9 @@ import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.StatisticsBoxConfig;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemBuilder;
+import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemTypes;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
@@ -19,7 +22,15 @@ public class StatisticsMessageBox {
         this.statisticsBoxConfig = statisticsBoxConfig;
     }
 
-    public void draw(PlayerStatistics playerStatistics) {
+    public void draw(PlayerStatistics playerStatistics, InventoryItem equippedItem) {
+
+        //empty item unless item is passed.
+        InventoryItem item = InventoryItemBuilder.getEmptyItem(InventoryItemTypes.WEAPON);
+
+        if (equippedItem != null) {
+            item = equippedItem;
+        }
+
         statisticsBoxConfig
                 .getAssetConfiguration()
                 .getAnimation(ImageTypes.DEFAULT)
@@ -34,14 +45,14 @@ public class StatisticsMessageBox {
         textLines.add("Name: " + playerStatistics.getName());
         textLines.add("Level: " + playerStatistics.getLevel());
         textLines.add("Health: " + playerStatistics.getCurrentHealth() + " / " + playerStatistics.getBaseHealth());
-        textLines.add("Attack: " + playerStatistics.getAttackDamage() +
+        textLines.add("Attack: " + (playerStatistics.getBaseAttackDamage() + item.getValue()) +
                 " (" + playerStatistics.getBaseAttackDamage() + ")"
         );
         textLines.add("Defense: " + playerStatistics.getCurrentDefense() +
                 " (" + playerStatistics.getBaseDefense() + ")"
         );
         textLines.add("Experience: " + playerStatistics.getCurrentExperience() + " / " + playerStatistics.getExperienceToNextLevel());
-        textLines.add("Equipped Weapon: " + playerStatistics.getCurrentProjectile().getName());
+        textLines.add("Equipped Weapon: " + item.getNameString()); // currentProjectile().getName());
 
         for (String text : textLines) {
 

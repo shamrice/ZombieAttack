@@ -16,9 +16,12 @@ public class DropCalculator {
 
         InventoryItemNames[] names = InventoryItemNames.values();
 
-        int nameIndex = new Random().nextInt(names.length);
+        InventoryItemNames selectedItemName = InventoryItemNames.NONE;
 
-        InventoryItemNames selectedItemName = names[nameIndex];
+        while (selectedItemName == InventoryItemNames.NONE) {
+            int nameIndex = new Random().nextInt(names.length);
+            selectedItemName = names[nameIndex];
+        }
 
         return InventoryItemBuilder.buildItem(selectedItemName);
 

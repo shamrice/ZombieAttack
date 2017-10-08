@@ -31,6 +31,15 @@ public class InventoryItemBuilder {
 
     }
 
+    public static InventoryItem getEmptyItem(InventoryItemTypes itemType) {
+        return new InventoryItem(
+                InventoryItemNames.NONE,
+                itemType,
+                0,
+                "NONE"
+        );
+    }
+
 
     private static InventoryItemTypes getInventoryItemType(InventoryItemNames inventoryItemName) {
         switch (inventoryItemName) {
