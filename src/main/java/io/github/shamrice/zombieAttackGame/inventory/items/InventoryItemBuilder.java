@@ -1,5 +1,8 @@
 package io.github.shamrice.zombieAttackGame.inventory.items;
 
+import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
+
 import java.util.Random;
 
 /**
@@ -22,22 +25,32 @@ public class InventoryItemBuilder {
             description += " Unfortunately it is rubbish.";
         }
 
-        return new InventoryItem(
+        InventoryItem item =  new InventoryItem(
                 inventoryItemName,
                 type,
                 value,
                 description
         );
 
+        if (type == InventoryItemTypes.WEAPON) {
+            item.setProjectile(ProjectileBuilder.build(ProjectileTypes.BULLET, value));
+        }
+
+        return item;
+
     }
 
     public static InventoryItem getEmptyItem(InventoryItemTypes itemType) {
-        return new InventoryItem(
+        InventoryItem item = new InventoryItem(
                 InventoryItemNames.NONE,
                 itemType,
                 0,
                 "NONE"
         );
+
+        item.setProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
+
+        return item;
     }
 
 

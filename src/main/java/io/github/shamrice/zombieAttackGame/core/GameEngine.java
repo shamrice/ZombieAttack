@@ -5,6 +5,7 @@ import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
@@ -234,6 +235,7 @@ public class GameEngine {
                 for (InventoryItem item : player.getInventory().getInventoryItemList()) {
                     if (item.getType() == InventoryItemTypes.WEAPON) {
                         item.setEquipped(true);
+                        player.setCurrentProjectile(item.getProjectile());
                         messageBox.write("Equipped item " + item.getNameString());
                         break;
                     }
@@ -499,12 +501,7 @@ public class GameEngine {
             player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
 
             //TODO : This should be loaded dynamically from save.
-            player.setCurrentProjectile(
-                    new BulletProjectileActor(
-                            configuration.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
-                            configuration.getStatisticsConfiguration().getProjectileStatistics(ProjectileTypes.BULLET)
-                    )
-            );
+            player.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
 
             messageBox.write("Game loaded from file " + fileName);
             Log.logInfo("Loaded game from file " + fileName);

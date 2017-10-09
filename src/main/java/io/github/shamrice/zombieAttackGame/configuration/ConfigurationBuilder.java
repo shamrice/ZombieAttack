@@ -3,6 +3,7 @@ package io.github.shamrice.zombieAttackGame.configuration;
 import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.EmptyProjectile;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetManager;
@@ -134,20 +135,6 @@ public class ConfigurationBuilder {
                 statisticsConfiguration.getPlayerStatistics()
         );
 
-        //TODO : Maybe change? currently sets to empty projectile.
-        playerActor.setCurrentProjectile(
-                new BulletProjectileActor(
-                        assetManager.getAssetConfiguration(AssetTypes.BULLET_PROJECTILE),
-                        statisticsConfiguration.getProjectileStatistics(ProjectileTypes.BULLET)
-                )
-                /*
-                new EmptyProjectile(
-                        assetManager.getAssetConfiguration(AssetTypes.EMPTY_PROJECTILE),
-                        statisticsConfiguration.getProjectileStatistics(ProjectileTypes.UNARMED)
-                )
-                */
-        );
-
         // BUILD CONFIGURATION
         Log.logInfo("Building complete configuration...");
         try {
@@ -161,6 +148,10 @@ public class ConfigurationBuilder {
                     statisticsBoxConfig,
                     statisticsConfiguration
             );
+
+            //TODO : Not sure of this...
+            ProjectileBuilder.setConfiguration(configuration);
+            playerActor.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
 
         } catch (Exception ex) {
             Log.logException("Failed to build configuration... exiting", ex);
