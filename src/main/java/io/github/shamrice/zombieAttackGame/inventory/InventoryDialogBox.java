@@ -14,12 +14,26 @@ import java.util.List;
 public class InventoryDialogBox {
 
     private InformationBoxConfig config;
-    private List<String> currentText;
+    private int itemNumSelected = 0;
+    private int previousItemNumSelected = 0;
 
     public InventoryDialogBox(InformationBoxConfig config) {
         this.config = config;
 
-        this.currentText = new ArrayList<String>();
+    }
+
+    public void setItemNumSelected(int numSelected, Inventory inventory) {
+        if (numSelected < inventory.getNumberOfItems()) {
+            this.previousItemNumSelected = this.itemNumSelected;
+            this.itemNumSelected = numSelected;
+        } else {
+            this.previousItemNumSelected = inventory.getNumberOfItems();
+            this.itemNumSelected = 0;
+        }
+    }
+
+    public int getPreviousItemNumSelected() {
+        return this.previousItemNumSelected;
     }
 
     public void draw(Inventory inventory) {
@@ -34,16 +48,24 @@ public class InventoryDialogBox {
 
         int lineHeight = 0;
 
+        String displayText = "";
+
         for (int i = 0; i < inventory.getNumberOfItems(); i++) {
 
             InventoryItem item = inventory.getInventoryItem(i);
+
+            if (itemNumSelected > 0 && i == itemNumSelected) {
+                displayText = "> " + item.getNameString();
+            } else {
+                displayText = "  " + item.getNameString();
+            }
 
             lineHeight += config.getTrueTypeFont().getLineHeight();
 
             config.getTrueTypeFont().drawString(
                     config.getxPos() + 15,
                     config.getyPos() + 30 + lineHeight,
-                    item.getNameString(),
+                    displayText,
                     Color.white
             );
         }

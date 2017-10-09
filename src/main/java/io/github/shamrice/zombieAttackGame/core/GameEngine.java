@@ -208,6 +208,8 @@ public class GameEngine {
             //debug display inventory items
             if (input.isKeyPressed(Input.KEY_I)) {
 
+                inventoryDialogBox.setItemNumSelected(inventoryDialogBox.getPreviousItemNumSelected() + 1, player.getInventory());
+
                 messageBox.write("INVENTORY:");
                 messageBox.write("----------");
 
