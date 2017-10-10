@@ -1,8 +1,12 @@
 package io.github.shamrice.zombieAttackGame.inventory;
 
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemTypes;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemBuilder;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +18,7 @@ public class Inventory {
 
     private List<InventoryItem> inventoryItemList;
     private InventoryItem coins;
+    private InventoryItem unarmedAttackItem;
     private int inventorySize;
 
     public Inventory(int inventorySize) {
@@ -21,6 +26,7 @@ public class Inventory {
         inventoryItemList = new ArrayList<InventoryItem>();
 
         coins = new InventoryItem(InventoryItemNames.COIN, InventoryItemTypes.ITEM, 0, "Money");
+        unarmedAttackItem = InventoryItemBuilder.getEmptyItem(InventoryItemTypes.WEAPON);
     }
 
     public int getNumberOfItems() {
@@ -40,6 +46,10 @@ public class Inventory {
             if (item.isEquipped() && itemType == item.getType()) {
                 return item;
             }
+        }
+
+        if (itemType == InventoryItemTypes.WEAPON) {
+            return unarmedAttackItem;
         }
 
         return null;

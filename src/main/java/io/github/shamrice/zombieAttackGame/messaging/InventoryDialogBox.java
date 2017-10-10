@@ -1,12 +1,10 @@
-package io.github.shamrice.zombieAttackGame.inventory;
+package io.github.shamrice.zombieAttackGame.messaging;
 
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.Inventory;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
 import org.newdawn.slick.Color;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Erik on 8/8/2017.

@@ -1,9 +1,8 @@
 package io.github.shamrice.zombieAttackGame.inventory;
 
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemBuilder;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemTypes;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemBuilder;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
 
 import java.util.Random;
 

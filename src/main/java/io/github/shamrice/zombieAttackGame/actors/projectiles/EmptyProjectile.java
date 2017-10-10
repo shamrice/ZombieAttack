@@ -1,6 +1,6 @@
 package io.github.shamrice.zombieAttackGame.actors.projectiles;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.ProjectileStatistics;
+import io.github.shamrice.zombieAttackGame.actors.statistics.ProjectileStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 
 /**

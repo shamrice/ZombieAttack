@@ -1,4 +1,4 @@
-package io.github.shamrice.zombieAttackGame.actors.actorStats;
+package io.github.shamrice.zombieAttackGame.actors.statistics;
 
 /**
  * Created by Erik on 8/22/2017.

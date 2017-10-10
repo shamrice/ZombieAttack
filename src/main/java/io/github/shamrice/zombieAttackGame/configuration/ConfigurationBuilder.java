@@ -1,8 +1,6 @@
 package io.github.shamrice.zombieAttackGame.configuration;
 
-import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.EmptyProjectile;
+import io.github.shamrice.zombieAttackGame.actors.player.PlayerActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.areas.WorldsConfiguration;
@@ -127,6 +125,10 @@ public class ConfigurationBuilder {
             System.exit(-1);
         }
 
+        //Projectile builder
+        Log.logInfo("Building projectile builder configuration...");
+        ProjectileBuilder.setConfigurations(assetManager, statisticsConfiguration);
+
         //PlayerConfig
         Log.logInfo("Building player configuration...");
 
@@ -148,10 +150,6 @@ public class ConfigurationBuilder {
                     statisticsBoxConfig,
                     statisticsConfiguration
             );
-
-            //TODO : Not sure of this...
-            ProjectileBuilder.setConfiguration(configuration);
-            playerActor.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
 
         } catch (Exception ex) {
             Log.logException("Failed to build configuration... exiting", ex);

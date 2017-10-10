@@ -1,13 +1,17 @@
-package io.github.shamrice.zombieAttackGame.actors;
+package io.github.shamrice.zombieAttackGame.actors.player;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
+import io.github.shamrice.zombieAttackGame.actors.Actor;
+import io.github.shamrice.zombieAttackGame.actors.Directions;
+import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
+import io.github.shamrice.zombieAttackGame.actors.statistics.PlayerStatistics;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemTypes;
 import io.github.shamrice.zombieAttackGame.logger.Log;
-import org.newdawn.slick.Animation;
 
 /**
  * Created by Erik on 7/22/2017.
@@ -15,7 +19,7 @@ import org.newdawn.slick.Animation;
 public class PlayerActor extends Actor {
 
     private Inventory inventory;
-    private Projectile currentProjectile;
+    //private Projectile currentProjectile;
     private PlayerStatistics playerStatistics;
 
     public PlayerActor(AssetConfiguration assetConfiguration, PlayerStatistics playerStatistics) {
@@ -44,11 +48,15 @@ public class PlayerActor extends Actor {
 
     @Override
     public int getAttackDamage() {
-        //will change based on weapon later on.
-        return (playerStatistics.getBaseAttackDamage() + currentProjectile.getAttackDamage());
+
+        int projectileAttackDamage = inventory.getEquippedItem(InventoryItemTypes.WEAPON).getAttackValue();
+        return (playerStatistics.getBaseAttackDamage() + projectileAttackDamage);
     }
 
     public void attack() {
+
+        Projectile currentProjectile = getCurrentProjectile();
+
         if (!currentProjectile.isActive()) {
             currentProjectile.setActive(true);
             currentProjectile.setxPos(xPos);
@@ -66,14 +74,22 @@ public class PlayerActor extends Actor {
         return this.playerStatistics.getCurrentHealth() > 0;
     }
 
+    /*
     public void setCurrentProjectile(Projectile newProjectile) {
         if (newProjectile != null) {
             currentProjectile = newProjectile;
         }
-    }
+    }*/
 
     public Projectile getCurrentProjectile() {
-        return currentProjectile;
+
+        InventoryItem equippedWeapon = inventory.getEquippedItem(InventoryItemTypes.WEAPON);
+/*
+        if (null == equippedWeapon) {
+            return ProjectileBuilder.build(ProjectileTypes.UNARMED);
+        }
+*/
+        return equippedWeapon.getProjectile();
     }
 
     public boolean addToInventory(InventoryItem inventoryItem) {

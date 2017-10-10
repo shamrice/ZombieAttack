@@ -1,7 +1,6 @@
-package io.github.shamrice.zombieAttackGame.inventory.items;
+package io.github.shamrice.zombieAttackGame.inventory.item;
 
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
-import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 
 /**
  * Created by Erik on 8/7/2017.
@@ -30,6 +29,23 @@ public class InventoryItem {
 
     public Projectile getProjectile() {
         return this.projectile;
+    }
+
+    /**
+     * Returns attack value of base value plus projectile attack value.
+     * Returns 0 if item is not a weapon, or just value is projectile is null
+     */
+    public int getAttackValue() {
+
+        if (type != InventoryItemTypes.WEAPON) {
+            return 0;
+        }
+
+        if (null == projectile) {
+            return this.value;
+        }
+
+        return (projectile.getAttackDamage() + value);
     }
 
     public String getNameString() {

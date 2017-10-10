@@ -1,6 +1,5 @@
-package io.github.shamrice.zombieAttackGame.actors.actorStats;
+package io.github.shamrice.zombieAttackGame.actors.statistics;
 
-import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 
 import java.util.Date;

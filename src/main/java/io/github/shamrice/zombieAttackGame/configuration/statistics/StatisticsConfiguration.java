@@ -1,8 +1,8 @@
 package io.github.shamrice.zombieAttackGame.configuration.statistics;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.EnemyStatistics;
-import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
-import io.github.shamrice.zombieAttackGame.actors.actorStats.ProjectileStatistics;
+import io.github.shamrice.zombieAttackGame.actors.statistics.EnemyStatistics;
+import io.github.shamrice.zombieAttackGame.actors.statistics.PlayerStatistics;
+import io.github.shamrice.zombieAttackGame.actors.statistics.ProjectileStatistics;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 
 import java.io.FileInputStream;

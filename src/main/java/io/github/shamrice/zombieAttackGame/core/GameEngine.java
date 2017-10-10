@@ -2,9 +2,8 @@ package io.github.shamrice.zombieAttackGame.core;
 
 import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
-import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
-import io.github.shamrice.zombieAttackGame.actors.PlayerActor;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.BulletProjectileActor;
+import io.github.shamrice.zombieAttackGame.actors.enemies.EnemyActor;
+import io.github.shamrice.zombieAttackGame.actors.player.PlayerActor;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
@@ -15,17 +14,16 @@ import io.github.shamrice.zombieAttackGame.core.state.GameState;
 import io.github.shamrice.zombieAttackGame.core.state.area.AreaState;
 import io.github.shamrice.zombieAttackGame.core.state.player.PlayerState;
 import io.github.shamrice.zombieAttackGame.core.storage.SaveGameStorageManager;
-import io.github.shamrice.zombieAttackGame.inventory.InventoryDialogBox;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemTypes;
+import io.github.shamrice.zombieAttackGame.messaging.InventoryDialogBox;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemTypes;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 import io.github.shamrice.zombieAttackGame.messaging.MessageBox;
 import io.github.shamrice.zombieAttackGame.messaging.StatisticsMessageBox;
 import org.newdawn.slick.Input;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -205,7 +203,7 @@ public class GameEngine {
                 }
             }
 
-            //debug display inventory items
+            //debug display inventory item
             if (input.isKeyPressed(Input.KEY_I)) {
 
                 inventoryDialogBox.setItemNumSelected(inventoryDialogBox.getPreviousItemNumSelected() + 1, player.getInventory());
@@ -237,7 +235,7 @@ public class GameEngine {
                 for (InventoryItem item : player.getInventory().getInventoryItemList()) {
                     if (item.getType() == InventoryItemTypes.WEAPON) {
                         item.setEquipped(true);
-                        player.setCurrentProjectile(item.getProjectile());
+                        //player.setCurrentProjectile(item.getProjectile());
                         messageBox.write("Equipped item " + item.getNameString());
                         break;
                     }
@@ -503,7 +501,7 @@ public class GameEngine {
             player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
 
             //TODO : This should be loaded dynamically from save.
-            player.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
+            //player.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
 
             messageBox.write("Game loaded from file " + fileName);
             Log.logInfo("Loaded game from file " + fileName);

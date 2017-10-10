@@ -1,4 +1,4 @@
-package io.github.shamrice.zombieAttackGame.inventory.items;
+package io.github.shamrice.zombieAttackGame.inventory.item;
 
 import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
@@ -33,7 +33,7 @@ public class InventoryItemBuilder {
         );
 
         if (type == InventoryItemTypes.WEAPON) {
-            item.setProjectile(ProjectileBuilder.build(ProjectileTypes.BULLET, value));
+            item.setProjectile(ProjectileBuilder.build(ProjectileTypes.BULLET));
         }
 
         return item;
@@ -48,7 +48,7 @@ public class InventoryItemBuilder {
                 "NONE"
         );
 
-        item.setProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
+        item.setProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED));
 
         return item;
     }

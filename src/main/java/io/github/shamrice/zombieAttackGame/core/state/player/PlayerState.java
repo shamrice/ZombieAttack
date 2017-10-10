@@ -1,6 +1,6 @@
 package io.github.shamrice.zombieAttackGame.core.state.player;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
+import io.github.shamrice.zombieAttackGame.actors.statistics.PlayerStatistics;
 
 /**
  * Created by Erik on 9/10/2017.

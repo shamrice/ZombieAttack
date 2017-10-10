@@ -1,10 +1,12 @@
-package io.github.shamrice.zombieAttackGame.actors;
+package io.github.shamrice.zombieAttackGame.actors.enemies;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.EnemyStatistics;
+import io.github.shamrice.zombieAttackGame.actors.Actor;
+import io.github.shamrice.zombieAttackGame.actors.Directions;
+import io.github.shamrice.zombieAttackGame.actors.statistics.EnemyStatistics;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.inventory.DropCalculator;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 
 import java.util.Date;

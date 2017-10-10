@@ -1,13 +1,13 @@
 package io.github.shamrice.zombieAttackGame.core.storage;
 
-import io.github.shamrice.zombieAttackGame.actors.actorStats.PlayerStatistics;
+import io.github.shamrice.zombieAttackGame.actors.statistics.PlayerStatistics;
 import io.github.shamrice.zombieAttackGame.core.state.GameState;
 import io.github.shamrice.zombieAttackGame.core.state.area.AreaState;
 import io.github.shamrice.zombieAttackGame.core.state.player.PlayerState;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItem;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemNames;
-import io.github.shamrice.zombieAttackGame.inventory.items.InventoryItemTypes;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemTypes;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 
 import java.io.File;

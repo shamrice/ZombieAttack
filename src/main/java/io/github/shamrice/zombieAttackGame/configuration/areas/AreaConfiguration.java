@@ -1,6 +1,6 @@
 package io.github.shamrice.zombieAttackGame.configuration.areas;
 
-import io.github.shamrice.zombieAttackGame.actors.EnemyActor;
+import io.github.shamrice.zombieAttackGame.actors.enemies.EnemyActor;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 
 import java.io.FileInputStream;
