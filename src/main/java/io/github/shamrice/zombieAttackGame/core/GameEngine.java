@@ -4,16 +4,15 @@ import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
 import io.github.shamrice.zombieAttackGame.actors.enemies.EnemyActor;
 import io.github.shamrice.zombieAttackGame.actors.player.PlayerActor;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.EnemyTypes;
-import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.core.state.GameState;
 import io.github.shamrice.zombieAttackGame.core.state.area.AreaState;
 import io.github.shamrice.zombieAttackGame.core.state.player.PlayerState;
 import io.github.shamrice.zombieAttackGame.core.storage.SaveGameStorageManager;
+import io.github.shamrice.zombieAttackGame.inventory.Inventory;
 import io.github.shamrice.zombieAttackGame.messaging.InventoryDialogBox;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
@@ -118,7 +117,7 @@ public class GameEngine {
 
         messageBox.draw();
         statisticsMessageBox.draw(
-                player.getPlayerStatistics(),
+                player.getPlayerStatisticsClone(),
                 player.getInventory().getEquippedItem(InventoryItemTypes.WEAPON));
         inventoryDialogBox.draw(player.getInventory());
 
@@ -235,7 +234,7 @@ public class GameEngine {
                 for (InventoryItem item : player.getInventory().getInventoryItemList()) {
                     if (item.getType() == InventoryItemTypes.WEAPON) {
                         item.setEquipped(true);
-                        //player.setCurrentProjectile(item.getProjectile());
+
                         messageBox.write("Equipped item " + item.getNameString());
                         break;
                     }
@@ -458,7 +457,7 @@ public class GameEngine {
                 new PlayerState(
                         player.getxPos(),
                         player.getyPos(),
-                        player.getPlayerStatistics()
+                        player.getPlayerStatisticsClone()
                 ),
                 player.getInventory()
         );

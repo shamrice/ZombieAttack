@@ -2,14 +2,14 @@ package io.github.shamrice.zombieAttackGame.actors.player;
 
 import io.github.shamrice.zombieAttackGame.actors.Actor;
 import io.github.shamrice.zombieAttackGame.actors.Directions;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.actors.statistics.PlayerStatistics;
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetConfiguration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
-import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemBuilder;
+import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemTypes;
 import io.github.shamrice.zombieAttackGame.logger.Log;
 
@@ -101,16 +101,25 @@ public class PlayerActor extends Actor {
         return true;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
-
     public void addExperience(int amount) {
         playerStatistics.addExperience(amount);
     }
 
-    public PlayerStatistics getPlayerStatistics() {
-        return playerStatistics;
+    public PlayerStatistics getPlayerStatisticsClone() {
+
+        return new PlayerStatistics(
+                playerStatistics.getName(),
+                playerStatistics.getLevel(),
+                playerStatistics.getBaseHealth(),
+                playerStatistics.getBaseAttackDamage(),
+                playerStatistics.getBaseDefense(),
+                playerStatistics.getCurrentExperience(),
+                playerStatistics.getExperienceToNextLevel()
+        );
+    }
+
+    public Inventory getInventory() {
+        return this.inventory;
     }
 
 }

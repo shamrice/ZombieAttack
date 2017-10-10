@@ -1,8 +1,5 @@
 package io.github.shamrice.zombieAttackGame.inventory;
 
-import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
-import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
-import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemBuilder;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItemNames;
@@ -27,6 +24,10 @@ public class Inventory {
 
         coins = new InventoryItem(InventoryItemNames.COIN, InventoryItemTypes.ITEM, 0, "Money");
         unarmedAttackItem = InventoryItemBuilder.getEmptyItem(InventoryItemTypes.WEAPON);
+    }
+
+    public int getInventorySize() {
+        return this.inventorySize;
     }
 
     public int getNumberOfItems() {
