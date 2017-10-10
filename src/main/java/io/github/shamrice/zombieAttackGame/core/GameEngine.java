@@ -501,12 +501,10 @@ public class GameEngine {
             player.setxPos(loadedGameState.getPlayerState().getX());
             player.setyPos(loadedGameState.getPlayerState().getY());
 
-            player.setInventory(loadedGameState.getInventory());
-
-           // player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
-
-            //TODO : This should be loaded dynamically from save.
-            //player.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));
+            //add inventory items back from save file.
+            for (InventoryItem item : loadedGameState.getInventory().getInventoryItemList()) {
+                player.addToInventory(item);
+            }
 
             messageBox.write("Game loaded from file " + fileName);
             Log.logInfo("Loaded game from file " + fileName);
