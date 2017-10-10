@@ -493,12 +493,17 @@ public class GameEngine {
                     loadedGameState.getAreaState().getCurrentY()
             );
 
+            player = new PlayerActor(
+                    configuration.getAssetConfiguration(AssetTypes.PLAYER),
+                    loadedGameState.getPlayerState().getPlayerStatistics()
+            );
+
             player.setxPos(loadedGameState.getPlayerState().getX());
             player.setyPos(loadedGameState.getPlayerState().getY());
 
             player.setInventory(loadedGameState.getInventory());
 
-            player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
+           // player.setPlayerStatistics(loadedGameState.getPlayerState().getPlayerStatistics());
 
             //TODO : This should be loaded dynamically from save.
             //player.setCurrentProjectile(ProjectileBuilder.build(ProjectileTypes.UNARMED, 0));

@@ -19,7 +19,6 @@ import io.github.shamrice.zombieAttackGame.logger.Log;
 public class PlayerActor extends Actor {
 
     private Inventory inventory;
-    //private Projectile currentProjectile;
     private PlayerStatistics playerStatistics;
 
     public PlayerActor(AssetConfiguration assetConfiguration, PlayerStatistics playerStatistics) {
@@ -74,21 +73,8 @@ public class PlayerActor extends Actor {
         return this.playerStatistics.getCurrentHealth() > 0;
     }
 
-    /*
-    public void setCurrentProjectile(Projectile newProjectile) {
-        if (newProjectile != null) {
-            currentProjectile = newProjectile;
-        }
-    }*/
-
     public Projectile getCurrentProjectile() {
-
         InventoryItem equippedWeapon = inventory.getEquippedItem(InventoryItemTypes.WEAPON);
-/*
-        if (null == equippedWeapon) {
-            return ProjectileBuilder.build(ProjectileTypes.UNARMED);
-        }
-*/
         return equippedWeapon.getProjectile();
     }
 

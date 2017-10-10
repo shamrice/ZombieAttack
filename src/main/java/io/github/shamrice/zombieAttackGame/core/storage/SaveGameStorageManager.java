@@ -1,6 +1,8 @@
 package io.github.shamrice.zombieAttackGame.core.storage;
 
+import io.github.shamrice.zombieAttackGame.actors.projectiles.ProjectileBuilder;
 import io.github.shamrice.zombieAttackGame.actors.statistics.PlayerStatistics;
+import io.github.shamrice.zombieAttackGame.configuration.statistics.ProjectileTypes;
 import io.github.shamrice.zombieAttackGame.core.state.GameState;
 import io.github.shamrice.zombieAttackGame.core.state.area.AreaState;
 import io.github.shamrice.zombieAttackGame.core.state.player.PlayerState;
@@ -144,24 +146,29 @@ public class SaveGameStorageManager {
 
                 String currentInventoryPrefix = SaveFileDefinitions.INVENTORY_ITEM_PREFIX + i;
 
-                inventory.addInventoryItem(
-                        new InventoryItem(
-                                InventoryItemNames.valueOf(
-                                        saveFileProperties.get(currentInventoryPrefix +
-                                                SaveFileDefinitions.INVENTORY_ITEM_NAME_SUFFIX).toString()
-                                ),
-                                InventoryItemTypes.valueOf(
-                                        saveFileProperties.get(currentInventoryPrefix +
-                                                SaveFileDefinitions.INVENTORY_ITEM_TYPE_SUFFIX).toString()
-                                ),
-                                Integer.parseInt(
-                                        saveFileProperties.get(currentInventoryPrefix +
-                                                SaveFileDefinitions.INVENTORY_ITEM_VALUE_SUFFIX).toString()
-                                ),
+                InventoryItem itemToAdd =  new InventoryItem(
+                        InventoryItemNames.valueOf(
                                 saveFileProperties.get(currentInventoryPrefix +
-                                        SaveFileDefinitions.INVENTORY_ITEM_DESCRIPTION_SUFFIX).toString()
-                        )
+                                        SaveFileDefinitions.INVENTORY_ITEM_NAME_SUFFIX).toString()
+                        ),
+                        InventoryItemTypes.valueOf(
+                                saveFileProperties.get(currentInventoryPrefix +
+                                        SaveFileDefinitions.INVENTORY_ITEM_TYPE_SUFFIX).toString()
+                        ),
+                        Integer.parseInt(
+                                saveFileProperties.get(currentInventoryPrefix +
+                                        SaveFileDefinitions.INVENTORY_ITEM_VALUE_SUFFIX).toString()
+                        ),
+                        saveFileProperties.get(currentInventoryPrefix +
+                                SaveFileDefinitions.INVENTORY_ITEM_DESCRIPTION_SUFFIX).toString()
                 );
+
+                //TODO : Load correct projectile for each weapon.
+                if (itemToAdd.getType() == InventoryItemTypes.WEAPON) {
+                    itemToAdd.setProjectile(ProjectileBuilder.build(ProjectileTypes.BULLET));
+                }
+
+                inventory.addInventoryItem(itemToAdd);
             }
 
             return new GameState(areaState, playerState, inventory);
