@@ -36,7 +36,7 @@ public class PlayerActor extends Actor {
         currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_HURT);
 
         //debug
-        Log.logDebug("CURRENT HEALTH: " + playerStatistics.getCurrentHealth());
+        //Log.logDebug("CURRENT HEALTH: " + playerStatistics.getCurrentHealth());
 
         if (playerStatistics.getCurrentHealth() <= 0) {
             currentAnimation = assetConfiguration.getAnimation(ImageTypes.IMAGE_DEAD);
@@ -47,7 +47,6 @@ public class PlayerActor extends Actor {
 
     @Override
     public int getAttackDamage() {
-
         int projectileAttackDamage = inventory.getEquippedItem(InventoryItemTypes.WEAPON).getAttackValue();
         return (playerStatistics.getBaseAttackDamage() + projectileAttackDamage);
     }
@@ -97,25 +96,44 @@ public class PlayerActor extends Actor {
             return false;
         }
 
-
         return true;
+    }
+
+    public void removeFromInventory(InventoryItem inventoryItem) {
+        if (inventoryItem != null) {
+            Log.logDebug("Removing item " + inventoryItem.getNameString());
+            inventory.removeInventoryItem(inventoryItem);
+        }
+    }
+
+    public void equipInventoryItem(int itemNumber) {
+        if (itemNumber < inventory.getNumberOfItems()) {
+
+            InventoryItem itemToEquip = inventory.getInventoryItem(itemNumber);
+            boolean isCurrentlyEquipped = itemToEquip.isEquipped();
+
+            //unequip all items of the same type
+            for (InventoryItem item : inventory.getInventoryItemList()) {
+                if (item.isEquipped()) {
+                    if (item.getType() == itemToEquip.getType()) {
+                        item.setEquipped(false);
+                    }
+                }
+            }
+
+            //if it wasn't equipped, equip item. Otherwise it is unequipped by previous for each loop.
+            if (!isCurrentlyEquipped) {
+                itemToEquip.setEquipped(true);
+            }
+        }
     }
 
     public void addExperience(int amount) {
         playerStatistics.addExperience(amount);
     }
 
-    public PlayerStatistics getPlayerStatisticsClone() {
-
-        return new PlayerStatistics(
-                playerStatistics.getName(),
-                playerStatistics.getLevel(),
-                playerStatistics.getBaseHealth(),
-                playerStatistics.getBaseAttackDamage(),
-                playerStatistics.getBaseDefense(),
-                playerStatistics.getCurrentExperience(),
-                playerStatistics.getExperienceToNextLevel()
-        );
+    public PlayerStatistics getPlayerStatistics() {
+        return this.playerStatistics;
     }
 
     public Inventory getInventory() {

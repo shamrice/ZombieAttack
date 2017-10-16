@@ -93,4 +93,10 @@ public class Inventory {
         return false;
     }
 
+    public void removeInventoryItem(InventoryItem inventoryItem) {
+        if (inventoryItem.getName() != InventoryItemNames.COIN) {
+            inventoryItemList.remove(inventoryItem);
+        }
+    }
+
 }

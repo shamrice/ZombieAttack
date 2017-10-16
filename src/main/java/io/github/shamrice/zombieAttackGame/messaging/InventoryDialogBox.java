@@ -4,6 +4,7 @@ import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.configuration.messaging.InformationBoxConfig;
 import io.github.shamrice.zombieAttackGame.inventory.Inventory;
 import io.github.shamrice.zombieAttackGame.inventory.item.InventoryItem;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 import org.newdawn.slick.Color;
 
 /**
@@ -12,26 +13,35 @@ import org.newdawn.slick.Color;
 public class InventoryDialogBox {
 
     private InformationBoxConfig config;
-    private int itemNumSelected = 0;
-    private int previousItemNumSelected = 0;
+    private int itemNumSelected = -1;
 
     public InventoryDialogBox(InformationBoxConfig config) {
         this.config = config;
 
     }
 
-    public void setItemNumSelected(int numSelected, Inventory inventory) {
-        if (numSelected < inventory.getNumberOfItems()) {
-            this.previousItemNumSelected = this.itemNumSelected;
-            this.itemNumSelected = numSelected;
-        } else {
-            this.previousItemNumSelected = inventory.getNumberOfItems();
-            this.itemNumSelected = 0;
+    public void selectNextItem(int totalNumItems) {
+        if (itemNumSelected < totalNumItems) {
+            itemNumSelected++;
+        }
+
+        if (itemNumSelected >= totalNumItems) {
+            itemNumSelected = totalNumItems - 1;
         }
     }
 
-    public int getPreviousItemNumSelected() {
-        return this.previousItemNumSelected;
+    public void selectPreviousItem(int totalNumItems) {
+        if (itemNumSelected > 0) {
+            itemNumSelected--;
+        }
+
+        if (itemNumSelected < 0) {
+            itemNumSelected = 0;
+        }
+    }
+
+    public int getItemNumSelected() {
+        return this.itemNumSelected;
     }
 
     public void draw(Inventory inventory) {
@@ -52,7 +62,7 @@ public class InventoryDialogBox {
 
             InventoryItem item = inventory.getInventoryItem(i);
 
-            if (itemNumSelected > 0 && i == itemNumSelected) {
+            if (itemNumSelected >= 0 && i == itemNumSelected) {
                 displayText = "> " + item.getNameString();
             } else {
                 displayText = "  " + item.getNameString();
@@ -64,7 +74,7 @@ public class InventoryDialogBox {
                     config.getxPos() + 15,
                     config.getyPos() + 30 + lineHeight,
                     displayText,
-                    Color.white
+                    item.isEquipped() ? Color.green : Color.white
             );
         }
 

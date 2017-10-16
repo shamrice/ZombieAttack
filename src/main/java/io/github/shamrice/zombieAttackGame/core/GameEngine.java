@@ -41,6 +41,8 @@ public class GameEngine {
 
     private boolean isConfigured = false;
     private boolean isRunning = true;
+    private boolean isInInventory = false;
+    private boolean isPaused = false;
 
     private Configuration configuration;
     private AreaManager areaManager;
@@ -117,14 +119,13 @@ public class GameEngine {
 
         messageBox.draw();
         statisticsMessageBox.draw(
-                player.getPlayerStatisticsClone(),
+                player.getPlayerStatistics(),
                 player.getInventory().getEquippedItem(InventoryItemTypes.WEAPON));
         inventoryDialogBox.draw(player.getInventory());
 
     }
 
     public void handlePlayerInput(Input input, int delta) {
-
         //check for quit
         if (input.isKeyDown(org.newdawn.slick.Input.KEY_ESCAPE) || input.isKeyDown(org.newdawn.slick.Input.KEY_Q)) {
             isRunning = false;
@@ -132,142 +133,149 @@ public class GameEngine {
 
         if (player.isAlive()) {
 
-            //if shift, they're running.
-            if (input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT)) {
-                player.setRunning(true);
+            if (isInInventory) {
+                handleInventoryInput(input);
             } else {
-                player.setRunning(false);
-            }
 
-            //player movement
-            if (input.isKeyDown(org.newdawn.slick.Input.KEY_UP)) {
-                if (!checkActorAreaCollision(player, Directions.UP, delta)) {
-                    player.move(Directions.UP, delta);
+                //if shift, they're running.
+                if (input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT)) {
+                    player.setRunning(true);
+                } else {
+                    player.setRunning(false);
                 }
-            }
-            if (input.isKeyDown(org.newdawn.slick.Input.KEY_DOWN)) {
-                if (!checkActorAreaCollision(player, Directions.DOWN, delta)) {
-                    player.move(Directions.DOWN, delta);
+
+                //player movement
+                if (input.isKeyDown(org.newdawn.slick.Input.KEY_UP)) {
+                    if (!checkActorAreaCollision(player, Directions.UP, delta)) {
+                        player.move(Directions.UP, delta);
+                    }
                 }
-            }
-            if (input.isKeyDown(org.newdawn.slick.Input.KEY_LEFT)) {
-                if (!checkActorAreaCollision(player, Directions.LEFT, delta)) {
-                    player.move(Directions.LEFT, delta);
+                if (input.isKeyDown(org.newdawn.slick.Input.KEY_DOWN)) {
+                    if (!checkActorAreaCollision(player, Directions.DOWN, delta)) {
+                        player.move(Directions.DOWN, delta);
+                    }
                 }
-            }
-            if (input.isKeyDown(org.newdawn.slick.Input.KEY_RIGHT)) {
-                if (!checkActorAreaCollision(player, Directions.RIGHT, delta)) {
-                    player.move(Directions.RIGHT, delta);
+                if (input.isKeyDown(org.newdawn.slick.Input.KEY_LEFT)) {
+                    if (!checkActorAreaCollision(player, Directions.LEFT, delta)) {
+                        player.move(Directions.LEFT, delta);
+                    }
                 }
-            }
+                if (input.isKeyDown(org.newdawn.slick.Input.KEY_RIGHT)) {
+                    if (!checkActorAreaCollision(player, Directions.RIGHT, delta)) {
+                        player.move(Directions.RIGHT, delta);
+                    }
+                }
 
-            //fire projectile if not currently fired.
-            if (input.isKeyDown(Input.KEY_SPACE)) {
-                player.attack();
-            }
+                //fire projectile if not currently fired.
+                if (input.isKeyDown(Input.KEY_SPACE)) {
+                    player.attack();
+                }
 
-            //get item from fallen enemy.
-            //TODO: Move to own method.
-            if (input.isKeyDown(Input.KEY_G)) {
-                for (EnemyActor enemy : enemyActors) {
-                    if (enemy
-                            .getCollisionRect()
-                            .intersects(player.getCollisionRect()) &&
-                            !enemy.isAlive())
-                    {
+                //get item from fallen enemy.
+                //TODO: Move to own method.
+                if (input.isKeyDown(Input.KEY_G)) {
+                    for (EnemyActor enemy : enemyActors) {
+                        if (enemy
+                                .getCollisionRect()
+                                .intersects(player.getCollisionRect()) &&
+                                !enemy.isAlive()) {
 
-                        if (!enemy.isLooted()) {
+                            if (!enemy.isLooted()) {
 
-                            InventoryItem itemToAdd = enemy.getItemDrop();
+                                InventoryItem itemToAdd = enemy.getItemDrop();
 
-                            if (itemToAdd != null) {
-                                if (player.addToInventory(itemToAdd)) {
-                                    if (itemToAdd.getName() == InventoryItemNames.COIN) {
-                                        messageBox.write(String.valueOf(itemToAdd.getValue()) + " " + itemToAdd.getName() +
-                                            "(s) have been added to you coins."
-                                        );
+                                if (itemToAdd != null) {
+                                    if (player.addToInventory(itemToAdd)) {
+                                        if (itemToAdd.getName() == InventoryItemNames.COIN) {
+                                            messageBox.write(String.valueOf(itemToAdd.getValue()) + " " + itemToAdd.getName() +
+                                                    "(s) have been added to you coins."
+                                            );
+                                        } else {
+                                            messageBox.write(itemToAdd.getNameString() + " has been added to your inventory.");
+                                        }
                                     } else {
-                                        messageBox.write(itemToAdd.getNameString() + " has been added to your inventory.");
+                                        messageBox.write(itemToAdd.getNameString() +
+                                                " cannot be picked up. Free up space in inventory.");
                                     }
-                                } else {
-                                    messageBox.write(itemToAdd.getNameString() +
-                                            " cannot be picked up. Free up space in inventory.");
                                 }
+                            } else {
+                                // TODO: this floods the messagebox with too many of the same messages.
+                                //messageBox.write("There is nothing to be picked up.");
                             }
-                        } else {
-                            // TODO: this floods the messagebox with too many of the same messages.
-                            //messageBox.write("There is nothing to be picked up.");
                         }
                     }
                 }
-            }
 
-            //debug display inventory item
-            if (input.isKeyPressed(Input.KEY_I)) {
+                //debug display inventory item
+                if (input.isKeyPressed(Input.KEY_I)) {
 
-                inventoryDialogBox.setItemNumSelected(inventoryDialogBox.getPreviousItemNumSelected() + 1, player.getInventory());
+                    isInInventory = true;
+                    isPaused = true;
+                    messageBox.write("Game paused for inventory input.");
+/*
+                    messageBox.write("INVENTORY:");
+                    messageBox.write("----------");
 
-                messageBox.write("INVENTORY:");
-                messageBox.write("----------");
+                    for (int i = 0; i < player.getInventory().getNumberOfItems(); i++) {
+                        InventoryItem item = player.getInventory().getInventoryItem(i);
 
-                for (int i = 0; i < player.getInventory().getNumberOfItems(); i++) {
-                    InventoryItem item = player.getInventory().getInventoryItem(i);
+                        Log.logDebug("SLOT " + i + ":");
+                        Log.logDebug("  ITEM NAME: " + item.getNameString());
+                        Log.logDebug("  ITEM TYPE: " + item.getType().name());
+                        Log.logDebug(" ITEM VALUE: " + item.getValue());
+                        Log.logDebug("DESCRIPTION: \n" + item.getDescription() + "\n");
 
-                    Log.logDebug("SLOT " + i + ":");
-                    Log.logDebug("  ITEM NAME: " + item.getNameString());
-                    Log.logDebug("  ITEM TYPE: " + item.getType().name());
-                    Log.logDebug(" ITEM VALUE: " + item.getValue());
-                    Log.logDebug("DESCRIPTION: \n" + item.getDescription() + "\n");
+                        messageBox.write(item.getNameString());
+                    }
 
-                    messageBox.write(item.getNameString());
+                    messageBox.write("You have " + player.getInventory().getNumberOfCoins() + " coin(s).");
+                    */
                 }
 
-                messageBox.write("You have " + player.getInventory().getNumberOfCoins() + " coin(s).");
-            }
+                if (input.isKeyPressed(Input.KEY_T)) {
+                    messageBox.write("TEST BUTTON PRESSED");
+                }
 
-            if (input.isKeyPressed(Input.KEY_T)) {
-                messageBox.write("TEST BUTTON PRESSED");
-            }
+                //debug for now. just equip the first weapon in the inventory.
+                if (input.isKeyPressed(Input.KEY_E)) {
+                    for (InventoryItem item : player.getInventory().getInventoryItemList()) {
+                        if (item.getType() == InventoryItemTypes.WEAPON) {
+                            item.setEquipped(true);
 
-            //debug for now. just equip the first weapon in the inventory.
-            if (input.isKeyPressed(Input.KEY_E)) {
-                for (InventoryItem item : player.getInventory().getInventoryItemList()) {
-                    if (item.getType() == InventoryItemTypes.WEAPON) {
-                        item.setEquipped(true);
-
-                        messageBox.write("Equipped item " + item.getNameString());
-                        break;
+                            messageBox.write("Equipped item " + item.getNameString());
+                            break;
+                        }
                     }
                 }
+
+                // Save game
+                if (input.isKeyPressed(Input.KEY_F2)) {
+                    saveGame();
+                }
+
+                //load game
+                if (input.isKeyPressed(Input.KEY_F3)) {
+                    loadGame();
+                }
+
+                boolean projectileAreaCollision = areaManager.getCurrentArea()
+                        .checkCollision(
+                                player.getCurrentProjectile().getCollisionRect()
+                        );
+
+                if (projectileAreaCollision) {
+                    player.getCurrentProjectile().setActive(false);
+                }
+
+                checkAreaBounds();
             }
-
-            // Save game
-            if (input.isKeyPressed(Input.KEY_F2)) {
-                saveGame();
-            }
-
-            //load game
-            if (input.isKeyPressed(Input.KEY_F3)) {
-                loadGame();
-            }
-
-            boolean projectileAreaCollision = areaManager.getCurrentArea()
-                    .checkCollision(
-                            player.getCurrentProjectile().getCollisionRect()
-                    );
-
-            if (projectileAreaCollision) {
-                player.getCurrentProjectile().setActive(false);
-            }
-
-            checkAreaBounds();
         }
     }
 
     public void handleEnemyUpdate(int delta) {
         //check for enemy collisions
 
-        if (player.isAlive()) {
+        if (player.isAlive() && !isPaused) {
 
             for (EnemyActor enemy : enemyActors) {
 
@@ -342,7 +350,7 @@ public class GameEngine {
 
     public void handleProjectiles(int delta) {
 
-        if (player.getCurrentProjectile().isActive()) {
+        if (player.getCurrentProjectile().isActive() && !isPaused) {
 
             player.getCurrentProjectile().move(
                     player.getCurrentProjectile().getDirection(),
@@ -457,7 +465,7 @@ public class GameEngine {
                 new PlayerState(
                         player.getxPos(),
                         player.getyPos(),
-                        player.getPlayerStatisticsClone()
+                        player.getPlayerStatistics()
                 ),
                 player.getInventory()
         );
@@ -514,6 +522,35 @@ public class GameEngine {
             messageBox.write("Failed to load game save from file " + fileName);
             Log.logError("Unable to load game from file " + fileName);
         }
+    }
+
+    private void handleInventoryInput(Input input) {
+
+        if (input.isKeyPressed(Input.KEY_DOWN)) {
+            inventoryDialogBox.selectNextItem(player.getInventory().getNumberOfItems());
+
+        } else if (input.isKeyPressed(Input.KEY_UP)) {
+
+            inventoryDialogBox.selectPreviousItem(player.getInventory().getNumberOfItems());
+
+        } else if (input.isKeyPressed(Input.KEY_ENTER)) {
+            if (inventoryDialogBox.getItemNumSelected() > -1) {
+
+                player.equipInventoryItem(inventoryDialogBox.getItemNumSelected());
+            }
+
+        } else if (input.isKeyPressed(Input.KEY_DELETE)) {
+            player.removeFromInventory(
+                    player.getInventory().getInventoryItem(inventoryDialogBox.getItemNumSelected())
+            );
+        }
+
+        if (input.isKeyDown(Input.KEY_BACK)) {
+            isInInventory = false;
+            isPaused = false;
+            messageBox.write("Game game unpaused.");
+        }
+
     }
 
 }

@@ -1,6 +1,7 @@
 package io.github.shamrice.zombieAttackGame.inventory.item;
 
 import io.github.shamrice.zombieAttackGame.actors.projectiles.Projectile;
+import io.github.shamrice.zombieAttackGame.logger.Log;
 
 /**
  * Created by Erik on 8/7/2017.
@@ -45,6 +46,7 @@ public class InventoryItem {
             return this.value;
         }
 
+        //Log.logDebug(name.name() + "-getAttackValue-PROJECTILE_NOT_NULL-VALUE=" + (projectile.getAttackDamage() + value));
         return (projectile.getAttackDamage() + value);
     }
 

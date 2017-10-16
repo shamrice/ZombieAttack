@@ -44,7 +44,7 @@ public class StatisticsMessageBox {
         textLines.add("Name: " + playerStatistics.getName());
         textLines.add("Level: " + playerStatistics.getLevel());
         textLines.add("Health: " + playerStatistics.getCurrentHealth() + " / " + playerStatistics.getBaseHealth());
-        textLines.add("Attack: " + (playerStatistics.getBaseAttackDamage() + item.getProjectile().getAttackDamage()) +
+        textLines.add("Attack: " + (playerStatistics.getBaseAttackDamage() + item.getAttackValue()) +
                 " (" + playerStatistics.getBaseAttackDamage() + ")"
         );
         textLines.add("Defense: " + playerStatistics.getCurrentDefense() +
