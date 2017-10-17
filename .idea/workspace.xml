@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f7c7048-7448-4bfa-a30e-33ed7ec635d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetTypes.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/configuration/assets/AssetTypes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/core/GameEngine.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/core/GameEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/conf/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/conf/config.properties" />
-    </list>
+    <list default="true" id="3f7c7048-7448-4bfa-a30e-33ed7ec635d9" name="Default" comment="" />
     <ignored path="zombieAttack.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -1141,12 +1137,12 @@
       <workItem from="1501275951265" duration="17565000" />
       <workItem from="1501308830289" duration="80556000" />
       <workItem from="1504331249004" duration="34063000" />
-      <workItem from="1505194395080" duration="42644000" />
+      <workItem from="1505194395080" duration="42947000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198424000" />
+    <option name="totallyTimeSpent" value="198727000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1440" height="872" extended-state="6" />
