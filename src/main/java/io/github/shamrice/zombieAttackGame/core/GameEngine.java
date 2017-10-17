@@ -7,6 +7,7 @@ import io.github.shamrice.zombieAttackGame.actors.player.PlayerActor;
 import io.github.shamrice.zombieAttackGame.areas.AreaManager;
 import io.github.shamrice.zombieAttackGame.configuration.Configuration;
 import io.github.shamrice.zombieAttackGame.configuration.assets.AssetTypes;
+import io.github.shamrice.zombieAttackGame.configuration.assets.ImageTypes;
 import io.github.shamrice.zombieAttackGame.configuration.statistics.EnemyTypes;
 import io.github.shamrice.zombieAttackGame.core.state.GameState;
 import io.github.shamrice.zombieAttackGame.core.state.area.AreaState;
@@ -117,11 +118,20 @@ public class GameEngine {
                 player.getyPos()
         );
 
+        //draw mask over play area if game is paused.
+        if (isPaused) {
+            configuration
+                    .getAssetConfiguration(AssetTypes.GAMEPLAY_MASK)
+                    .getAnimation(ImageTypes.DEFAULT)
+                    .draw(1, 1);
+        }
+
         messageBox.draw();
         statisticsMessageBox.draw(
                 player.getPlayerStatistics(),
                 player.getInventory().getEquippedItem(InventoryItemTypes.WEAPON));
         inventoryDialogBox.draw(player.getInventory());
+
 
     }
 
@@ -129,6 +139,17 @@ public class GameEngine {
         //check for quit
         if (input.isKeyDown(org.newdawn.slick.Input.KEY_ESCAPE) || input.isKeyDown(org.newdawn.slick.Input.KEY_Q)) {
             isRunning = false;
+        }
+
+        //pause button.
+        if (input.isKeyPressed(Input.KEY_PAUSE)) {
+            if (isPaused) {
+                messageBox.write("Game unpaused.");
+                isPaused = false;
+            } else {
+                messageBox.write("Game paused.");
+                isPaused = true;
+            }
         }
 
         if (player.isAlive()) {

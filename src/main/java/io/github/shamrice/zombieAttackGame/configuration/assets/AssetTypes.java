@@ -12,5 +12,6 @@ public enum AssetTypes {
     MESSAGE_BOX,
     INVENTORY,
     STATS_BOX,
+    GAMEPLAY_MASK,
     OTHER
 }
