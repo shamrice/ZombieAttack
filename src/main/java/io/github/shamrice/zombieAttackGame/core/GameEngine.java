@@ -143,6 +143,7 @@ public class GameEngine {
 
         //pause button.
         if (input.isKeyPressed(Input.KEY_PAUSE)) {
+
             if (isPaused) {
                 messageBox.write("Game unpaused.");
                 isPaused = false;

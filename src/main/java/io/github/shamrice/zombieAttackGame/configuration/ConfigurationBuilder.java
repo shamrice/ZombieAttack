@@ -43,7 +43,7 @@ public class ConfigurationBuilder {
         File configFile = new File(ConfigurationDefinitions.CONFIGURATION_FILE_LOCATION);
         String configPath = configFile.getPath();
 
-        if (!configFile.exists() && !configFile.isDirectory()) {
+        if (!configFile.exists() || configFile.isDirectory()) {
             System.out.println("Cannot find default configuration location. Trying ./conf/config.properties");
             configPath = "conf/config.properties";
         }
