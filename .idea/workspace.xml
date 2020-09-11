@@ -30,12 +30,84 @@
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_lwjgl_lwjgl_stb_3_2_3.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_lwjgl_lwjgl_stb_natives_linux_3_2_3.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slick2d_slick2d_core_1_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/linux/libjinput-linux.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/linux/libjinput-linux64.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/linux/liblwjgl.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/linux/liblwjgl64.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/linux/libopenal.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/linux/libopenal64.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/windows/OpenAL32.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/windows/OpenAL64.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/libs/windows/lwjgl.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/0_0_0.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/0_1_0.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/0_1_1.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/0_2_0.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/mask.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/testtileset.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/areas/tile.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/empty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/rock/rock_down1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/rock/rock_left1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/rock/rock_right1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/rock/rock_up1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/badguy.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/badguy_dead.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_attack1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_dead1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_dead2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_hurt1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_up1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_up2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_up3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/enemies/yarnball/yarnball_up4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/inventory/inventory_unselected_background1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/messagebox/message_box_up1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_dead.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_dead1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_down1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_down2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_down_attack1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_down_attack2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_hurt1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_left1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_left2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_left_attack1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_left_attack2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_right1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_right2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_right_attack1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_right_attack2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_up1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_up2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_up_attack1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/player/player_up_attack2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/projectiles/freeze_projectile_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/projectiles/freeze_projectile_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/projectiles/freeze_projectile_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/statsbox/statsbox_up1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/test.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/testtileset.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/assets/tile.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/areas/area_0_0_0.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/areas/area_0_0_1.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/areas/area_0_1_0.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/areas/area_0_1_1.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/areas/area_0_2_0.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/areas/area_0_2_1.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/stats/enemies/yarnball.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/stats/player/player.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/stats/projectiles/bullet.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/conf/stats/projectiles/unarmed.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/lwjgl64.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/libs/windows/lwjgl64.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/zombieAttack_jar/zombieAttack.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/zombieAttackGame/ZombieAttackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zombieAttack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zombieAttack.iml" afterDir="false" />
