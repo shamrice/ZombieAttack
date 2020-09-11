@@ -2,8 +2,11 @@ package io.github.shamrice.zombieAttackGame;
 
 import io.github.shamrice.zombieAttackGame.configuration.ConfigurationBuilder;
 import io.github.shamrice.zombieAttackGame.core.GameEngine;
+import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 /**
@@ -29,12 +32,36 @@ public class ZombieAttackGame extends BasicGame {
         }
 
         try {
+
+            //TODO : Update this to use config value to point to libs directory
+            File lwjgLibDirectory = null;
+
+            switch(LWJGLUtil.getPlatform())
+            {
+                case LWJGLUtil.PLATFORM_WINDOWS:
+                    lwjgLibDirectory = new File("target/classes/libs/windows/");
+                    break;
+
+                case LWJGLUtil.PLATFORM_LINUX:
+                    lwjgLibDirectory = new File("target/classes/libs/linux/");
+                    break;
+
+                case LWJGLUtil.PLATFORM_MACOSX:
+                    lwjgLibDirectory = new File("target/classes/libs/macosx/");
+                    break;
+
+                default:
+                    throw new FileNotFoundException("Unable to set LWJG Library based on system platform: " + LWJGLUtil.getPlatformName());
+            }
+
+            System.setProperty("org.lwjgl.librarypath", lwjgLibDirectory.getAbsolutePath());
+
             AppGameContainer app = new AppGameContainer(new ZombieAttackGame());
             app.setDisplayMode(1024, 768, fullscreen);
             app.setTargetFrameRate(60);
             app.start();
         }
-        catch (SlickException slickEx) {
+        catch (Exception slickEx) {
             slickEx.printStackTrace();
         }
     }
